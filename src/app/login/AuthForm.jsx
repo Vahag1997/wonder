@@ -1,0 +1,232 @@
+'use client';
+
+import { useMemo, useState } from 'react';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Flex,
+  Fieldset,
+  Field,
+  Input,
+  InputGroup,
+  Link,
+  Text,
+  VisuallyHidden,
+  useToken,
+} from '@chakra-ui/react';
+
+export default function AuthForm({ onLogin, onSignup }) {
+  const [mode, setMode] = useState('login'); // 'login' | 'signup'
+  const [showPw, setShowPw] = useState(false);
+  const [showPw2, setShowPw2] = useState(false);
+  const [purple600] = useToken('colors', ['purple.600']);
+
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirm: '',
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const isSignup = mode === 'signup';
+
+  const canSubmit = useMemo(() => {
+    if (!form.email || !form.password) return false;
+    if (isSignup && (!form.name || !form.confirm)) return false;
+    return true;
+  }, [form, isSignup]);
+
+  function handleChange(key, value) {
+    setForm((f) => ({ ...f, [key]: value }));
+    setErrors((e) => ({ ...e, [key]: null }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const nextErrors = {};
+
+    if (!form.email) nextErrors.email = 'Email is required';
+    if (!form.password) nextErrors.password = 'Password is required';
+
+    if (isSignup) {
+      if (!form.name) nextErrors.name = 'Name is required';
+      if (!form.confirm) nextErrors.confirm = 'Please confirm your password';
+      if (form.password && form.confirm && form.password !== form.confirm) {
+        nextErrors.confirm = 'Passwords do not match';
+      }
+    }
+
+    setErrors(nextErrors);
+    if (Object.values(nextErrors).some(Boolean)) return;
+
+    if (isSignup) {
+      if (onSignup) await onSignup({ name: form.name, email: form.email, password: form.password });
+    } else {
+      if (onLogin) await onLogin({ email: form.email, password: form.password });
+    }
+  }
+
+  return (
+    <Box as="form" onSubmit={handleSubmit}>
+      {/* Toggle */}
+      <ButtonGroup size="sm" variant="ghost" mb={6}>
+        <Button
+          onClick={() => setMode('login')}
+          color={mode === 'login' ? 'purple.600' : 'gray.600'}
+          bg={mode === 'login' ? 'purple.50' : 'transparent'}
+          _hover={{ bg: mode === 'login' ? 'purple.100' : 'gray.50' }}
+          rounded="lg"
+        >
+          Log in
+        </Button>
+        <Button
+          onClick={() => setMode('signup')}
+          color={mode === 'signup' ? 'purple.600' : 'gray.600'}
+          bg={mode === 'signup' ? 'purple.50' : 'transparent'}
+          _hover={{ bg: mode === 'signup' ? 'purple.100' : 'gray.50' }}
+          rounded="lg"
+        >
+          Create account
+        </Button>
+      </ButtonGroup>
+
+      <Fieldset.Root size="lg" maxW="full" spacing={6}>
+        <Fieldset.Content>
+          {isSignup && (
+            <Field.Root invalid={!!errors.name}>
+              <Field.Label color={"#312e2eff"}>Name</Field.Label>
+              <Input
+                id="name"
+                name="name"
+                placeholder="Your full name"
+                value={form.name}
+                onChange={(e) => handleChange('name', e.target.value)}
+                borderColor="gray.300"
+                color={"#312e2eff"}
+                _focus={{
+                  borderColor: 'purple.500',
+                  boxShadow: `0 0 0 1px ${purple600}`,
+                }}
+              />
+            </Field.Root>
+          )}
+
+          <Field.Root invalid={!!errors.email}>
+            {/* <VisuallyHidden> */}
+              <Field.Label color={"#312e2eff"}>Email</Field.Label>
+            {/* </VisuallyHidden> */}
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Enter email"
+              value={form.email}
+              onChange={(e) => handleChange('email', e.target.value)}
+              borderColor="gray.300"
+              color={"#312e2eff"}
+              _focus={{
+                borderColor: 'purple.500',
+                boxShadow: `0 0 0 1px ${purple600}`,
+              }}
+            />
+            {errors.email && <Field.ErrorText>{errors.email}</Field.ErrorText>}
+          </Field.Root>
+
+          <Field.Root invalid={!!errors.password}>
+            {/* <VisuallyHidden> */}
+              <Field.Label color={"#312e2eff"}>Password</Field.Label>
+            {/* </VisuallyHidden> */}
+            <InputGroup
+              endElement={
+                <Button
+                  variant="ghost"
+                  size="xs"
+                  onClick={() => setShowPw((s) => !s)}
+                >
+                  {showPw ? 'Hide' : 'Show'}
+                </Button>
+              }
+            >
+              <Input
+                id="password"
+                name="password"
+                type={showPw ? 'text' : 'password'}
+                placeholder={isSignup ? 'Create password' : 'Enter password'}
+                value={form.password}
+                onChange={(e) => handleChange('password', e.target.value)}
+                borderColor="gray.300"
+                color={"#312e2eff"}
+                _focus={{
+                  borderColor: 'purple.500',
+                  boxShadow: `0 0 0 1px ${purple600}`,
+                }}
+              />
+            </InputGroup>
+            {errors.password && <Field.ErrorText>{errors.password}</Field.ErrorText>}
+          </Field.Root>
+
+          {isSignup && (
+            <Field.Root invalid={!!errors.confirm}>
+              <Field.Label color={"#312e2eff"}>Confirm password</Field.Label>
+              <InputGroup
+                endElement={
+                  <Button
+                    variant="ghost"
+                    size="xs"
+                    onClick={() => setShowPw2((s) => !s)}
+                  >
+                    {showPw2 ? 'Hide' : 'Show'}
+                  </Button>
+                }
+              >
+                <Input
+                  id="confirm"
+                  name="confirm"
+                  type={showPw2 ? 'text' : 'password'}
+                  placeholder="Re-enter password"
+                  value={form.confirm}
+                  onChange={(e) => handleChange('confirm', e.target.value)}
+                  borderColor="gray.300"
+                  color={"#312e2eff"}
+                  _focus={{
+                    borderColor: 'purple.500',
+                    boxShadow: `0 0 0 1px ${purple600}`,
+                  }}
+                />
+              </InputGroup>
+              {errors.confirm && <Field.ErrorText>{errors.confirm}</Field.ErrorText>}
+            </Field.Root>
+          )}
+        </Fieldset.Content>
+
+        <Flex align="center" justify="space-between" flexDir="column" gap={4} pt={2}>
+          <Button
+            type="submit"
+            isDisabled={!canSubmit}
+            bg="#3e1779ff"
+            _hover={{ bg: '#7a18d6ff' }}
+            w="full"
+            size="lg"
+          >
+            <Text color="white">{isSignup ? 'Create account' : 'Log in'}</Text>
+          </Button>
+
+          {mode === 'login' && (
+            <Link
+              href="#"
+              fontSize="sm"
+              color="purple.600"
+              whiteSpace="nowrap"
+              _hover={{ textDecoration: 'underline' }}
+            >
+              Forgot your password?
+            </Link>
+          )}
+        </Flex>
+      </Fieldset.Root>
+    </Box>
+  );
+}

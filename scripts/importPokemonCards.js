@@ -210,3 +210,50 @@ async function importAllCards() {
 }
 
 importAllCards().catch(console.error);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import fetch from 'node-fetch'; // if using CommonJS, use: const fetch = require('node-fetch');
+
+// const pokeKey = '96b19782-71f8-4f2d-b594-92674f19363d'; // your API key
+// const cardId = 'xy5-1'; // change this to test other IDs
+
+// async function fetchCardById(id) {
+//   const url = `https://api.pokemontcg.io/v2/cards/${encodeURIComponent(id)}`;
+
+//   try {
+//     const res = await fetch(url, {
+//       headers: {
+//         'X-Api-Key': pokeKey,
+//       },
+//     });
+
+//     if (!res.ok) {
+//       console.warn(`❌ Card not found (${id}): ${res.status}`);
+//       const body = await res.text();
+//       console.log('Response:', body);
+//       return;
+//     }
+
+//     const json = await res.json();
+//     console.log('🎴 Card data:', json.data);
+//   } catch (err) {
+//     console.error(`⚠️ Fetch error:`, err.message);
+//   }
+// }
+
+// // Run it
+// fetchCardById(cardId);

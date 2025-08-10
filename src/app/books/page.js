@@ -17,6 +17,7 @@ import { allBooks } from "../constants";
 import BookGridCard from "../componets/BookGridCard";
 import BooksHeaderBanner from "./BooksHeaderBanner";
 import AgeBrowseSection from "../componets/AgeBrowseSection";
+
 export default function BooksPage() {
   const [gender, setGender] = useState(null);
   const [age, setAge] = useState(null);
@@ -29,13 +30,13 @@ export default function BooksPage() {
 
   return (
     <Box px={{ base: 4, md: 10 }} py={10}>
-      <BooksHeaderBanner/>
+      <BooksHeaderBanner />
+
       <VStack align="start" spacing={6} mb={8}>
         <Heading fontSize="3xl" color="black">
           Find Your Perfect Book
         </Heading>
 
-        {/* Filters */}
         <Flex
           w="full"
           justify="space-between"
@@ -44,7 +45,6 @@ export default function BooksPage() {
           gap={6}
           wrap="wrap"
         >
-          {/* Gender Filter */}
           <VStack align="start" spacing={3}>
             <HStack spacing={2}>
               <Icon as={FaVenusMars} color="purple.500" />
@@ -80,7 +80,6 @@ export default function BooksPage() {
             </HStack>
           </VStack>
 
-          {/* Age Filter */}
           <VStack align="start" spacing={3}>
             <HStack spacing={2}>
               <Icon as={FaChild} color="purple.500" />
@@ -118,7 +117,6 @@ export default function BooksPage() {
         </Flex>
       </VStack>
 
-      {/* Books Grid */}
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} gap={10} px={12}>
         {filteredBooks.map((book, idx) => (
           <BookGridCard
@@ -129,7 +127,7 @@ export default function BooksPage() {
         ))}
       </SimpleGrid>
 
-      <AgeBrowseSection/>
+      <AgeBrowseSection />
     </Box>
   );
 }

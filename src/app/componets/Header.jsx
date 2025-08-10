@@ -8,10 +8,7 @@ import {
   Icon,
   Image,
   Button,
-  Menu,
-  Portal,
 } from '@chakra-ui/react';
-import { MenuRoot, MenuContextTrigger, MenuPositioner, MenuContent, MenuItem } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaLock, FaUser } from 'react-icons/fa';
@@ -109,22 +106,13 @@ export default function Header() {
 
           <Icon as={FaLock} boxSize={4} color="whiteAlpha.900" />
 
-          <Menu.Root>
-            <Menu.ContextTrigger>
-              <HStack spacing={1} cursor="pointer" px={2} py={1}>
-                <Icon as={FaUser} boxSize={4} color="whiteAlpha.900" />
-                <Text fontSize="sm" color="whiteAlpha.900">User</Text>
-              </HStack>
-            </Menu.ContextTrigger>
-            <Portal>
-              <Menu.Positioner>
-                <Menu.Content background="#2b1055" border="1px solid #a855f7" color="white">
-                  <Menu.Item value="profile">Профиль</Menu.Item>
-                  <Menu.Item value="logout">Выход</Menu.Item>
-                </Menu.Content>
-              </Menu.Positioner>
-            </Portal>
-          </Menu.Root>
+          {/* User Icon navigates to login */}
+          <Link href="/login">
+            <HStack spacing={1} cursor="pointer" px={2} py={1}>
+              <Icon as={FaUser} boxSize={4} color="whiteAlpha.900" />
+              <Text fontSize="sm" color="whiteAlpha.900">User</Text>
+            </HStack>
+          </Link>
         </HStack>
       </Flex>
     </Box>
