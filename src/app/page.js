@@ -1,5 +1,5 @@
 
-
+import TestSearchFetch from './componets/TestSearchCards';
 import BookShowcase from './componets/BookShowcase';
 import FaqSection from './componets/FaqSection';
 import AdoredSection from './componets/AdoredSection';
@@ -8,11 +8,13 @@ import PersonalizedBooksBanner from './componets/PersonalizedBooksBanner';
 import { books } from './constants';
 import { Flex } from '@chakra-ui/react';
 
-export default function Home() {
+export default async function Home() {
+
 
 
   return (
     <Flex flexDir="column" gap={6}>
+      {/* <TestSearchFetch/> */}
       <PersonalizedBooksBanner/>
       <BookShowcase data={books} />
       <AdoredSection />

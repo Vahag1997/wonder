@@ -1,15 +1,21 @@
 'use client';
 
-import {
-  Box,
-  Image,
-  Text,
-  Button,
-  VStack,
-  Flex,
-} from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
+import { Box, Image, Text, Button, VStack, Flex } from '@chakra-ui/react';
 
-export default function BookGridCard({ image, title, subtitle, onClick }) {
+export default function BookGridCard(props) {
+  const { slug, image, cover, title, subtitle, description, onClick } = props;
+  const router = useRouter();
+
+  const imgSrc = image || cover;
+  const subText = subtitle || description;
+
+  const handleClick = onClick
+    ? onClick
+    : slug
+    ? () => router.push(`/books/${slug}`)
+    : undefined;
+
   return (
     <Flex
       direction="column"
@@ -24,7 +30,7 @@ export default function BookGridCard({ image, title, subtitle, onClick }) {
       overflow="hidden"
       transition="all 0.2s"
       _hover={{ boxShadow: 'xl', transform: 'translateY(-2px)' }}
-      minH="520px" // 👈 consistent card height
+      minH="520px"
     >
       {/* Star background */}
       <Box
@@ -39,7 +45,7 @@ export default function BookGridCard({ image, title, subtitle, onClick }) {
       <VStack spacing={4} align="start" position="relative" zIndex={1} flex="1">
         {/* Book Image */}
         <Image
-          src={image}
+          src={imgSrc}
           alt={title}
           borderRadius="xl"
           objectFit="cover"
@@ -47,14 +53,15 @@ export default function BookGridCard({ image, title, subtitle, onClick }) {
           h="280px"
         />
 
-        {/* Text Section with fixed space */}
-        <Box minH="100px"p={2}>
+        {/* Text Section */}
+        <Box minH="100px" p={2}>
           <Text
             fontSize="xl"
             fontWeight="extrabold"
             color="white"
             lineHeight="short"
             mb={1}
+            noOfLines={2}
           >
             {title}
           </Text>
@@ -63,13 +70,14 @@ export default function BookGridCard({ image, title, subtitle, onClick }) {
             color="whiteAlpha.800"
             lineHeight="1.5"
             mt={4}
+            noOfLines={3}
           >
-            {subtitle}
+            {subText}
           </Text>
         </Box>
       </VStack>
 
-      {/* CTA Button pinned to bottom */}
+      {/* CTA Button */}
       <Box mt={4} zIndex={1}>
         <Button
           background="linear-gradient(to right, #c79df0ff, #9333ea)"
@@ -79,7 +87,7 @@ export default function BookGridCard({ image, title, subtitle, onClick }) {
           py={3}
           fontWeight="medium"
           fontSize="sm"
-          onClick={onClick}
+          onClick={handleClick}
           w="full"
           _hover={{ bg: '#9333ea' }}
         >

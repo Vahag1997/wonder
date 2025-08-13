@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import {
   Box,
   Flex,
@@ -11,9 +12,11 @@ import {
   Image,
   Portal,
   Select,
+  Fieldset,
+  Field,
+  useToken,
   createListCollection,
 } from '@chakra-ui/react';
-import { useState } from 'react';
 
 const categories = createListCollection({
   items: [
@@ -31,164 +34,180 @@ export default function SupportPage() {
     message: '',
   });
 
-  const handleChange = (field) => (e) =>
-    setForm({ ...form, [field]: e.target.value });
+  const [purple600] = useToken('colors', ['purple.600']);
 
-  const handleCategoryChange = (selectedItem) =>
-    setForm({ ...form, category: selectedItem?.value || '' });
+  const handleChange = (field) => (e) =>
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
   return (
-    <Box
-      w="full"
-      minH="100vh"
-      py={20}
-      px={{ base: 4, md: 10 }}
-      bg="white"
+    <Flex
+      minH="100dvh"
+      align="center"
+      justify="center"
+      p={{ base: 4, sm: 6 }}
+      position="relative"
+      _before={{
+        content: '""',
+        position: 'absolute',
+        inset: 0,
+        opacity: 0.35,
+        backgroundImage:
+          "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e9d5ff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E\")",
+      }}
     >
-      <Box maxW="7xl" mx="auto">
-        <Heading
-          textAlign="center"
-          fontSize={{ base: '2xl', md: '4xl' }}
-          fontWeight="semibold"
-          color="gray.800"
-          mb={4}
-        >
-          Customer Support
-        </Heading>
-        <Text
-          textAlign="center"
-          fontSize="lg"
-          color="gray.600"
-          maxW="2xl"
-          mx="auto"
-          mb={12}
-        >
-          We're here to help. Contact us with any questions or issues you may have.
-        </Text>
-
-        <Flex
-          bg="gray.50"
-          borderRadius="2xl"
-          p={{ base: 6, md: 10 }}
-          maxW="5xl"
-          mx="auto"
-          boxShadow="lg"
-          direction={{ base: 'column', lg: 'row' }}
-          gap={12}
-          border="1px solid"
-          borderColor="gray.200"
-        >
-          {/* Left Side Graphic */}
-          <Box flex={1} display="flex" alignItems="center" justifyContent="center">
-            <Image
-              src="/dog.svg"
-              alt="Support Graphic"
-              width={320}
-              height={320}
-              style={{ objectFit: 'contain' }}
-            />
-          </Box>
-
-          {/* Right Side Form */}
-          <Box flex={1}>
-            <Heading fontSize="2xl" fontWeight="semibold" mb={3} color="gray.800">
-              Contact Our Team
+      <Box
+        position="relative"
+        bg="white"
+        rounded="2xl"
+        shadow="xl"
+        w="full"
+        maxW="6xl"
+        overflow="hidden"
+        minH={{ base: 'auto', md: '640px' }}
+      >
+        <Flex direction={{ base: 'column', md: 'row' }} h="100%">
+          {/* LEFT — form */}
+          <Box
+            w={{ base: '100%', md: '50%' }}
+            p={{ base: 8, sm: 12 }}
+            display="flex"
+            flexDirection="column"
+            h="100%"
+            order={{ base: 1, md: 0 }}
+          >
+            {/* Title */}
+            <Heading as="h1" size="xl" color="gray.800" mb={4}>
+              Customer Support
             </Heading>
-            <Text fontSize="md" color="gray.600" mb={8}>
-              Fill out the form below and we'll get back to you as soon as possible.
+            <Text color="gray.600" mb={10}>
+              We’re here to help. Contact us with any questions or issues you may have.
             </Text>
 
-            <Box mb={6}>
-              <Text fontSize="sm" fontWeight="medium" color="gray.700" mb={2}>
-                Email Address
-              </Text>
-              <Input
-                placeholder="your@email.com"
-                value={form.email}
-                onChange={handleChange('email')}
-                bg="white"
-                borderColor="gray.200"
-                _hover={{ borderColor: 'gray.300' }}
-                _focus={{
-                  borderColor: 'purple.500',
-                  boxShadow: '0 0 0 1px var(--chakra-colors-purple-500)',
-                }}
-                size="lg"
-              />
-            </Box>
+            <Fieldset.Root size="lg" maxW="full" spacing={6}>
+              <Fieldset.Content>
+                {/* Email */}
+                <Field.Root>
+                  <Field.Label color="#312e2eff">Email Address</Field.Label>
+                  <Input
+                    placeholder="your@email.com"
+                    value={form.email}
+                    onChange={handleChange('email')}
+                    borderColor="gray.300"
+                    color="#312e2eff"
+                    _focus={{
+                      borderColor: 'purple.500',
+                      boxShadow: `0 0 0 1px ${purple600}`,
+                    }}
+                  />
+                </Field.Root>
 
-            <Box mb={6}>
-              <Text fontSize="sm" fontWeight="medium" color="gray.700" mb={2}>
-                Category
-              </Text>
-              <Select.Root
-                collection={categories}
-                value={form.category}
-                onValueChange={handleCategoryChange}
-                width="full"
+                {/* Category */}
+                <Field.Root>
+                  <Field.Label color="#312e2eff">Category</Field.Label>
+                  <Select.Root
+                    collection={categories}
+                    value={form.category}
+                    onValueChange={(e) =>
+                      setForm((prev) => ({ ...prev, category: e?.value ?? '' }))
+                    }
+                    width="full"
+                    color={"black"}
+                  >
+                    <Select.HiddenSelect />
+                    <Select.Control mb={1}>
+                      <Select.Trigger borderColor="gray.300" _focusVisible={{
+                        borderColor: 'purple.500',
+                        boxShadow: `0 0 0 1px ${purple600}`,
+                      }}>
+                        <Select.ValueText placeholder="Select a category..." />
+                      </Select.Trigger>
+                      <Select.IndicatorGroup>
+                        <Select.Indicator />
+                      </Select.IndicatorGroup>
+                    </Select.Control>
+
+                    <Portal>
+                      <Select.Positioner>
+                        <Select.Content
+                          bg="white"
+                          color={"#413e3eff"}
+                          borderColor="gray.200"
+                          boxShadow="md"
+                          borderRadius="md"
+                        >
+                          {categories.items.map((item) => (
+                            <Select.Item item={item} key={item.value}>
+                              {item.label}
+                              <Select.ItemIndicator />
+                            </Select.Item>
+                          ))}
+                        </Select.Content>
+                      </Select.Positioner>
+                    </Portal>
+                  </Select.Root>
+                </Field.Root>
+
+                {/* Message */}
+                <Field.Root>
+                  <Field.Label color="#312e2eff">Your Message</Field.Label>
+                  <Textarea
+                    placeholder="Please describe your issue or question in detail..."
+                    rows={6}
+                    value={form.message}
+                    onChange={handleChange('message')}
+                    borderColor="gray.300"
+                    color="#312e2eff"
+                    _focus={{
+                      borderColor: 'purple.500',
+                      boxShadow: `0 0 0 1px ${purple600}`,
+                    }}
+                  />
+                </Field.Root>
+              </Fieldset.Content>
+
+              <Button
+                type="button"
+                bg="#3e1779ff"
+                _hover={{ bg: '#7a18d6ff' }}
+                w="full"
+                size="lg"
+                mt={2}
+                onClick={() => {
+                  // TODO: submit to your support endpoint
+                  // await submitSupport(form)
+                }}
               >
-                <Select.HiddenSelect />
-                <Select.Label>Select category</Select.Label>
-                <Select.Control mb={4}>
-                  <Select.Trigger>
-                    <Select.ValueText placeholder="Select a category..." />
-                  </Select.Trigger>
-                  <Select.IndicatorGroup>
-                    <Select.Indicator />
-                  </Select.IndicatorGroup>
-                </Select.Control>
-                <Portal>
-                  <Select.Positioner>
-                    <Select.Content bg="white" borderColor="gray.200" boxShadow="md" borderRadius="md">
-                      {categories.items.map((item) => (
-                        <Select.Item item={item} key={item.value}>
-                          {item.label}
-                          <Select.ItemIndicator />
-                        </Select.Item>
-                      ))}
-                    </Select.Content>
-                  </Select.Positioner>
-                </Portal>
-              </Select.Root>
-            </Box>
+                <Text color="white">Submit Request</Text>
+              </Button>
+            </Fieldset.Root>
+          </Box>
 
-            <Box mb={8}>
-              <Text fontSize="sm" fontWeight="medium" color="gray.700" mb={2}>
-                Your Message
-              </Text>
-              <Textarea
-                placeholder="Please describe your issue or question in detail..."
-                rows={6}
-                value={form.message}
-                onChange={handleChange('message')}
-                bg="white"
-                borderColor="gray.200"
-                _hover={{ borderColor: 'gray.300' }}
-                _focus={{
-                  borderColor: 'purple.500',
-                  boxShadow: '0 0 0 1px var(--chakra-colors-purple-500)',
-                }}
-                size="lg"
+          {/* RIGHT — illustration */}
+          <Flex
+            w={{ base: '100%', md: '50%' }}
+            align="center"
+            justify="center"
+            p={{ base: 6, md: 12 }}
+            bgGradient="linear(to-br, purple.50, white)"
+            textAlign="center"
+            order={{ base: 2, md: 0 }}
+          >
+            <Box w="full" maxW={{ base: '22rem', sm: '28rem', md: '28rem' }}>
+              <Heading size="xl" color="gray.800" mb={{ base: 6, md: 8 }}>
+                We usually reply within 24h
+              </Heading>
+              <Image
+                alt="Support Graphic"
+                src="/dog.svg"
+                w="100%"
+                h="auto"
+                rounded="lg"
+                shadow="md"
               />
             </Box>
-
-            <Button
-              colorScheme="purple"
-              size="lg"
-              px={8}
-              width="full"
-              fontWeight="semibold"
-              _hover={{
-                transform: 'translateY(-1px)',
-                boxShadow: 'md',
-              }}
-              transition="all 0.2s"
-            >
-              Submit Request
-            </Button>
-          </Box>
+          </Flex>
         </Flex>
       </Box>
-    </Box>
+    </Flex>
   );
 }

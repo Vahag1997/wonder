@@ -28,7 +28,7 @@ export const books = [
     discount: 20,
   },
 ];
-export const allBooks = [
+export const testBooks = [
   {
     image:
       "https://storage.wonderwraps.com/bbda3658-3e23-414d-838e-47348a8858ea/responsive-images/Zp1Egf20Hs9VQD7B9TIbtLyqAZtjyC-metaY292ZXIucG5n-___media_library_original_550_550.png",
@@ -101,4 +101,49 @@ export const navItems = [
   { label: "Books", href: "/books" },
   { label: "My Books", href: "/my-books", badge: 7 },
   { label: "Support", href: "/support" },
+  { label: "Orders", href: "/orders" },
 ];
+
+// lib/mockOrders.js
+export const ORDERS = [
+  {
+    id: '14I87',
+    slug: '14I87',
+    qtyTitle: 'x1 Personalised Book',
+    date: '12 Aug 2025 13:35',
+    total: '$46.99',
+    address: 'Dubai, United Arab Emirates',
+    shipping: 'Standard',
+    note: 'Your order is moving to printing and will be processed soon.',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDlb5cyagP7I-BNmllVdMjKkmxix32hAAxBYSQSXuSU6kvuj3ax_1OmDcWi1E6XZSPinEkEj3hGNkgu0hF9a17pLU33g7a00CuJl-DA79c3S7Nc9DHG9plymr0COH1WxdGADnV1jGlJ5Nbc7fV2HUiJhGjJIkx-bn_Dzfqlx2jXcP-SNetLaQ6VUakYpn5M8HAOalmcwv28lAraiKkfjZ8XxjJZf6fKBVQXYsLtI9yK9PTqzH0BwMGveGnLCPm3OFR2oykz6MC-nic',
+    // details page data:
+    steps: [
+      { label: 'Order Confirmation', state: 'done' },
+      { label: 'Feedback Status', state: 'done' },
+      { label: 'Printing Status', state: 'active' },
+      { label: 'Shipment Status', state: 'pending' },
+    ],
+    item: {
+      title: 'The Adventure of Marsel and the Lost Star',
+      spec: 'Hardcover | English',
+      price: 39.99,
+      image:
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuA_NfnUyMmOdnaO3kscArUKh77yNtLqOM0ADBnpiUL5q1gvyu4oY9WGCt8RIJ2Dl5f-JJbwt9JC4PzfTMk0El2E0cos6sAgEDcAM8N87hJh2Vm7d_2Kp-KREMkIX4nj4fakG-6P3EVYtY0ADfUMbAtORe8B_J38i3C1TUwQTVnIO0RX5xDM-Kox14DaCiR6VIyuykZ46QDX0ebyW0JMtlNHVTdJmMW6T0_5rsaQi0SGTNwlG-N0mBOGxVNSV_Zc40JNccDs6v5weFre',
+    },
+    shippingInfo: {
+      name: 'Izrail',
+      phone: '+79886925767',
+      address1: 'Zaed sheikh, 05736366 Dubai',
+      address2: "'Ajmān, United Arab Emirates",
+      method: 'Standard Shipping',
+      eta: '22 - 29 August',
+      cost: 7.0,
+    },
+    totals: { booksCount: 1, books: 39.99, shipping: 7.0, method: 'Card' },
+  },
+  // add more mocked orders here with different slugs if needed
+];
+
+export const getOrderBySlug = (slug) =>
+  ORDERS.find((o) => String(o.slug) === String(slug));
