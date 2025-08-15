@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Provider } from "../components/ui/provider";
 import { AuthProvider } from "../contexts/AuthContext";
+import { LanguageProvider } from "../contexts/LanguageContext";
 import GlobalLoading from "../components/GlobalLoading";
 import Header from "./componets/Header";
 import Footer from "./componets/Footer";
@@ -35,15 +36,17 @@ export default function RootLayout({ children }) {
         }}
       >
         <Provider>
-          <AuthProvider>
-            <GlobalLoading>
-              <Header />
-              <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                {children}
-              </main>
-              <Footer/>
-            </GlobalLoading>
-          </AuthProvider>
+          <LanguageProvider>
+            <AuthProvider>
+              <GlobalLoading>
+                <Header />
+                <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  {children}
+                </main>
+                <Footer/>
+              </GlobalLoading>
+            </AuthProvider>
+          </LanguageProvider>
         </Provider>
       </body>
     </html>

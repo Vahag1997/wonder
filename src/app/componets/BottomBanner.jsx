@@ -10,8 +10,11 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function BottomBanner() {
+  const { t } = useLanguage();
+
   return (
     <Box
       as="section"
@@ -113,7 +116,7 @@ export default function BottomBanner() {
                   fontWeight="semibold"
                   letterSpacing="wide"
                 >
-                  PERSONALIZED STORYBOOKS
+                  {t("banners.personalizedStories")}
                 </Box>
 
                 <Heading
@@ -124,8 +127,7 @@ export default function BottomBanner() {
                   color="gray.900"
                   fontFamily="marcellus, serif"
                 >
-                  Bring your child's <br />
-                  <Box as="span" color="purple.600">imagination to life!</Box>
+                  {t("banners.bringImaginationToLife")}
                 </Heading>
                 
                 <Text
@@ -135,7 +137,7 @@ export default function BottomBanner() {
                   maxW="500px"
                   fontWeight="medium"
                 >
-                  Make them the hero of their own magical adventure with a hyper-personalised storybook that celebrates their unique personality and dreams.
+                  {t("banners.imaginationDescription")}
                 </Text>
                 
                 <Box pt={1}>
@@ -157,7 +159,7 @@ export default function BottomBanner() {
                       transition="all 0.3s ease"
                       boxShadow="0 4px 15px rgba(147, 51, 234, 0.2)"
                     >
-                      View All Books
+                      {t("books.viewAllBooks")}
                     </Button>
                   </Link>
                 </Box>
@@ -173,11 +175,11 @@ export default function BottomBanner() {
                 >
                   <Flex align="center" gap={2}>
                     <Box w="2" h="2" bg="green.400" borderRadius="full" />
-                    <Text>100% Personalized</Text>
+                    <Text>{t("banners.trustIndicator1")}</Text>
                   </Flex>
                   <Flex align="center" gap={2}>
                     <Box w="2" h="2" bg="blue.400" borderRadius="full" />
-                    <Text>Fast Delivery</Text>
+                    <Text>{t("banners.trustIndicator2")}</Text>
                   </Flex>
                 </Flex>
               </VStack>

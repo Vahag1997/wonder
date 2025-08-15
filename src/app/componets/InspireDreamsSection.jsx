@@ -11,8 +11,11 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function InspireDreamsSection() {
+  const { t } = useLanguage();
+
   return (
     <Box
       as="section"
@@ -53,7 +56,7 @@ export default function InspireDreamsSection() {
               textTransform="uppercase"
               color="gray.800"
             >
-              PERSONALISED STORIES THAT CELEBRATE THEIR BIG DREAMS
+              {t("banners.craftMagicalTales")}
             </Text>
             
             <Heading
@@ -64,7 +67,7 @@ export default function InspireDreamsSection() {
               color="gray.800"
               textAlign={{ base: 'center', md: 'left' }}
             >
-              Inspire Their Dreams with Hyper-personalised Career Adventures!
+              {t("banners.inspireDreams")}
             </Heading>
           </VStack>
 
@@ -80,7 +83,7 @@ export default function InspireDreamsSection() {
               borderRadius="md"
               transition="all 0.2s"
             >
-              Explore
+              {t("books.explore")}
             </Button>
           </Link>
         </Box>

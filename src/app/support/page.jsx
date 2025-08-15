@@ -18,17 +18,10 @@ import {
   createListCollection,
 } from '@chakra-ui/react';
 import BottomBanner from '../componets/BottomBanner';
-
-const categories = createListCollection({
-  items: [
-    { label: 'Bug Report', value: 'bug' },
-    { label: 'Feature Request', value: 'feature' },
-    { label: 'Account Help', value: 'account' },
-    { label: 'Other', value: 'other' },
-  ],
-});
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function SupportPage() {
+  const { t } = useLanguage();
   const [form, setForm] = useState({
     email: '',
     category: '',
@@ -36,6 +29,15 @@ export default function SupportPage() {
   });
 
   const [purple600] = useToken('colors', ['purple.600']);
+
+  const categories = createListCollection({
+    items: [
+      { label: t("support.bugReport"), value: 'bug' },
+      { label: t("support.featureRequest"), value: 'feature' },
+      { label: t("support.accountHelp"), value: 'account' },
+      { label: t("support.other"), value: 'other' },
+    ],
+  });
 
   const handleChange = (field) => (e) =>
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
@@ -79,19 +81,19 @@ export default function SupportPage() {
             >
               {/* Title */}
               <Heading as="h1" size="xl" color="gray.800" mb={4}>
-                Customer Support
+                {t("support.customerSupport")}
               </Heading>
               <Text color="gray.600" mb={10}>
-                We're here to help. Contact us with any questions or issues you may have.
+                {t("support.supportDescription")}
               </Text>
 
               <Fieldset.Root size="lg" maxW="full" spacing={6}>
                 <Fieldset.Content>
                   {/* Email */}
                   <Field.Root>
-                    <Field.Label color="#312e2eff">Email Address</Field.Label>
+                    <Field.Label color="#312e2eff">{t("support.email")}</Field.Label>
                     <Input
-                      placeholder="your@email.com"
+                      placeholder={t("support.emailPlaceholder")}
                       value={form.email}
                       onChange={handleChange('email')}
                       borderColor="gray.300"
@@ -105,7 +107,7 @@ export default function SupportPage() {
 
                   {/* Category */}
                   <Field.Root>
-                    <Field.Label color="#312e2eff">Category</Field.Label>
+                    <Field.Label color="#312e2eff">{t("support.subject")}</Field.Label>
                     <Select.Root
                       collection={categories}
                       value={form.category}
@@ -121,7 +123,7 @@ export default function SupportPage() {
                           borderColor: 'purple.500',
                           boxShadow: `0 0 0 1px ${purple600}`,
                         }}>
-                          <Select.ValueText placeholder="Select a category..." />
+                          <Select.ValueText placeholder={t("support.subjectPlaceholder")} />
                         </Select.Trigger>
                         <Select.IndicatorGroup>
                           <Select.Indicator />
@@ -151,9 +153,9 @@ export default function SupportPage() {
 
                   {/* Message */}
                   <Field.Root>
-                    <Field.Label color="#312e2eff">Your Message</Field.Label>
+                    <Field.Label color="#312e2eff">{t("support.message")}</Field.Label>
                     <Textarea
-                      placeholder="Please describe your issue or question in detail..."
+                      placeholder={t("support.messagePlaceholder")}
                       rows={6}
                       value={form.message}
                       onChange={handleChange('message')}
@@ -179,7 +181,7 @@ export default function SupportPage() {
                     // await submitSupport(form)
                   }}
                 >
-                  <Text color="white">Submit Request</Text>
+                  <Text color="white">{t("support.sendMessage")}</Text>
                 </Button>
               </Fieldset.Root>
             </Box>
@@ -196,7 +198,7 @@ export default function SupportPage() {
             >
               <Box w="full" maxW={{ base: '22rem', sm: '28rem', md: '28rem' }}>
                 <Heading size="xl" color="gray.800" mb={{ base: 6, md: 8 }}>
-                  We usually reply within 24h
+                  {t("support.responseTime")}
                 </Heading>
                 <Image
                   alt="Support Graphic"

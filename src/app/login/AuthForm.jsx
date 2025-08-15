@@ -15,8 +15,10 @@ import {
   VisuallyHidden,
   useToken,
 } from '@chakra-ui/react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
+  const { t } = useLanguage();
   const [mode, setMode] = useState('login'); // 'login' | 'signup'
   const [showPw, setShowPw] = useState(false);
   const [showPw2, setShowPw2] = useState(false);
@@ -48,14 +50,14 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
     e.preventDefault();
     const nextErrors = {};
 
-    if (!form.email) nextErrors.email = 'Email is required';
-    if (!form.password) nextErrors.password = 'Password is required';
+    if (!form.email) nextErrors.email = t("auth.emailRequired");
+    if (!form.password) nextErrors.password = t("auth.passwordRequired");
 
     if (isSignup) {
-      if (!form.name) nextErrors.name = 'Name is required';
-      if (!form.confirm) nextErrors.confirm = 'Please confirm your password';
+      if (!form.name) nextErrors.name = t("auth.nameRequired");
+      if (!form.confirm) nextErrors.confirm = t("auth.confirmPasswordRequired");
       if (form.password && form.confirm && form.password !== form.confirm) {
-        nextErrors.confirm = 'Passwords do not match';
+        nextErrors.confirm = t("auth.passwordsDoNotMatch");
       }
     }
 
@@ -81,7 +83,7 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
           rounded="lg"
           disabled={isLoading}
         >
-          Log in
+          {t("auth.logIn")}
         </Button>
         <Button
           onClick={() => setMode('signup')}
@@ -91,7 +93,7 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
           rounded="lg"
           disabled={isLoading}
         >
-          Create account
+          {t("auth.createAccount")}
         </Button>
       </ButtonGroup>
 
@@ -99,11 +101,11 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
         <Fieldset.Content>
           {isSignup && (
             <Field.Root invalid={!!errors.name}>
-              <Field.Label color={"#312e2eff"}>Name</Field.Label>
+              <Field.Label color={"#312e2eff"}>{t("auth.name")}</Field.Label>
               <Input
                 id="name"
                 name="name"
-                placeholder="Your full name"
+                placeholder={t("auth.namePlaceholder")}
                 value={form.name}
                 onChange={(e) => handleChange('name', e.target.value)}
                 borderColor="gray.300"
@@ -119,13 +121,13 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
 
           <Field.Root invalid={!!errors.email}>
             {/* <VisuallyHidden> */}
-              <Field.Label color={"#312e2eff"}>Email</Field.Label>
+              <Field.Label color={"#312e2eff"}>{t("auth.email")}</Field.Label>
             {/* </VisuallyHidden> */}
             <Input
               id="email"
               name="email"
               type="email"
-              placeholder="Enter email"
+              placeholder={t("auth.emailPlaceholder")}
               value={form.email}
               onChange={(e) => handleChange('email', e.target.value)}
               borderColor="gray.300"
@@ -141,7 +143,7 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
 
           <Field.Root invalid={!!errors.password}>
             {/* <VisuallyHidden> */}
-              <Field.Label color={"#312e2eff"}>Password</Field.Label>
+              <Field.Label color={"#312e2eff"}>{t("auth.password")}</Field.Label>
             {/* </VisuallyHidden> */}
             <InputGroup
               endElement={
@@ -151,7 +153,7 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
                   onClick={() => setShowPw((s) => !s)}
                   disabled={isLoading}
                 >
-                  {showPw ? 'Hide' : 'Show'}
+                  {showPw ? t("auth.hide") : t("auth.show")}
                 </Button>
               }
             >
@@ -159,7 +161,7 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
                 id="password"
                 name="password"
                 type={showPw ? 'text' : 'password'}
-                placeholder={isSignup ? 'Create password' : 'Enter password'}
+                placeholder={isSignup ? t("auth.createPasswordPlaceholder") : t("auth.passwordPlaceholder")}
                 value={form.password}
                 onChange={(e) => handleChange('password', e.target.value)}
                 borderColor="gray.300"
@@ -176,7 +178,7 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
 
           {isSignup && (
             <Field.Root invalid={!!errors.confirm}>
-              <Field.Label color={"#312e2eff"}>Confirm password</Field.Label>
+              <Field.Label color={"#312e2eff"}>{t("auth.confirmPassword")}</Field.Label>
               <InputGroup
                 endElement={
                   <Button
@@ -185,7 +187,7 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
                     onClick={() => setShowPw2((s) => !s)}
                     disabled={isLoading}
                   >
-                    {showPw2 ? 'Hide' : 'Show'}
+                    {showPw2 ? t("auth.hide") : t("auth.show")}
                   </Button>
                 }
               >
@@ -193,7 +195,7 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
                   id="confirm"
                   name="confirm"
                   type={showPw2 ? 'text' : 'password'}
-                  placeholder="Re-enter password"
+                  placeholder={t("auth.confirmPasswordPlaceholder")}
                   value={form.confirm}
                   onChange={(e) => handleChange('confirm', e.target.value)}
                   borderColor="gray.300"
@@ -219,9 +221,9 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
             w="full"
             size="lg"
             isLoading={isLoading}
-            loadingText={isSignup ? 'Creating account...' : 'Signing in...'}
+            loadingText={isSignup ? t("auth.creatingAccount") : t("auth.signingIn")}
           >
-            <Text color="white">{isSignup ? 'Create account' : 'Log in'}</Text>
+            <Text color="white">{isSignup ? t("auth.createAccount") : t("auth.logIn")}</Text>
           </Button>
 
           {mode === 'login' && (
@@ -233,7 +235,7 @@ export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
               _hover={{ textDecoration: 'underline' }}
               disabled={isLoading}
             >
-              Forgot your password?
+              {t("auth.forgotPassword")}
             </Link>
           )}
         </Flex>

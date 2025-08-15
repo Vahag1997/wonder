@@ -14,11 +14,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaLock, FaUser, FaSignOutAlt, FaBook, FaShoppingCart, FaUserCog } from 'react-icons/fa';
 import { useAuth } from '../../contexts/AuthContext';
-import { navItems } from '../constants';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { getNavItems } from '../constants';
 
 export default function Header() {
   const pathname = usePathname();
   const { user, signOut, loading } = useAuth();
+  const { currentLanguage, changeLanguage, t } = useLanguage();
+console.log(currentLanguage,"language");
 
   const handleSignOut = async () => {
     try {
@@ -26,6 +29,10 @@ export default function Header() {
     } catch (error) {
       console.error('Error signing out:', error);
     }
+  };
+
+  const handleLanguageChange = (language) => {
+    changeLanguage(language);
   };
 
   return (
@@ -76,7 +83,7 @@ export default function Header() {
 
         {/* Navigation */}
         <HStack gap={8} as="nav" display={{ base: 'none', md: 'flex' }}>
-          {navItems.map(({ label, href }) => (
+          {getNavItems(t).map(({ label, href }) => (
             <Link key={href} href={href}>
               <Flex align="center" position="relative">
                 <Text
@@ -114,6 +121,50 @@ export default function Header() {
           >
             USD
           </Button>
+
+          {/* Language Switcher */}
+          <HStack spacing={2}>
+            <Button
+              variant="ghost"
+              size="sm"
+              p={2}
+              minW="auto"
+              onClick={() => handleLanguageChange('en')}
+              _hover={{ bg: 'whiteAlpha.100' }}
+              _focus={{ bg: 'whiteAlpha.100' }}
+              _active={{ bg: 'whiteAlpha.100' }}
+              opacity={currentLanguage === 'en' ? 1 : 0.7}
+              border={currentLanguage === 'en' ? '2px solid white' : '2px solid transparent'}
+            >
+              <Image
+                src="https://flagcdn.com/w40/gb.png"
+                alt="English"
+                boxSize="20px"
+                borderRadius="2px"
+                title="English"
+              />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              p={2}
+              minW="auto"
+              onClick={() => handleLanguageChange('ru')}
+              _hover={{ bg: 'whiteAlpha.100' }}
+              _focus={{ bg: 'whiteAlpha.100' }}
+              _active={{ bg: 'whiteAlpha.100' }}
+              opacity={currentLanguage === 'ru' ? 1 : 0.7}
+              border={currentLanguage === 'ru' ? '2px solid white' : '2px solid transparent'}
+            >
+              <Image
+                src="https://flagcdn.com/w40/ru.png"
+                alt="Russian"
+                boxSize="20px"
+                borderRadius="2px"
+                title="Русский"
+              />
+            </Button>
+          </HStack>
 
           <Icon as={FaLock} boxSize={4} color="whiteAlpha.900" />
 
@@ -157,7 +208,7 @@ export default function Header() {
                       >
                         <Link href="/account">
                           <Icon as={FaUserCog} mr={3} color="purple.600" />
-                          <Text color="gray.700" fontWeight="medium">My Account</Text>
+                          <Text color="gray.700" fontWeight="medium">{t("auth.myAccount")}</Text>
                         </Link>
                       </Menu.Item>
                       <Menu.Item 
@@ -168,7 +219,7 @@ export default function Header() {
                       >
                         <Link href="/my-books">
                           <Icon as={FaBook} mr={3} color="purple.600" />
-                          <Text color="gray.700" fontWeight="medium">My Books</Text>
+                          <Text color="gray.700" fontWeight="medium">{t("auth.myBooks")}</Text>
                         </Link>
                       </Menu.Item>
                       <Menu.Item 
@@ -179,7 +230,7 @@ export default function Header() {
                       >
                         <Link href="/orders">
                           <Icon as={FaShoppingCart} mr={3} color="purple.600" />
-                          <Text color="gray.700" fontWeight="medium">Orders</Text>
+                          <Text color="gray.700" fontWeight="medium">{t("auth.orders")}</Text>
                         </Link>
                       </Menu.Item>
                       <Menu.Item 
@@ -189,7 +240,7 @@ export default function Header() {
                         _focus={{ bg: 'red.50' }}
                       >
                         <Icon as={FaSignOutAlt} mr={3} color="red.500" />
-                        <Text color="red.600" fontWeight="medium">Sign Out</Text>
+                        <Text color="red.600" fontWeight="medium">{t("auth.signOut")}</Text>
                       </Menu.Item>
                     </Menu.Content>
                   </Menu.Positioner>
@@ -198,7 +249,7 @@ export default function Header() {
                 <Link href="/login">
                   <HStack spacing={1} cursor="pointer" px={2} py={1}>
                     <Icon as={FaUser} boxSize={4} color="whiteAlpha.900" />
-                    <Text fontSize="sm" color="whiteAlpha.900">Sign In</Text>
+                    <Text fontSize="sm" color="whiteAlpha.900">{t("auth.signIn")}</Text>
                   </HStack>
                 </Link>
               )}

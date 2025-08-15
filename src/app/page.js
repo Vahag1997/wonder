@@ -1,3 +1,4 @@
+'use client';
 
 import BookShowcase from './componets/BookShowcase';
 import FaqSection from './componets/FaqSection';
@@ -9,7 +10,8 @@ import BottomBanner from './componets/BottomBanner';
 import { books } from './constants';
 import { Flex } from '@chakra-ui/react';
 
-export default async function Home() {
+export default function Home() {
+  
   return (
     <>
       <Flex flexDir="column" gap={6}>

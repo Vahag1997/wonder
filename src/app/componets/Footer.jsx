@@ -14,8 +14,11 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <Box
       bg="linear-gradient(to bottom, #1e0a3c, #2b1055)"
@@ -53,8 +56,7 @@ export default function Footer() {
             </Text>
           </HStack>
           <Text fontSize="sm" color="whiteAlpha.700">
-            Create personalised storybooks that make your child the hero, with
-            quick customisation and speedy delivery!
+            {t("footer.aboutDescription")}
           </Text>
 
           <HStack gap={4} mt={4}>
@@ -73,35 +75,35 @@ export default function Footer() {
         {/* About */}
         <VStack align="start" gap={2}>
           <Text fontWeight="semibold" color="white">
-            About WonderWraps
+            {t("footer.aboutUs")}
           </Text>
-          <FooterLink label="Contact us" />
-          <FooterLink label="FAQs" />
-          <FooterLink label="Books" />
+          <FooterLink label={t("footer.contactUs")} />
+          <FooterLink label={t("footer.faq")} />
+          <FooterLink label={t("nav.books")} />
         </VStack>
 
         {/* Customer Area */}
         <VStack align="start" gap={2}>
           <Text fontWeight="semibold" color="white">
-            Customer Area
+            {t("footer.customerArea")}
           </Text>
-          <FooterLink label="My Account" />
-          <FooterLink label="Orders" />
-          <FooterLink label="Terms" />
-          <FooterLink label="Privacy Policy" />
+          <FooterLink label={t("auth.myAccount")} />
+          <FooterLink label={t("nav.orders")} />
+          <FooterLink label={t("footer.termsOfService")} />
+          <FooterLink label={t("footer.privacyPolicy")} />
         </VStack>
 
         {/* Newsletter */}
         <Box maxW="280px">
           <Text fontWeight="semibold" color="white" mb={1}>
-            Subscribe to Our Newsletter
+            {t("footer.newsletter")}
           </Text>
           <Text fontSize="sm" color="whiteAlpha.700" mb={4}>
-            Don’t miss out on the newest books
+            {t("footer.newsletterDescription")}
           </Text>
           <HStack>
             <Input
-              placeholder="Enter your email address"
+              placeholder={t("footer.emailPlaceholder")}
               size="sm"
               bg="whiteAlpha.100"
               border="1px solid"
@@ -116,7 +118,7 @@ export default function Footer() {
               _hover={{ bg: '#9333ea' }}
               size="sm"
             >
-              Subscribe
+              {t("footer.subscribe")}
             </Button>
           </HStack>
         </Box>

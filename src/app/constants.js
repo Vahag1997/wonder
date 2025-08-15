@@ -96,12 +96,12 @@ export const ageRanges = [
     colorScheme: "brown",
   },
 ];
-export const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Books", href: "/books" },
-  { label: "My Books", href: "/my-books", badge: 7 },
-  { label: "Support", href: "/support" },
-  { label: "Orders", href: "/orders" },
+export const getNavItems = (t) => [
+  { label: t("nav.home"), href: "/" },
+  { label: t("nav.books"), href: "/books" },
+  { label: t("nav.myBooks"), href: "/my-books", badge: 7 },
+  { label: t("nav.support"), href: "/support" },
+  { label: t("nav.orders"), href: "/orders" },
 ];
 
 // lib/mockOrders.js
