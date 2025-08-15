@@ -10,12 +10,15 @@ import {
 } from "@chakra-ui/react";
 import BookCard from "./BookCard";
 import { books } from "../constants";
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function BookShowcase({
   title = "More Stories, More Magic",
   subtitle = "NEW BOOKS",
   data = books,
 }) {
+  const { t } = useLanguage();
+
   return (
     <Box px={{ base: 4, md: 16 }} py={12}  mx="auto">
       <VStack spacing={3} mb={10} textAlign="center">

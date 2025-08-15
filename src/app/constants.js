@@ -28,6 +28,99 @@ export const books = [
     discount: 20,
   },
 ];
+
+export const bestSellers = [
+  {
+    image:
+      "https://storage.wonderwraps.com/bbda3658-3e23-414d-838e-47348a8858ea/responsive-images/Zp1Egf20Hs9VQD7B9TIbtLyqAZtjyC-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Princess! We've been",
+    subtitle: "The adventure continues in Volume 2…",
+    discount: 20,
+  },
+  {
+    image:
+      "https://storage.wonderwraps.com/fefdaebd-82f4-4772-9126-9645cef73670/responsive-images/KIOE2yxwTbor3fuEquofUewmGlPAPw-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Boy's Smile",
+    subtitle: "Some smiles are just sunshine…",
+    discount: 20,
+  },
+  {
+    image:
+      "https://storage.wonderwraps.com/ff0e60b5-1227-4081-b690-f37151d1cbc0/responsive-images/wftNJAHQBHdYyB3iOXnrG0oz6OTeDq-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Girl's New Sibling",
+    subtitle: "Big news! A new little person is joining…",
+    discount: 20,
+  },
+  {
+    image:
+      "https://storage.wonderwraps.com/dba4123e-03e0-408c-ad1f-7e5ff8f9fd2a/iUw0VHezB6zQ2HLElGCD2MUHZFslw3-metaamFzcGVyIG93bC5wbmc=-.png",
+    title: "Peekaboo, Baby Found You",
+    subtitle: "Where are my toes? My?",
+    discount: 20,
+  },
+];
+
+export const girlsBooks = [
+  {
+    image:
+      "https://storage.wonderwraps.com/bbda3658-3e23-414d-838e-47348a8858ea/responsive-images/Zp1Egf20Hs9VQD7B9TIbtLyqAZtjyC-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Princess! We've been",
+    subtitle: "The adventure continues in Volume 2…",
+    discount: 20,
+  },
+  {
+    image:
+      "https://storage.wonderwraps.com/ff0e60b5-1227-4081-b690-f37151d1cbc0/responsive-images/wftNJAHQBHdYyB3iOXnrG0oz6OTeDq-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Girl's New Sibling",
+    subtitle: "Big news! A new little person is joining…",
+    discount: 20,
+  },
+  {
+    image:
+      "https://storage.wonderwraps.com/bbda3658-3e23-414d-838e-47348a8858ea/responsive-images/Zp1Egf20Hs9VQD7B9TIbtLyqAZtjyC-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Princess Adventure",
+    subtitle: "A magical journey awaits…",
+    discount: 15,
+  },
+  {
+    image:
+      "https://storage.wonderwraps.com/ff0e60b5-1227-4081-b690-f37151d1cbc0/responsive-images/wftNJAHQBHdYyB3iOXnrG0oz6OTeDq-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Girl's Dream World",
+    subtitle: "Where dreams come true…",
+    discount: 25,
+  },
+];
+
+export const boysBooks = [
+  {
+    image:
+    "https://storage.wonderwraps.com/ff0e60b5-1227-4081-b690-f37151d1cbc0/responsive-images/wftNJAHQBHdYyB3iOXnrG0oz6OTeDq-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Boy's Smile",
+    subtitle: "Some smiles are just sunshine…",
+    discount: 20,
+  },
+  {
+    image:
+    "https://storage.wonderwraps.com/ff0e60b5-1227-4081-b690-f37151d1cbc0/responsive-images/wftNJAHQBHdYyB3iOXnrG0oz6OTeDq-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Peekaboo, Baby Found You",
+    subtitle: "Where are my toes? My?",
+    discount: 20,
+  },
+  {
+    image:
+    "https://storage.wonderwraps.com/ff0e60b5-1227-4081-b690-f37151d1cbc0/responsive-images/wftNJAHQBHdYyB3iOXnrG0oz6OTeDq-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Boy's Adventure",
+    subtitle: "Explore the world around you…",
+    discount: 15,
+  },
+  {
+    image:
+    "https://storage.wonderwraps.com/ff0e60b5-1227-4081-b690-f37151d1cbc0/responsive-images/wftNJAHQBHdYyB3iOXnrG0oz6OTeDq-metaY292ZXIucG5n-___media_library_original_550_550.png",
+    title: "Boy's Hero Journey",
+    subtitle: "Become the hero of your story…",
+    discount: 25,
+  },
+];
 export const testBooks = [
   {
     image:

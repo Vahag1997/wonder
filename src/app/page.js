@@ -7,20 +7,43 @@ import AgeBrowseSection from './componets/AgeBrowseSection';
 import PersonalizedBooksBanner from './componets/PersonalizedBooksBanner';
 import InspireDreamsSection from './componets/InspireDreamsSection';
 import BottomBanner from './componets/BottomBanner';
-import { books } from './constants';
+import { books, bestSellers, girlsBooks, boysBooks } from './constants';
+import { useLanguage } from '../contexts/LanguageContext';
 import { Flex } from '@chakra-ui/react';
 
 export default function Home() {
+  const { t } = useLanguage();
   
   return (
     <>
       <Flex flexDir="column" gap={6}>
         <PersonalizedBooksBanner/>
-        <BookShowcase data={books} />
+        
+        {/* Best Sellers Section */}
+        <BookShowcase 
+          title={t("books.bestSellers")}
+          subtitle={t("books.popular")}
+          data={bestSellers} 
+        />
+        
         <AdoredSection />
-        <BookShowcase data={books} />
+        
+        {/* Books for Girls Section */}
+        <BookShowcase 
+          title={t("books.booksForGirls")}
+          subtitle={t("books.forGirls")}
+          data={girlsBooks} 
+        />
+        
         <FaqSection />
-        <BookShowcase data={books} /> 
+        
+        {/* Books for Boys Section */}
+        <BookShowcase 
+          title={t("books.booksForBoys")}
+          subtitle={t("books.forBoys")}
+          data={boysBooks} 
+        />
+        
         <InspireDreamsSection/>
         <AgeBrowseSection/>
       </Flex>
