@@ -64,7 +64,11 @@
     "booksForGirls": "Books for Your Little Girl!",
     "booksForBoys": "Books for Your Little Boy!",
     "hyperPersonalizedBooks": "Hyper-personalised Books",
-    "storyForEveryone": "A Story for Everyone, Tailored Just Right"
+    "storyForEveryone": "A Story for Everyone, Tailored Just Right",
+    "browseStoriesByAge": "Browse Stories by Age",
+    "age": "Age",
+    "discover": "Discover",
+    "childAge": "Child Age"
   },
   "personalize": {
     "createOwnStory": "Create your own story",
@@ -144,6 +148,31 @@
     "accountHelp": "Account Help",
     "other": "Other",
     "responseTime": "We usually reply within 24h"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "question1": "📖 What is a personalized fairy tale?",
+    "answer1": "A personalized fairy tale is a story where your child becomes the main character. We use their name, appearance (from photos), and individual data to create a unique adventure specifically for them.",
+    "question2": "🧒 What age are your fairy tales suitable for?",
+    "answer2": "Our fairy tales are designed for children aged 2 to 7 years. In the future, series for younger ages will also appear.",
+    "question3": "📸 Do I need to upload a photo?",
+    "answer3": "Yes, if you want your child to appear in the fairy tale illustrations. Without a photo, we can only use the name and gender for text personalization.",
+    "question4": "🧑‍🎨 Who creates the illustrations?",
+    "answer4": "All images are created using a neural network, specially created and trained on artistic and photorealistic style, with attention to detail and safety.",
+    "question5": "📦 In what format will I receive the book?",
+    "answer5": "You can choose one of the options:\n• Printed book (delivery within Russia)\n• PDF file via email (for self-printing)",
+    "question6": "⏳ How long does it take to create a fairy tale?",
+    "answer6": "• PDF: 10-15 minutes\n• Printing and delivery: from 3 to 10 days (depending on region)",
+    "question7": "💳 How much does a fairy tale cost?",
+    "answer7": "The price depends on the format:\n• PDF: from 1490 ₽\n• Printed book: from 2990 ₽",
+    "question8": "🎁 Can I gift a fairy tale to another child?",
+    "answer8": "Yes! Simply specify their name, photo, and wishes when placing the order. We will prepare the fairy tale as a gift.",
+    "question9": "🖊 Can I choose the plot?",
+    "answer9": "Yes, on our website you can choose from available plots: adventure, magic, animals, superheroes, and others.",
+    "question10": "🔐 Are my data and photos secure?",
+    "answer10": "Absolutely. All photos and personal data are stored on secure servers and are not shared with third parties. You can request data deletion at any time.",
+    "question11": "🧾 Can I order several books at once?",
+    "answer11": "Yes, you can order fairy tales for several children — each will be personalized separately."
   },
   "common": {
     "loading": "Loading...",
@@ -263,8 +292,6 @@
     "earliest": "Earliest",
     "first": "First",
     "last": "Last",
-    "previous": "Previous",
-    "next": "Next",
     "current": "Current",
     "future": "Future",
     "past": "Past",
@@ -319,7 +346,9 @@
     "bringImaginationToLife": "Bring your child's imagination to life!",
     "imaginationDescription": "Make them the hero of their own magical adventure with a hyper-personalised storybook that celebrates their unique personality and dreams.",
     "trustIndicator1": "100% Personalized",
-    "trustIndicator2": "Fast Delivery"
+    "trustIndicator2": "Fast Delivery",
+    "bringStorybookToLife": "Bring your unique storybook to life!",
+    "viewAllBooks": "View All Books"
   },
   "footer": {
     "wonderWraps": "Wonder Wraps",

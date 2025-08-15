@@ -4,12 +4,14 @@ import { Box, Flex, Heading, Text, Button, Icon } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { FaBookOpen } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const MotionBox = motion.create(Box);
 const MotionFlex = motion.create(Flex);
 
 export default function PersonalizedBooksBanner() {
   const router = useRouter();
+  const { t } = useLanguage();
 
   return (
     <MotionBox
@@ -88,7 +90,7 @@ export default function PersonalizedBooksBanner() {
             fontWeight="semibold"
             mb={3}
           >
-            Bring your unique storybook to life!
+            {t("banners.bringStorybookToLife")}
           </Text>
 
           <Heading
@@ -98,7 +100,7 @@ export default function PersonalizedBooksBanner() {
             lineHeight="1.2"
             mb={6}
           >
-            Craft magical tales <br /> where you're the hero
+            {t("banners.craftMagicalTales")}
           </Heading>
 
           <Button
@@ -114,7 +116,7 @@ export default function PersonalizedBooksBanner() {
             _hover={{ bg: 'gray.100' }}
             onClick={() => router.push('/books')}
           >
-            View All Books
+            {t("banners.viewAllBooks")}
           </Button>
         </Box>
       </MotionFlex>

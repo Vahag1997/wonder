@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Box,
   Text,
@@ -7,30 +9,58 @@ import {
   Collapsible,
 } from "@chakra-ui/react";
 import { IoIosArrowDown } from "react-icons/io";
+import { useLanguage } from '../../contexts/LanguageContext';
 
-export default async function FaqSection() {
+export default function FaqSection() {
+  const { t } = useLanguage();
+  
   const faqs = [
     {
-      question: "Why Choose us?",
-      answer:
-        "We are a combination of my name 'NAREK' and the word 'PARFUM'. It reflects that each scent we offer is a result of my personal inspiration and a part of me. I wanted to create a unique name that’s easy to remember. NARFFUM sounds original and authentic and most importantly, it carries both my identity and the essence of the perfume world. NARFFUM is my signature in the world of fragrances. For me, perfume is not just a scent—it's emotion and memory, something I want to pass on to every buyer. NARFFUM represents the harmony of personal touch and high quality.",
+      question: t("faq.question1"),
+      answer: t("faq.answer1"),
     },
     {
-      question:
-        "Why are your prices much more affordable than in other stores?",
-      answer:
-        "We intentionally chose an accessible pricing policy because long-term customer relationships matter most to us. We value our customers and especially appreciate when they recommend us to friends. Affordable prices are also possible because we avoid extra costs—no rent for physical stores or staff—since we operate online.",
+      question: t("faq.question2"),
+      answer: t("faq.answer2"),
     },
     {
-      question: "Why choose us?",
-      answer:
-        "1. Personalized Approach. We are always ready to provide our clients with personalized consultations, taking into account their preferences and individual needs. 2. 100% Authentic Products. We guarantee that all products presented by us are original and sourced only from official suppliers. 3. Competitive Prices. We work with the largest and most trusted suppliers, allowing us to offer a wide range of products at competitive prices. 4. Fast Delivery. We ensure prompt delivery so our customers can enjoy their purchases as soon as possible. 5. Wide Selection. With us, you’ll find both world-renowned brands and niche fragrances that are hard to find in other stores.",
+      question: t("faq.question3"),
+      answer: t("faq.answer3"),
     },
     {
-      question: "How is the delivery carried out?",
-      answer: "",
+      question: t("faq.question4"),
+      answer: t("faq.answer4"),
+    },
+    {
+      question: t("faq.question5"),
+      answer: t("faq.answer5"),
+    },
+    {
+      question: t("faq.question6"),
+      answer: t("faq.answer6"),
+    },
+    {
+      question: t("faq.question7"),
+      answer: t("faq.answer7"),
+    },
+    {
+      question: t("faq.question8"),
+      answer: t("faq.answer8"),
+    },
+    {
+      question: t("faq.question9"),
+      answer: t("faq.answer9"),
+    },
+    {
+      question: t("faq.question10"),
+      answer: t("faq.answer10"),
+    },
+    {
+      question: t("faq.question11"),
+      answer: t("faq.answer11"),
     },
   ];
+  
   return (
     <Flex
       mx="auto"
@@ -49,7 +79,7 @@ export default async function FaqSection() {
           lineHeight="shorter"
           color="gray.700"
         >
-          Frequently Asked Questions
+          {t("faq.title")}
         </Text>
       </VStack>
       <VStack spacing="6" align="stretch" width="85%" mt="40px">

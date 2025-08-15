@@ -1,8 +1,11 @@
 'use client';
 
 import { Box, Flex, Heading, Text, Image } from '@chakra-ui/react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function BooksHeaderBanner() {
+  const { t } = useLanguage();
+
   return (
     <Box
       w="full"
@@ -25,10 +28,10 @@ export default function BooksHeaderBanner() {
             color="purple.700"
             mb={3}
           >
-            Hyper-personalised Books
+            {t("books.hyperPersonalizedBooks")}
           </Heading>
           <Text fontSize="lg" color="gray.700">
-            A Story for Everyone, Tailored Just Right
+            {t("books.storyForEveryone")}
           </Text>
         </Box>
 

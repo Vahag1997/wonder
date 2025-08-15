@@ -11,9 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { ageRanges } from "../constants";
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function AgeBrowseSection() {
   const router = useRouter();
+  const { t } = useLanguage();
 
   const handleClick = (age) => {
     router.push(`/books?age=${encodeURIComponent(age)}`);
@@ -28,7 +30,7 @@ export default function AgeBrowseSection() {
         lineHeight="shorter"
         color="purple.600"
       >
-        Browse Stories by Age
+        {t("books.browseStoriesByAge")}
       </Heading>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={10}>
         {ageRanges.map(({ label, image, colorScheme }) => (
@@ -60,7 +62,7 @@ export default function AgeBrowseSection() {
               py={14}
             >
               <Text fontSize="xl" fontWeight="semibold">
-                Age
+                {t("books.age")}
               </Text>
               <Text fontSize="3xl" fontWeight="bold">
                 {label}
@@ -70,7 +72,7 @@ export default function AgeBrowseSection() {
                 variant="solid"
                 onClick={() => handleClick(label)}
               >
-                <Text color="white">Discover</Text>
+                <Text color="white">{t("books.discover")}</Text>
               </Button>
             </VStack>
           </Box>

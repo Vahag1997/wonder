@@ -9,6 +9,7 @@ import {
   Separator,
 } from "@chakra-ui/react";
 import BookCard from "./BookCard";
+import { books } from "../constants";
 
 export default function BookShowcase({
   title = "More Stories, More Magic",

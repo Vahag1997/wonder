@@ -9,8 +9,11 @@ import {
   VStack,
   Image,
 } from "@chakra-ui/react";
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function AdoredSection() {
+  const { t } = useLanguage();
+
   return (
     <Box
       bg="linear-gradient(to bottom, #644a99ff, #2b1055)"
@@ -40,13 +43,11 @@ export default function AdoredSection() {
             color="white"
             lineHeight="short"
           >
-            Adored by millions worldwide
+            {t("banners.adoredByMillions")}
           </Heading>
 
           <Text fontSize={{ base: "lg", md: "xl" }} color="whiteAlpha.900">
-            From magical adventures for little dreamers to heartwarming reads
-            for Mum, Dad, and even Grandma — there’s a little something for
-            everyone.
+            {t("banners.adoredDescription")}
           </Text>
 
           <Button
@@ -56,7 +57,7 @@ export default function AdoredSection() {
             px={8}
             fontWeight="semibold"
           >
-            Explore
+            {t("books.explore")}
           </Button>
         </VStack>
 

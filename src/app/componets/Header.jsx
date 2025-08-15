@@ -21,7 +21,6 @@ export default function Header() {
   const pathname = usePathname();
   const { user, signOut, loading } = useAuth();
   const { currentLanguage, changeLanguage, t } = useLanguage();
-console.log(currentLanguage,"language");
 
   const handleSignOut = async () => {
     try {
