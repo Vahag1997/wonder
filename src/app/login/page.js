@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Box,
   Flex,
@@ -7,9 +9,40 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
+import { useAuth } from '../../contexts/AuthContext';
 import AuthForm from "./AuthForm";
 
 export default function LoginPage() {
+  const { signIn, signUp } = useAuth();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = async ({ email, password }) => {
+    try {
+      setIsLoading(true);
+      await signIn(email, password);
+      router.push('/my-books');
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('Login failed: ' + error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignup = async ({ name, email, password }) => {
+    try {
+      setIsLoading(true);
+      await signUp(email, password, name);
+      router.push('/my-books');
+    } catch (error) {
+      console.error('Signup error:', error);
+      alert('Signup failed: ' + error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Flex
       minH="100dvh"
@@ -68,14 +101,9 @@ export default function LoginPage() {
 
             {/* Auth form (handles login/signup toggle internally) */}
             <AuthForm
-              onLogin={async ({ email, password }) => {
-                // TODO: call your login API
-                // await signIn(email, password)
-              }}
-              onSignup={async ({ name, email, password }) => {
-                // TODO: call your signup API
-                // await signUp(name, email, password)
-              }}
+              onLogin={handleLogin}
+              onSignup={handleSignup}
+              isLoading={isLoading}
             />
           </Box>
 

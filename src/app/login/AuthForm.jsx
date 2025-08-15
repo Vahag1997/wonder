@@ -16,7 +16,7 @@ import {
   useToken,
 } from '@chakra-ui/react';
 
-export default function AuthForm({ onLogin, onSignup }) {
+export default function AuthForm({ onLogin, onSignup, isLoading = false }) {
   const [mode, setMode] = useState('login'); // 'login' | 'signup'
   const [showPw, setShowPw] = useState(false);
   const [showPw2, setShowPw2] = useState(false);
@@ -79,6 +79,7 @@ export default function AuthForm({ onLogin, onSignup }) {
           bg={mode === 'login' ? 'purple.50' : 'transparent'}
           _hover={{ bg: mode === 'login' ? 'purple.100' : 'gray.50' }}
           rounded="lg"
+          disabled={isLoading}
         >
           Log in
         </Button>
@@ -88,6 +89,7 @@ export default function AuthForm({ onLogin, onSignup }) {
           bg={mode === 'signup' ? 'purple.50' : 'transparent'}
           _hover={{ bg: mode === 'signup' ? 'purple.100' : 'gray.50' }}
           rounded="lg"
+          disabled={isLoading}
         >
           Create account
         </Button>
@@ -110,6 +112,7 @@ export default function AuthForm({ onLogin, onSignup }) {
                   borderColor: 'purple.500',
                   boxShadow: `0 0 0 1px ${purple600}`,
                 }}
+                disabled={isLoading}
               />
             </Field.Root>
           )}
@@ -131,6 +134,7 @@ export default function AuthForm({ onLogin, onSignup }) {
                 borderColor: 'purple.500',
                 boxShadow: `0 0 0 1px ${purple600}`,
               }}
+              disabled={isLoading}
             />
             {errors.email && <Field.ErrorText>{errors.email}</Field.ErrorText>}
           </Field.Root>
@@ -145,6 +149,7 @@ export default function AuthForm({ onLogin, onSignup }) {
                   variant="ghost"
                   size="xs"
                   onClick={() => setShowPw((s) => !s)}
+                  disabled={isLoading}
                 >
                   {showPw ? 'Hide' : 'Show'}
                 </Button>
@@ -163,6 +168,7 @@ export default function AuthForm({ onLogin, onSignup }) {
                   borderColor: 'purple.500',
                   boxShadow: `0 0 0 1px ${purple600}`,
                 }}
+                disabled={isLoading}
               />
             </InputGroup>
             {errors.password && <Field.ErrorText>{errors.password}</Field.ErrorText>}
@@ -177,6 +183,7 @@ export default function AuthForm({ onLogin, onSignup }) {
                     variant="ghost"
                     size="xs"
                     onClick={() => setShowPw2((s) => !s)}
+                    disabled={isLoading}
                   >
                     {showPw2 ? 'Hide' : 'Show'}
                   </Button>
@@ -195,6 +202,7 @@ export default function AuthForm({ onLogin, onSignup }) {
                     borderColor: 'purple.500',
                     boxShadow: `0 0 0 1px ${purple600}`,
                   }}
+                  disabled={isLoading}
                 />
               </InputGroup>
               {errors.confirm && <Field.ErrorText>{errors.confirm}</Field.ErrorText>}
@@ -205,11 +213,13 @@ export default function AuthForm({ onLogin, onSignup }) {
         <Flex align="center" justify="space-between" flexDir="column" gap={4} pt={2}>
           <Button
             type="submit"
-            isDisabled={!canSubmit}
+            disabled={!canSubmit || isLoading}
             bg="#3e1779ff"
             _hover={{ bg: '#7a18d6ff' }}
             w="full"
             size="lg"
+            isLoading={isLoading}
+            loadingText={isSignup ? 'Creating account...' : 'Signing in...'}
           >
             <Text color="white">{isSignup ? 'Create account' : 'Log in'}</Text>
           </Button>
@@ -221,6 +231,7 @@ export default function AuthForm({ onLogin, onSignup }) {
               color="purple.600"
               whiteSpace="nowrap"
               _hover={{ textDecoration: 'underline' }}
+              disabled={isLoading}
             >
               Forgot your password?
             </Link>

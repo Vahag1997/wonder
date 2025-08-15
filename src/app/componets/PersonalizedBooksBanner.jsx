@@ -17,9 +17,7 @@ export default function PersonalizedBooksBanner() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       w="full"
-      borderRadius="2xl"
       overflow="hidden"
-      mt={10}
       px={{ base: 4, md: 10 }}
       py={{ base: 10, md: 16 }}
       bg="#C284E996"

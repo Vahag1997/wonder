@@ -8,14 +8,25 @@ import {
   Icon,
   Image,
   Button,
+  Menu,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaLock, FaUser } from 'react-icons/fa';
+import { FaLock, FaUser, FaSignOutAlt, FaBook, FaShoppingCart, FaUserCog } from 'react-icons/fa';
+import { useAuth } from '../../contexts/AuthContext';
 import { navItems } from '../constants';
 
 export default function Header() {
   const pathname = usePathname();
+  const { user, signOut, loading } = useAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   return (
     <Box
@@ -106,13 +117,93 @@ export default function Header() {
 
           <Icon as={FaLock} boxSize={4} color="whiteAlpha.900" />
 
-          {/* User Icon navigates to login */}
-          <Link href="/login">
-            <HStack spacing={1} cursor="pointer" px={2} py={1}>
-              <Icon as={FaUser} boxSize={4} color="whiteAlpha.900" />
-              <Text fontSize="sm" color="whiteAlpha.900">User</Text>
-            </HStack>
-          </Link>
+          {/* User Menu */}
+          {!loading && (
+            <>
+              {user ? (
+                <Menu.Root>
+                  <Menu.Trigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      color="white"
+                      _hover={{ bg: 'whiteAlpha.100' }}
+                      _focus={{ bg: 'whiteAlpha.100' }}
+                      _active={{ bg: 'whiteAlpha.100' }}
+                    >
+                      <HStack spacing={2}>
+                        <Icon as={FaUser} boxSize={4} color="white" />
+                        <Text fontSize="sm" color="white" fontWeight="medium">
+                          {user.user_metadata?.name || user.email?.split('@')[0]}
+                        </Text>
+                      </HStack>
+                    </Button>
+                  </Menu.Trigger>
+                  <Menu.Positioner>
+                    <Menu.Content
+                      bg="white"
+                      border="1px solid"
+                      borderColor="gray.200"
+                      borderRadius="lg"
+                      boxShadow="xl"
+                      py={2}
+                      minW="200px"
+                    >
+                      <Menu.Item 
+                        value="my-account" 
+                        asChild
+                        _hover={{ bg: 'purple.50' }}
+                        _focus={{ bg: 'purple.50' }}
+                      >
+                        <Link href="/account">
+                          <Icon as={FaUserCog} mr={3} color="purple.600" />
+                          <Text color="gray.700" fontWeight="medium">My Account</Text>
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item 
+                        value="my-books" 
+                        asChild
+                        _hover={{ bg: 'purple.50' }}
+                        _focus={{ bg: 'purple.50' }}
+                      >
+                        <Link href="/my-books">
+                          <Icon as={FaBook} mr={3} color="purple.600" />
+                          <Text color="gray.700" fontWeight="medium">My Books</Text>
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item 
+                        value="orders" 
+                        asChild
+                        _hover={{ bg: 'purple.50' }}
+                        _focus={{ bg: 'purple.50' }}
+                      >
+                        <Link href="/orders">
+                          <Icon as={FaShoppingCart} mr={3} color="purple.600" />
+                          <Text color="gray.700" fontWeight="medium">Orders</Text>
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item 
+                        value="signout" 
+                        onClick={handleSignOut}
+                        _hover={{ bg: 'red.50' }}
+                        _focus={{ bg: 'red.50' }}
+                      >
+                        <Icon as={FaSignOutAlt} mr={3} color="red.500" />
+                        <Text color="red.600" fontWeight="medium">Sign Out</Text>
+                      </Menu.Item>
+                    </Menu.Content>
+                  </Menu.Positioner>
+                </Menu.Root>
+              ) : (
+                <Link href="/login">
+                  <HStack spacing={1} cursor="pointer" px={2} py={1}>
+                    <Icon as={FaUser} boxSize={4} color="whiteAlpha.900" />
+                    <Text fontSize="sm" color="whiteAlpha.900">Sign In</Text>
+                  </HStack>
+                </Link>
+              )}
+            </>
+          )}
         </HStack>
       </Flex>
     </Box>

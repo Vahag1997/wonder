@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Provider } from "../components/ui/provider";
+import { AuthProvider } from "../contexts/AuthContext";
+import GlobalLoading from "../components/GlobalLoading";
 import Header from "./componets/Header";
 import Footer from "./componets/Footer";
 import "./globals.css";
@@ -24,11 +26,24 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          margin: 0,
+          padding: 0,
+        }}
       >
         <Provider>
-          <Header />
-          {children}
-          <Footer/>
+          <AuthProvider>
+            <GlobalLoading>
+              <Header />
+              <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                {children}
+              </main>
+              <Footer/>
+            </GlobalLoading>
+          </AuthProvider>
         </Provider>
       </body>
     </html>
