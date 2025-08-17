@@ -19,7 +19,8 @@ import {
   useDisclosure,
   Dialog,
   Portal,
-  Separator
+  Separator,
+  Container
 } from '@chakra-ui/react';
 import { 
   FaBook, 
@@ -33,13 +34,17 @@ import {
   FaHeart,
   FaShare,
   FaPrint,
-  FaTimes
+  FaTimes,
+  FaPlus
 } from 'react-icons/fa';
 import { getMyBooks } from '../../lib/api';
 import { useRouter } from 'next/navigation';
 import ProtectedRoute from '../../components/ProtectedRoute';
 import BottomBanner from '../componets/BottomBanner';
+import { useLanguage } from '../../contexts/LanguageContext';
+
 export default function MyBooksPage() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -84,6 +89,16 @@ export default function MyBooksPage() {
     }
   };
 
+  const getStatusText = (status) => {
+    switch (status) {
+      case 'completed': return t("myBooks.completed");
+      case 'in_progress': return t("myBooks.inProgress");
+      case 'pending': return t("myBooks.pending");
+      case 'failed': return t("myBooks.failed");
+      default: return status?.replace('_', ' ');
+    }
+  };
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -116,14 +131,16 @@ export default function MyBooksPage() {
   if (loading) {
     return (
       <ProtectedRoute>
-        <Box px={{ base: 4, md: 10 }} py={{ base: 6, md: 10 }}>
-          <Center py={20}>
-            <VStack spacing={4}>
+        <Container maxW="8xl" px={{ base: 4, md: 8 }} py={{ base: 8, md: 12 }}>
+          <Center py={{ base: 16, md: 24 }}>
+            <VStack spacing={6}>
               <Spinner size="xl" color="purple.600" thickness="4px" />
-              <Text fontSize="lg" color="gray.600">Loading your personalized books...</Text>
+              <Text fontSize="lg" color="gray.600" fontWeight="medium">
+                {t("myBooks.loading")}
+              </Text>
             </VStack>
           </Center>
-        </Box>
+        </Container>
       </ProtectedRoute>
     );
   }
@@ -131,95 +148,166 @@ export default function MyBooksPage() {
   if (error) {
     return (
       <ProtectedRoute>
-        <Box px={{ base: 4, md: 10 }} py={{ base: 6, md: 10 }}>
-          <Center py={20}>
-            <VStack spacing={4}>
+        <Container maxW="8xl" px={{ base: 4, md: 8 }} py={{ base: 8, md: 12 }}>
+          <Center py={{ base: 16, md: 24 }}>
+            <VStack spacing={6}>
               <Icon as={FaExclamationTriangle} boxSize={12} color="red.500" />
-              <Text fontSize="lg" color="red.600">Error loading books: {error}</Text>
-              <Button onClick={fetchMyBooks} colorScheme="purple">
-                Try Again
+              <VStack spacing={2}>
+                <Text fontSize="lg" color="red.600" fontWeight="semibold">
+                  {t("myBooks.error")}
+                </Text>
+                <Text fontSize="md" color="gray.600" textAlign="center">
+                  {error}
+                </Text>
+              </VStack>
+              <Button 
+                onClick={fetchMyBooks} 
+                colorScheme="purple" 
+                size="lg"
+                leftIcon={<Icon as={FaBook} />}
+              >
+                {t("myBooks.tryAgain")}
               </Button>
             </VStack>
           </Center>
-        </Box>
+        </Container>
       </ProtectedRoute>
     );
   }
 
   return (
     <ProtectedRoute>
-      <Box px={{ base: 4, md: 10 }} py={{ base: 6, md: 10 }}>
-        {/* Header */}
-        <VStack align="start" spacing={{ base: 4, md: 6 }} mb={{ base: 6, md: 8 }}>
-                   <Flex 
-             w="full" 
-             justify="start" 
-             align="start"
-             direction="column"
-             gap={4}
-           >
-                       <VStack align="start" spacing={2}>
-               <Heading fontSize={{ base: "2xl", md: "3xl" }} color="purple.600">
-                 My Personalized Books
-               </Heading>
-               <Text fontSize={{ base: "sm", md: "md" }} color="gray.600">
-                 {books.length} personalized book{books.length !== 1 ? 's' : ''} in your library
-               </Text>
-             </VStack>
+      <Container maxW="8xl" px={{ base: 4, md: 8 }} py={{ base: 8, md: 12 }}>
+        {/* Header Section */}
+        <VStack align="start" spacing={{ base: 4, md: 6 }} mb={{ base: 8, md: 12 }}>
+          <Flex 
+            w="full" 
+            justify="space-between" 
+            align={{ base: "start", md: "center" }}
+            direction={{ base: "column", md: "row" }}
+            gap={{ base: 4, md: 0 }}
+          >
+            <VStack align="start" spacing={3}>
+              <Heading 
+                fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }} 
+                color="purple.600"
+                fontWeight="bold"
+                lineHeight="shorter"
+              >
+                {t("myBooks.title")}
+              </Heading>
+              <Text 
+                fontSize="md" 
+                color="gray.600"
+                fontWeight="medium"
+              >
+                {books.length} {books.length === 1 ? t("myBooks.subtitle") : t("myBooks.subtitlePlural")}
+              </Text>
+            </VStack>
+            
+            <Button
+              colorScheme="purple"
+              size="lg"
+              leftIcon={<Icon as={FaPlus} boxSize={{ base: 5, md: 4 }} />}
+              onClick={() => router.push('/books')}
+              borderRadius="full"
+              px={8}
+              py={4}
+              fontSize="md"
+              fontWeight="semibold"
+              _hover={{ transform: 'translateY(-2px)', shadow: 'lg' }}
+              transition="all 0.3s"
+            >
+              {t("myBooks.createNewBook")}
+            </Button>
           </Flex>
         </VStack>
 
         {/* Books Grid */}
         {books.length === 0 ? (
-          <Center py={20}>
-            <VStack spacing={6}>
-              <Icon as={FaBook} boxSize={16} color="gray.400" />
-              <VStack spacing={2}>
-                <Text fontSize="xl" fontWeight="medium" color="gray.600">
-                  No personalized books yet
-                </Text>
-                <Text fontSize="md" color="gray.500" textAlign="center">
-                  Start creating your first personalized book to see it here
+          <Center py={{ base: 16, md: 24 }}>
+            <VStack spacing={8} textAlign="center">
+              <Box
+                w="100px"
+                h="100px"
+                borderRadius="full"
+                bg="purple.100"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Icon as={FaBook} boxSize={10} color="purple.600" />
+              </Box>
+              <VStack spacing={4}>
+                <Heading 
+                  fontSize={{ base: "xl", md: "2xl" }} 
+                  color="gray.700"
+                  fontWeight="bold"
+                >
+                  {t("myBooks.noBooks")}
+                </Heading>
+                <Text 
+                  fontSize="md" 
+                  color="gray.500" 
+                  maxW="500px"
+                  lineHeight="tall"
+                >
+                  {t("myBooks.noBooksDescription")}
                 </Text>
               </VStack>
-                           <Button 
-                 colorScheme="purple" 
-                 size="lg"
-                 onClick={() => router.push('/books')}
-               >
-                 Create Your First Book
-               </Button>
+              <Button 
+                colorScheme="purple" 
+                size="lg"
+                leftIcon={<Icon as={FaPlus} boxSize={{ base: 5, md: 4 }} />}
+                onClick={() => router.push('/books')}
+                borderRadius="full"
+                px={8}
+                py={4}
+                fontSize="md"
+                fontWeight="semibold"
+                _hover={{ transform: 'translateY(-2px)', shadow: 'lg' }}
+                transition="all 0.3s"
+              >
+                {t("myBooks.createFirstBook")}
+              </Button>
             </VStack>
           </Center>
         ) : (
           <SimpleGrid 
-            columns={{ base: 1, sm: 2, md: 3, lg: 4 }} 
+            columns={{ base: 1, sm: 2, lg: 3, xl: 4 }} 
             gap={{ base: 6, md: 8 }}
+            spacing={{ base: 6, md: 8 }}
           >
             {books.map((book) => (
-                           <Card.Root 
-                 key={book.id} 
-                 cursor="pointer" 
-                 transition="all 0.3s"
-                 _hover={{ 
-                   transform: 'translateY(-4px)', 
-                   shadow: 'xl',
-                   borderColor: 'purple.200'
-                 }}
-                 border="2px solid"
-                 borderColor="transparent"
-                 onClick={() => handleBookClick(book)}
-               >
-                 <Card.Body p={0}>
+              <Card.Root 
+                key={book.id} 
+                cursor="pointer" 
+                transition="all 0.3s ease"
+                _hover={{ 
+                  transform: 'translateY(-8px)', 
+                  shadow: '2xl',
+                  borderColor: 'purple.300'
+                }}
+                border="2px solid"
+                borderColor="transparent"
+                borderRadius="xl"
+                overflow="hidden"
+                bg="white"
+                onClick={() => handleBookClick(book)}
+                position="relative"
+                group
+              >
+                <Card.Body p={0}>
                   {/* Book Image */}
                   <Box position="relative">
                     <Image
                       src={book.product?.preview_url || '/placeholder-book.jpg'}
-                      alt={book.product?.title || 'Book cover'}
+                      alt={book.product?.title || t("myBooks.untitledBook")}
                       w="full"
-                      h="200px"
+                      h={{ base: "144px", md: "176px" }}
                       objectFit="cover"
-                      borderTopRadius="md"
+                      transition="transform 0.3s ease"
+                      _groupHover={{ transform: 'scale(1.05)' }}
                     />
                     
                     {/* Status Badge */}
@@ -233,20 +321,21 @@ export default function MyBooksPage() {
                       py={1}
                       fontSize="xs"
                       fontWeight="bold"
+                      boxShadow="md"
                     >
                       <HStack spacing={1}>
                         <Icon as={getStatusIcon(book.status)} boxSize={3} />
-                        <Text>{book.status?.replace('_', ' ')}</Text>
+                        <Text>{getStatusText(book.status)}</Text>
                       </HStack>
                     </Badge>
 
-                    {/* Action Buttons */}
+                    {/* Hover Action Buttons */}
                     <Box
                       position="absolute"
                       bottom={3}
                       right={3}
                       opacity={0}
-                      transition="opacity 0.3s"
+                      transition="opacity 0.3s ease"
                       _groupHover={{ opacity: 1 }}
                     >
                       <HStack spacing={2}>
@@ -258,8 +347,10 @@ export default function MyBooksPage() {
                             e.stopPropagation();
                             handleDownload(book);
                           }}
+                          _hover={{ transform: 'scale(1.1)' }}
+                          transition="transform 0.2s ease"
                         >
-                          <Icon as={FaDownload} boxSize={3} />
+                          <Icon as={FaDownload} boxSize={4} />
                         </Button>
                         <Button
                           size="sm"
@@ -269,202 +360,259 @@ export default function MyBooksPage() {
                             e.stopPropagation();
                             handleEdit(book);
                           }}
+                          _hover={{ transform: 'scale(1.1)' }}
+                          transition="transform 0.2s ease"
                         >
-                          <Icon as={FaEdit} boxSize={3} />
+                          <Icon as={FaEdit} boxSize={4} />
                         </Button>
                       </HStack>
                     </Box>
                   </Box>
 
                   {/* Book Info */}
-                  <Box p={4}>
+                  <Box p={{ base: 3, md: 5 }}>
                     <VStack align="start" spacing={3}>
                       <Text 
-                        fontSize={{ base: "md", md: "lg" }} 
+                        fontSize="lg" 
                         fontWeight="bold" 
                         color="gray.800"
                         noOfLines={2}
+                        lineHeight="short"
                       >
-                        {book.product?.title || 'Untitled Book'}
+                        {book.product?.title || t("myBooks.untitledBook")}
                       </Text>
                       
                       <Text 
                         fontSize="sm" 
                         color="gray.600"
                         noOfLines={2}
+                        lineHeight="tall"
                       >
-                        Personalized for your child
+                        {t("myBooks.personalizedForChild")}
                       </Text>
 
-                      <HStack justify="space-between" w="full">
-                        <Text fontSize="xs" color="gray.500">
-                          Created {formatDate(book.created_at)}
+                      <HStack justify="space-between" w="full" pt={1}>
+                        <Text 
+                          fontSize="xs" 
+                          color="gray.500"
+                          fontWeight="medium"
+                        >
+                          {t("myBooks.created")} {formatDate(book.created_at)}
                         </Text>
                         
                         <HStack spacing={2}>
                           <Button
-                            size="xs"
+                            size="sm"
                             colorScheme="purple"
                             variant="ghost"
+                            borderRadius="full"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDownload(book);
                             }}
+                            _hover={{ bg: 'purple.50' }}
                           >
-                            <Icon as={FaDownload} boxSize={3} />
+                            <Icon as={FaDownload} boxSize={4} />
                           </Button>
                           <Button
-                            size="xs"
+                            size="sm"
                             colorScheme="blue"
                             variant="ghost"
+                            borderRadius="full"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleEdit(book);
                             }}
+                            _hover={{ bg: 'blue.50' }}
                           >
-                            <Icon as={FaEdit} boxSize={3} />
+                            <Icon as={FaEdit} boxSize={4} />
                           </Button>
                         </HStack>
                       </HStack>
                     </VStack>
-                                   </Box>
-                 </Card.Body>
-               </Card.Root>
+                  </Box>
+                </Card.Body>
+              </Card.Root>
             ))}
           </SimpleGrid>
         )}
 
-                             {/* Book Detail Dialog */}
-          <Dialog.Root open={dialogOpen} onOpenChange={(e) => setDialogOpen(e.open)}>
-            <Portal>
-              <Dialog.Backdrop />
-              <Dialog.Positioner>
-                <Dialog.Content>
-                  <Dialog.Header>
-                    <Dialog.Title>Book Details</Dialog.Title>
-                    <Dialog.CloseTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <Icon as={FaTimes} />
-                      </Button>
-                    </Dialog.CloseTrigger>
-                  </Dialog.Header>
-                  <Dialog.Body>
-              {selectedBook && (
-                <VStack spacing={6} align="start">
-                  {/* Book Image and Basic Info */}
-                  <Flex 
-                    direction={{ base: 'column', md: 'row' }} 
-                    gap={6} 
-                    w="full"
-                  >
-                    <Image
-                      src={selectedBook.product?.preview_url || '/placeholder-book.jpg'}
-                      alt={selectedBook.product?.title || 'Book cover'}
-                      w={{ base: 'full', md: '200px' }}
-                      h="250px"
-                      objectFit="cover"
-                      borderRadius="md"
-                      flexShrink={0}
-                    />
-                    
-                    <VStack align="start" spacing={4} flex={1}>
-                      <VStack align="start" spacing={2}>
-                        <Heading size="md" color="purple.600">
-                          {selectedBook.product?.title || 'Untitled Book'}
-                        </Heading>
-                        <Badge
-                          colorScheme={getStatusColor(selectedBook.status)}
-                          borderRadius="full"
-                          px={3}
-                          py={1}
-                        >
-                          <HStack spacing={2}>
-                            <Icon as={getStatusIcon(selectedBook.status)} boxSize={4} />
-                            <Text>{selectedBook.status?.replace('_', ' ')}</Text>
-                          </HStack>
-                        </Badge>
-                      </VStack>
-
-                      <VStack align="start" spacing={2}>
-                        <Text fontSize="sm" color="gray.600">
-                          <strong>Created:</strong> {formatDate(selectedBook.created_at)}
-                        </Text>
-                        {selectedBook.updated_at && (
-                          <Text fontSize="sm" color="gray.600">
-                            <strong>Last updated:</strong> {formatDate(selectedBook.updated_at)}
-                          </Text>
-                        )}
-                        {selectedBook.product?.languages && (
-                          <Text fontSize="sm" color="gray.600">
-                            <strong>Languages:</strong> {selectedBook.product.languages.join(', ')}
-                          </Text>
-                        )}
-                      </VStack>
-                    </VStack>
-                  </Flex>
-
-                  <Separator />
-
-                  {/* Action Buttons */}
-                  <HStack spacing={4} w="full" justify="center">
-                    <Button
-                      leftIcon={<Icon as={FaDownload} />}
-                      colorScheme="purple"
+        {/* Book Detail Dialog */}
+        <Dialog.Root open={dialogOpen} onOpenChange={(e) => setDialogOpen(e.open)}>
+          <Portal>
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+              <Dialog.Content maxW={{ base: "95vw", md: "4xl" }} maxH="90vh" overflow="hidden">
+                <Dialog.Header borderBottom="1px solid" borderColor="gray.200" pb={4}>
+                  <Dialog.Title fontSize="xl" fontWeight="bold" color="purple.600">
+                    {t("myBooks.bookDetails")}
+                  </Dialog.Title>
+                  <Dialog.CloseTrigger asChild>
+                    <Button 
+                      variant="ghost" 
                       size="lg"
-                      onClick={() => handleDownload(selectedBook)}
-                      isDisabled={!selectedBook.file_url}
+                      borderRadius="full"
+                      _hover={{ bg: 'gray.100' }}
                     >
-                      Download PDF
+                      <Icon as={FaTimes} boxSize={5} />
                     </Button>
-                    <Button
-                      leftIcon={<Icon as={FaPrint} />}
-                      colorScheme="blue"
-                      size="lg"
-                      variant="outline"
-                    >
-                      Print Book
-                    </Button>
-                    <Button
-                      leftIcon={<Icon as={FaShare} />}
-                      colorScheme="green"
-                      size="lg"
-                      variant="outline"
-                    >
-                      Share
-                    </Button>
-                  </HStack>
-
-                  {/* Personalization Data */}
-                  {selectedBook.data && (
-                    <>
-                      <Separator />
-                      <VStack align="start" spacing={3} w="full">
-                        <Heading size="sm" color="gray.700">
-                          Personalization Details
-                        </Heading>
-                        <Box 
-                          p={4} 
-                          bg="gray.50" 
-                          borderRadius="md" 
+                  </Dialog.CloseTrigger>
+                </Dialog.Header>
+                <Dialog.Body p={0} maxH="calc(90vh - 80px)" overflowY="auto">
+                  {selectedBook && (
+                    <Box p={{ base: 4, md: 6 }}>
+                      <VStack spacing={6} align="start">
+                        {/* Book Image and Basic Info */}
+                        <Flex 
+                          direction={{ base: 'column', md: 'row' }} 
+                          gap={6} 
                           w="full"
-                          maxH="200px"
-                          overflowY="auto"
                         >
-                          <Text fontSize="sm" fontFamily="mono" color="gray.600">
-                            {JSON.stringify(selectedBook.data, null, 2)}
+                          <Image
+                            src={selectedBook.product?.preview_url || '/placeholder-book.jpg'}
+                            alt={selectedBook.product?.title || t("myBooks.untitledBook")}
+                            w={{ base: 'full', md: '250px' }}
+                            h={{ base: '200px', md: '300px' }}
+                            objectFit="cover"
+                            borderRadius="xl"
+                            flexShrink={0}
+                            shadow="lg"
+                          />
+                          
+                          <VStack align="start" spacing={4} flex={1}>
+                            <VStack align="start" spacing={3}>
+                              <Heading size="lg" color="purple.600" fontWeight="bold">
+                                {selectedBook.product?.title || t("myBooks.untitledBook")}
+                              </Heading>
+                              <Badge
+                                colorScheme={getStatusColor(selectedBook.status)}
+                                borderRadius="full"
+                                px={3}
+                                py={1}
+                                fontSize="sm"
+                                fontWeight="bold"
+                              >
+                                <HStack spacing={2}>
+                                  <Icon as={getStatusIcon(selectedBook.status)} boxSize={4} />
+                                  <Text>{getStatusText(selectedBook.status)}</Text>
+                                </HStack>
+                              </Badge>
+                            </VStack>
+
+                            <VStack align="start" spacing={3}>
+                              <Text fontSize="sm" color="gray.600" fontWeight="medium">
+                                <strong>{t("myBooks.created")}</strong> {formatDate(selectedBook.created_at)}
+                              </Text>
+                              {selectedBook.updated_at && (
+                                <Text fontSize="sm" color="gray.600" fontWeight="medium">
+                                  <strong>{t("myBooks.lastUpdated")}</strong> {formatDate(selectedBook.updated_at)}
+                                </Text>
+                              )}
+                              {selectedBook.product?.languages && (
+                                <Text fontSize="sm" color="gray.600" fontWeight="medium">
+                                  <strong>{t("myBooks.languages")}</strong> {selectedBook.product.languages.join(', ')}
+                                </Text>
+                              )}
+                            </VStack>
+                          </VStack>
+                        </Flex>
+
+                        <Separator />
+
+                        {/* Action Buttons */}
+                        <VStack spacing={4} w="full">
+                          <Text fontSize="md" fontWeight="bold" color="gray.700" alignSelf="start">
+                            {t("myBooks.actions")}
                           </Text>
-                        </Box>
+                          <HStack 
+                            spacing={4} 
+                            w="full" 
+                            justify={{ base: "center", md: "start" }}
+                            flexWrap="wrap"
+                          >
+                            <Button
+                              leftIcon={<Icon as={FaDownload} />}
+                              colorScheme="purple"
+                              size="lg"
+                              onClick={() => handleDownload(selectedBook)}
+                              isDisabled={!selectedBook.file_url}
+                              borderRadius="full"
+                              px={6}
+                              py={3}
+                              fontSize="md"
+                              fontWeight="semibold"
+                              _hover={{ transform: 'translateY(-2px)', shadow: 'lg' }}
+                              transition="all 0.3s"
+                            >
+                              {t("myBooks.downloadPdf")}
+                            </Button>
+                            <Button
+                              leftIcon={<Icon as={FaPrint} />}
+                              colorScheme="blue"
+                              size="lg"
+                              variant="outline"
+                              borderRadius="full"
+                              px={6}
+                              py={3}
+                              fontSize="md"
+                              fontWeight="semibold"
+                              _hover={{ transform: 'translateY(-2px)', shadow: 'lg' }}
+                              transition="all 0.3s"
+                            >
+                              {t("myBooks.printBook")}
+                            </Button>
+                            <Button
+                              leftIcon={<Icon as={FaShare} />}
+                              colorScheme="green"
+                              size="lg"
+                              variant="outline"
+                              borderRadius="full"
+                              px={6}
+                              py={3}
+                              fontSize="md"
+                              fontWeight="semibold"
+                              _hover={{ transform: 'translateY(-2px)', shadow: 'lg' }}
+                              transition="all 0.3s"
+                            >
+                              {t("myBooks.share")}
+                            </Button>
+                          </HStack>
+                        </VStack>
+
+                        {/* Personalization Data */}
+                        {selectedBook.data && (
+                          <>
+                            <Separator />
+                            <VStack align="start" spacing={4} w="full">
+                              <Heading size="sm" color="gray.700" fontWeight="bold">
+                                {t("myBooks.personalizationDetails")}
+                              </Heading>
+                              <Box 
+                                p={6} 
+                                bg="gray.50" 
+                                borderRadius="xl" 
+                                w="full"
+                                maxH="300px"
+                                overflowY="auto"
+                                border="1px solid"
+                                borderColor="gray.200"
+                              >
+                                <Text fontSize="sm" fontFamily="mono" color="gray.600" lineHeight="tall">
+                                  {JSON.stringify(selectedBook.data, null, 2)}
+                                </Text>
+                              </Box>
+                            </VStack>
+                          </>
+                        )}
                       </VStack>
-                    </>
+                    </Box>
                   )}
-                                                           </VStack>
-                )}
-                  </Dialog.Body>
-                </Dialog.Content>
-              </Dialog.Positioner>
-            </Portal>
-          </Dialog.Root>
-      </Box>
+                </Dialog.Body>
+              </Dialog.Content>
+            </Dialog.Positioner>
+          </Portal>
+        </Dialog.Root>
+      </Container>
       <BottomBanner/>
     </ProtectedRoute>
   );

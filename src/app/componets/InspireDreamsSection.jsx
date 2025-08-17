@@ -37,18 +37,19 @@ export default function InspireDreamsSection() {
           display="flex"
           flexDirection="column"
           justifyContent="center"
-          pt={{ base: 16, md: 16 }}
-          px={{ base: 8, md: 16, xl: 32 }}
-          gap={8}
+          pt={{ base: 8, md: 12 }}
+          pb={{ base: 6, md: 12 }}
+          px={{ base: 4, md: 12, xl: 24 }}
+          gap={{ base: 4, md: 6 }}
           textAlign={{ base: 'center', md: 'left' }}
           alignItems={{ base: 'center', md: 'start' }}
         >
           <VStack
             align={{ base: 'center', md: 'start' }}
-            spacing={6}
+            spacing={{ base: 3, md: 4 }}
           >
             <Text
-              fontSize={{ base: 'xs', md: 'sm' }}
+              fontSize={{ base: 'sm', md: 'sm' }}
               fontWeight="extrabold"
               fontFamily="sans"
               letterSpacing="3px"
@@ -61,8 +62,8 @@ export default function InspireDreamsSection() {
             
             <Heading
               as="h1"
-              fontSize={{ base: '28px', md: '34px' }}
-              lineHeight={{ base: '10', md: '44px' }}
+              fontSize={{ base: '20px', md: '28px' }}
+              lineHeight={{ base: '26px', md: '36px' }}
               fontFamily="marcellus, serif"
               color="gray.800"
               textAlign={{ base: 'center', md: 'left' }}
@@ -77,9 +78,9 @@ export default function InspireDreamsSection() {
               _hover={{ bg: 'rgba(230, 249, 242, 0.8)' }}
               color="#61C8A4"
               fontWeight="bold"
-              py="14px"
-              px="26px"
-              fontSize="sm"
+              py={{ base: "10px", md: "12px" }}
+              px={{ base: "16px", md: "20px" }}
+              fontSize={{ base: "sm", md: "sm" }}
               borderRadius="md"
               transition="all 0.2s"
             >
@@ -91,14 +92,14 @@ export default function InspireDreamsSection() {
         {/* Right Images Section */}
         <Box
           w={{ base: 'full', md: '3/5', lg: 'full' }}
-          p={{ base: 7, md: 14, xl: 14 }}
+          p={{ base: 3, md: 10, xl: 10 }}
         >
           {/* Top Row - Firefighter and Police Officer */}
           <Flex
             w="full"
             justify="space-between"
-            px={{ base: 0, xl: 10 }}
-            mb={4}
+            px={{ base: 1, xl: 8 }}
+            mb={{ base: 1, md: 3 }}
           >
             {/* Firefighter */}
             <Box position="relative">
@@ -106,16 +107,16 @@ export default function InspireDreamsSection() {
                 src="https://resources.wonderwraps.com/bc7821b1-0762-47ee-b391-77fb76a7811c/img/home/children/firefighter.png"
                 alt="Firefighter"
                 borderRadius="full"
-                w={{ base: '97.56px', md: '122px' }}
-                h={{ base: '97.56px', md: '122px' }}
+                w={{ base: '65px', md: '100px' }}
+                h={{ base: '65px', md: '100px' }}
                 objectFit="cover"
                 flexShrink={0}
               />
               <Text
                 fontFamily="mynerve, cursive"
-                fontSize={{ base: 'lg', md: '28px' }}
+                fontSize={{ base: 'sm', md: '20px' }}
                 textAlign="center"
-                mt={2}
+                mt={{ base: 1, md: 1 }}
                 color="gray.800"
               >
                 Firefighter
@@ -124,10 +125,10 @@ export default function InspireDreamsSection() {
                 src="https://resources.wonderwraps.com/bc7821b1-0762-47ee-b391-77fb76a7811c/img/home/arrow4.svg"
                 alt="Arrow"
                 position="absolute"
-                left={{ base: '24', md: '32' }}
-                bottom={{ base: '-5', md: '-14' }}
-                w={{ base: '14', sm: '24' }}
-                h={{ base: '14', sm: '24' }}
+                left={{ base: '16', md: '26' }}
+                bottom={{ base: '-2', md: '-10' }}
+                w={{ base: '10', sm: '18' }}
+                h={{ base: '10', sm: '18' }}
               />
             </Box>
 
@@ -137,26 +138,26 @@ export default function InspireDreamsSection() {
                 src="https://resources.wonderwraps.com/bc7821b1-0762-47ee-b391-77fb76a7811c/img/home/arrow5.svg"
                 alt="Arrow"
                 position="absolute"
-                top="20"
-                right={{ base: '-12', sm: '-20' }}
-                w={{ base: '12', sm: '16' }}
-                h={{ base: '12', sm: '16' }}
+                top="16"
+                right={{ base: '-6', sm: '-15' }}
+                w={{ base: '8', sm: '12' }}
+                h={{ base: '8', sm: '12' }}
                 zIndex={1}
               />
               <Image
                 src="https://resources.wonderwraps.com/bc7821b1-0762-47ee-b391-77fb76a7811c/img/home/children/police.png"
                 alt="Police Officer"
                 borderRadius="full"
-                w={{ base: '97.56px', md: '146px' }}
-                h={{ base: '97.56px', md: '146px' }}
+                w={{ base: '65px', md: '120px' }}
+                h={{ base: '65px', md: '120px' }}
                 objectFit="cover"
                 flexShrink={0}
               />
               <Text
                 fontFamily="mynerve, cursive"
-                fontSize={{ base: 'lg', md: '28px' }}
+                fontSize={{ base: 'sm', md: '20px' }}
                 textAlign="center"
-                mt={2}
+                mt={{ base: 1, md: 1 }}
                 color="gray.800"
               >
                 Police Officer
@@ -168,18 +169,18 @@ export default function InspireDreamsSection() {
           <Flex
             w="full"
             justify="center"
-            mb={4}
+            mb={{ base: 1, md: 3 }}
           >
             <Image
               src="https://resources.wonderwraps.com/bc7821b1-0762-47ee-b391-77fb76a7811c/img/home/children/child.png"
               alt="Child"
               borderRadius="full"
-              w="120px"
-              h="120px"
+              w={{ base: '80px', md: '100px' }}
+              h={{ base: '80px', md: '100px' }}
               objectFit="cover"
               flexShrink={0}
               position="relative"
-              top={{ base: 4, md: 0 }}
+              top={{ base: 1, md: 0 }}
             />
           </Flex>
 
@@ -187,7 +188,7 @@ export default function InspireDreamsSection() {
           <Flex
             w="full"
             justify="space-between"
-            px={{ base: 0, xl: 16 }}
+            px={{ base: 1, xl: 12 }}
           >
             {/* Pilot */}
             <Box position="relative">
@@ -195,26 +196,26 @@ export default function InspireDreamsSection() {
                 src="https://resources.wonderwraps.com/bc7821b1-0762-47ee-b391-77fb76a7811c/img/home/arrow6.svg"
                 alt="Arrow"
                 position="absolute"
-                left={{ base: '20', sm: '28' }}
-                bottom={{ base: '-6', sm: '-12' }}
-                w={{ base: '12', sm: '16' }}
-                h={{ base: '12', sm: '16' }}
+                left={{ base: '12', sm: '22' }}
+                bottom={{ base: '-3', sm: '-8' }}
+                w={{ base: '8', sm: '12' }}
+                h={{ base: '8', sm: '12' }}
                 zIndex={1}
               />
               <Image
                 src="https://resources.wonderwraps.com/bc7821b1-0762-47ee-b391-77fb76a7811c/img/home/children/pilot.png"
                 alt="Pilot"
                 borderRadius="full"
-                w={{ base: '97.56px', md: '134px' }}
-                h={{ base: '97.56px', md: '134px' }}
+                w={{ base: '65px', md: '110px' }}
+                h={{ base: '65px', md: '110px' }}
                 objectFit="cover"
                 flexShrink={0}
               />
               <Text
                 fontFamily="mynerve, cursive"
-                fontSize={{ base: 'lg', md: '28px' }}
+                fontSize={{ base: 'sm', md: '20px' }}
                 textAlign="center"
-                mt={2}
+                mt={{ base: 1, md: 1 }}
                 color="gray.800"
               >
                 Pilot
@@ -227,26 +228,26 @@ export default function InspireDreamsSection() {
                 src="https://resources.wonderwraps.com/bc7821b1-0762-47ee-b391-77fb76a7811c/img/home/arrow7.svg"
                 alt="Arrow"
                 position="absolute"
-                bottom={{ base: '-6', sm: '-8' }}
-                right={{ base: '-6', sm: '-8' }}
-                w={{ base: '9', sm: '12' }}
-                h={{ base: '9', sm: '12' }}
+                bottom={{ base: '-3', sm: '-6' }}
+                right={{ base: '-3', sm: '-6' }}
+                w={{ base: '6', sm: '10' }}
+                h={{ base: '6', sm: '10' }}
                 zIndex={1}
               />
               <Image
                 src="https://resources.wonderwraps.com/bc7821b1-0762-47ee-b391-77fb76a7811c/img/home/children/doctor.png"
                 alt="Doctor"
                 borderRadius="full"
-                w={{ base: '97.56px', md: '142px' }}
-                h={{ base: '97.56px', md: '142px' }}
+                w={{ base: '65px', md: '115px' }}
+                h={{ base: '65px', md: '115px' }}
                 objectFit="cover"
                 flexShrink={0}
               />
               <Text
                 fontFamily="mynerve, cursive"
-                fontSize={{ base: 'lg', md: '28px' }}
+                fontSize={{ base: 'sm', md: '20px' }}
                 textAlign="center"
-                mt={2}
+                mt={{ base: 1, md: 1 }}
                 color="gray.800"
               >
                 Doctor

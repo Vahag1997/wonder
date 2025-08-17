@@ -82,7 +82,7 @@ export default function FaqSection() {
           {t("faq.title")}
         </Text>
       </VStack>
-      <VStack spacing="6" align="stretch" width="85%" mt="40px">
+      <VStack spacing="6" align="stretch" width={{ base: "95%", md: "85%" }} mt="40px">
         {faqs.map((faq, index) => (
           <Box
             key={index}
@@ -98,9 +98,9 @@ export default function FaqSection() {
                     color="black"
                     flex="1"
                     textAlign="left"
-                    lineHeight={{ base: "22px", md: "43px" }}
-                    fontSize={{ base: "16px", md: "22px" }}
-                    fontWeight={400}
+                    lineHeight={{ base: "28px", md: "43px" }}
+                    fontSize={{ base: "18px", md: "22px" }}
+                    fontWeight={500}
                   >
                     {faq.question}
                   </Text>
@@ -108,7 +108,7 @@ export default function FaqSection() {
                     style={{
                       width: "unset",
                       height: "unset",
-                      fontSize: "1.5rem",
+                      fontSize: "1.8rem",
                       color: "black",
                     }}
                   />
@@ -118,8 +118,9 @@ export default function FaqSection() {
                 <Box
                   padding="4"
                   color="gray.600"
-                  fontSize={"md"}
+                  fontSize={{ base: "16px", md: "md" }}
                   textAlign="left"
+                  lineHeight={{ base: "24px", md: "normal" }}
                 >
                   {faq.answer}
                 </Box>

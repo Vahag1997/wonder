@@ -17,6 +17,7 @@ import { getMyOrders } from '../../lib/api';
 import OrderCard from './OrderCard';
 import ProtectedRoute from '../../components/ProtectedRoute';
 import BottomBanner from '../componets/BottomBanner';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 // Mocked order data
 const mockOrders = [
@@ -98,6 +99,7 @@ const mockOrders = [
 ];
 
 export default function OrdersPage() {
+  const { t } = useLanguage();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -132,7 +134,7 @@ export default function OrdersPage() {
           <Center py={20}>
             <VStack spacing={4}>
               <Spinner size="xl" color="purple.600" thickness="4px" />
-              <Text fontSize="lg" color="gray.600">Loading your orders...</Text>
+              <Text fontSize="lg" color="gray.600">{t("orders.loading")}</Text>
             </VStack>
           </Center>
         </Container>
@@ -147,9 +149,9 @@ export default function OrdersPage() {
           <Center py={20}>
             <VStack spacing={4}>
               <Icon as={FaExclamationTriangle} boxSize={12} color="red.500" />
-              <Text fontSize="lg" color="red.600">Error loading orders: {error}</Text>
+              <Text fontSize="lg" color="red.600">{t("orders.error")} {error}</Text>
               <Button onClick={fetchOrders} colorScheme="purple">
-                Try Again
+                {t("orders.tryAgain")}
               </Button>
             </VStack>
           </Center>
@@ -163,17 +165,17 @@ export default function OrdersPage() {
       <ProtectedRoute>
         <Container maxW="4xl" py={{ base: 10, md: 12 }}>
           <Heading as="h1" fontSize="4xl" fontWeight="bold" color="gray.800" mb={8}>
-            My Orders
+            {t("orders.myOrders")}
           </Heading>
 
           {orders.length === 0 ? (
             <Center py={20}>
               <VStack spacing={6}>
                 <Text fontSize="xl" fontWeight="medium" color="gray.600">
-                  No orders yet
+                  {t("orders.noOrders")}
                 </Text>
                 <Text fontSize="md" color="gray.500" textAlign="center">
-                  Your order history will appear here once you make your first purchase
+                  {t("orders.noOrdersDescription")}
                 </Text>
               </VStack>
             </Center>

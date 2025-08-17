@@ -27,7 +27,7 @@ export default function AdoredSection() {
         justify="space-between"
         maxW="7xl"
         mx="auto"
-        minH={{ base: "auto", md: "600px" }} // force taller section
+        minH={{ base: "auto", md: "400px" }} // force taller section
       >
         {/* Text Section */}
         <VStack

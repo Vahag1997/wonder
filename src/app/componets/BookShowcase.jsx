@@ -20,10 +20,16 @@ export default function BookShowcase({
   const { t } = useLanguage();
 
   return (
-    <Box px={{ base: 4, md: 16 }} py={12}  mx="auto">
-      <VStack spacing={3} mb={10} textAlign="center">
+    <Box 
+      px={{ base: 4, md: 8, lg: 16 }} 
+      py={{ base: 8, md: 12 }} 
+      mx="auto"
+      w="full"
+      maxW="8xl"
+    >
+      <VStack spacing={4} mb={{ base: 8, md: 12 }} textAlign="center">
         <Text
-          fontSize="sm"
+          fontSize={{ base: "sm", md: "md" }}
           fontWeight="medium"
           letterSpacing="wider"
           color="purple.600"
@@ -32,24 +38,30 @@ export default function BookShowcase({
           {subtitle}
         </Text>
         <Heading
-          fontSize={{ base: "2xl", md: "4xl" }}
+          fontSize={{ base: "2xl", sm: "3xl", md: "4xl", lg: "5xl" }}
           fontWeight="bold"
           lineHeight="shorter"
           color="purple.600"
+          px={{ base: 2, md: 0 }}
         >
           {title}
         </Heading>
         <Separator
-          w="100px"
+          w="120px"
           borderColor="purple.400"
-          borderWidth="2px"
+          borderWidth="3px"
           opacity={1}
         />
       </VStack>
 
       <SimpleGrid
         columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
-        gap={{ base: 6, md: 8 }}
+        gap={{ base: 4, sm: 6, md: 8 }}
+        spacing={{ base: 4, sm: 6, md: 8 }}
+        w="full"
+        justifyItems={{ base: "center", sm: "stretch" }}
+        maxW={{ base: "320px", sm: "none" }}
+        mx={{ base: "auto", sm: "0" }}
       >
         {data.map((book, idx) => (
           <BookCard

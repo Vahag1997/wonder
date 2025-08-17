@@ -5,8 +5,11 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { LuChevronRight } from 'react-icons/lu';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function OrderCard({ order }) {
+  const { t } = useLanguage();
+
   // Format date for display
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -29,7 +32,13 @@ export default function OrderCard({ order }) {
 
   // Get status display text
   const getStatusText = (status) => {
-    return status?.replace('_', ' ') || 'Unknown';
+    switch (status) {
+      case 'completed': return t("orders.delivered");
+      case 'in_progress': return t("orders.processing");
+      case 'pending': return t("orders.pending");
+      case 'failed': return t("orders.failed");
+      default: return status?.replace('_', ' ') || 'Unknown';
+    }
   };
 
   return (
@@ -63,7 +72,7 @@ export default function OrderCard({ order }) {
             gap="1"
             _hover={{ color: 'purple.700' }}
           >
-            View Details
+            {t("orders.viewDetails")}
             <Icon as={LuChevronRight} boxSize="18px" />
           </Link>
         </HStack>
@@ -88,7 +97,7 @@ export default function OrderCard({ order }) {
             <Grid templateColumns={{ base: '1fr 1fr', sm: 'repeat(4, 1fr)' }} gap={6} mb={4}>
               <Stack spacing={1}>
                 <Text fontSize="xs" color="gray.500" fontWeight="medium" textTransform="uppercase">
-                  Date of order
+                  {t("orders.dateOfOrder")}
                 </Text>
                 <Text fontWeight="semibold" color="gray.800">
                   {formatDate(order.created_at)}
@@ -96,7 +105,7 @@ export default function OrderCard({ order }) {
               </Stack>
               <Stack spacing={1}>
                 <Text fontSize="xs" color="gray.500" fontWeight="medium" textTransform="uppercase">
-                  Total
+                  {t("orders.total")}
                 </Text>
                 <Text fontWeight="semibold" color="gray.800">
                   ${order.total?.toFixed(2)}
@@ -104,7 +113,7 @@ export default function OrderCard({ order }) {
               </Stack>
               <Stack spacing={1}>
                 <Text fontSize="xs" color="gray.500" fontWeight="medium" textTransform="uppercase">
-                  Address
+                  {t("orders.address")}
                 </Text>
                 <Text fontWeight="semibold" color="gray.800" noOfLines={1}>
                   {order.shipping_address?.city}, {order.shipping_address?.state}
@@ -112,7 +121,7 @@ export default function OrderCard({ order }) {
               </Stack>
               <Stack spacing={1}>
                 <Text fontSize="xs" color="gray.500" fontWeight="medium" textTransform="uppercase">
-                  Status
+                  {t("orders.status")}
                 </Text>
                 <Text fontWeight="semibold" color="gray.800">
                   {getStatusText(order.status)}

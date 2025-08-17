@@ -10,10 +10,12 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useAuth } from '../../contexts/AuthContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 import AuthForm from "./AuthForm";
 
 export default function LoginPage() {
   const { signIn, signUp } = useAuth();
+  const { t } = useLanguage();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,7 +26,7 @@ export default function LoginPage() {
       router.push('/my-books');
     } catch (error) {
       console.error('Login error:', error);
-      alert('Login failed: ' + error.message);
+      alert(t("auth.loginFailed") + ' ' + error.message);
     } finally {
       setIsLoading(false);
     }
@@ -37,7 +39,7 @@ export default function LoginPage() {
       router.push('/my-books');
     } catch (error) {
       console.error('Signup error:', error);
-      alert('Signup failed: ' + error.message);
+      alert(t("auth.signupFailed") + ' ' + error.message);
     } finally {
       setIsLoading(false);
     }
@@ -93,10 +95,10 @@ export default function LoginPage() {
             </Box>
 
             <Heading as="h1" size="xl" color="gray.800" mb={4}>
-              Login to Account
+              {t("auth.loginToAccount")}
             </Heading>
             <Text color="gray.600" mb={10}>
-              Enter your credentials to access your account.
+              {t("auth.enterCredentials")}
             </Text>
 
             {/* Auth form (handles login/signup toggle internally) */}
@@ -119,7 +121,7 @@ export default function LoginPage() {
           >
             <Box w="full" maxW={{ base: "22rem", sm: "28rem", md: "28rem" }}>
               <Heading size="xl" color="gray.800" mb={{ base: 6, md: 8 }}>
-                Adored by millions worldwide
+                {t("banners.adoredByMillions")}
               </Heading>
               <Image
                 alt="Abstract 3D 'W' logo with a futuristic image inside"
