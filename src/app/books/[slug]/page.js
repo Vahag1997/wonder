@@ -33,30 +33,34 @@ const TEXT_SECONDARY = "#6B7280";
 export default function SingleBookPage() {
   const { slug } = useParams();
   const book = getBookBySlug(slug);
-  if (!book) return notFound();
-
-  const thumbs = book.gallery?.thumbs ?? [];
-  const defaultMain = book.gallery?.main || book.cover;
+  
+  // Move all hooks before any conditional returns
   const [activeIdx, setActiveIdx] = useState(0);
-  const [language, setLanguage] = useState(book.languages?.[0] || "en");
-const router = useRouter()
+  const [language, setLanguage] = useState(book?.languages?.[0] || "en");
+  const router = useRouter();
   const languageOptions = useMemo(
     () =>
       createListCollection({
-        items: (book.languages || []).map((code) => ({
+        items: (book?.languages || []).map((code) => ({
           value: code,
           label:
             code === "en"
               ? "English"
               : code === "ru"
-              ? "Russian"
-              : code === "fr"
-              ? "French"
-              : code,
+                ? "Russian"
+                : code === "fr"
+                  ? "French"
+                  : code,
         })),
       }),
-    [book.languages]
+    [book?.languages]
   );
+
+  // Now we can safely return early
+  if (!book) return notFound();
+
+  const thumbs = book.gallery?.thumbs ?? [];
+  const defaultMain = book.gallery?.main || book.cover;
 
   const mainSrc = thumbs[activeIdx]?.src || defaultMain;
 
