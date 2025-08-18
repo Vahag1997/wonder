@@ -21,7 +21,7 @@ export default function Footer() {
 
   return (
     <Box
-      bg="linear-gradient(to bottom, #1e0a3c, #2b1055)"
+      bg="#00BFFF"
       px={{ base: 4, md: 12 }}
       py={12}
       position="relative"
@@ -48,7 +48,7 @@ export default function Footer() {
         {/* Logo & About */}
         <Box maxW="250px">
           <HStack mb={3}>
-            <Image src="/dog.svg" alt="WonderWraps" h={8} />
+            <Image src="/fairytale.png" alt="WonderWraps" h={8} />
             <Text fontWeight="bold" fontSize="lg" color="white">
               wonder
               <br />
@@ -61,13 +61,13 @@ export default function Footer() {
 
           <HStack gap={4} mt={4}>
             <Link href="#">
-              <Icon as={FaFacebookF} boxSize={5} color="whiteAlpha.800" _hover={{ color: '#a855f7' }} />
+              <Icon as={FaFacebookF} boxSize={5} color="whiteAlpha.800" _hover={{ color: '#00BFFF' }} />
             </Link>
             <Link href="#">
-              <Icon as={FaInstagram} boxSize={5} color="whiteAlpha.800" _hover={{ color: '#a855f7' }} />
+              <Icon as={FaInstagram} boxSize={5} color="whiteAlpha.800" _hover={{ color: '#00BFFF' }} />
             </Link>
             <Link href="#">
-              <Icon as={FaTiktok} boxSize={5} color="whiteAlpha.800" _hover={{ color: '#a855f7' }} />
+              <Icon as={FaTiktok} boxSize={5} color="whiteAlpha.800" _hover={{ color: '#00BFFF' }} />
             </Link>
           </HStack>
         </Box>
@@ -110,12 +110,12 @@ export default function Footer() {
               borderColor="whiteAlpha.300"
               color="white"
               _placeholder={{ color: 'whiteAlpha.600' }}
-              _focus={{ borderColor: '#a855f7' }}
+              _focus={{ borderColor: '#00BFFF' }}
             />
             <Button
-              bg="linear-gradient(to right, #a855f7, #9333ea)"
+              bg="linear-gradient(to right, #00BFFF, #0099CC)"
               color="white"
-              _hover={{ bg: '#9333ea' }}
+              _hover={{ bg: '#0099CC' }}
               size="sm"
             >
               {t("footer.subscribe")}
@@ -133,7 +133,7 @@ function FooterLink({ label }) {
       href="#"
       fontSize="sm"
       color="whiteAlpha.700"
-      _hover={{ color: '#a855f7' }}
+      _hover={{ color: '#00BFFF' }}
     >
       {label}
     </Link>

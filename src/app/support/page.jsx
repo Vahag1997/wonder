@@ -202,7 +202,7 @@ export default function SupportPage() {
                 </Heading>
                 <Image
                   alt="Support Graphic"
-                  src="/dog.svg"
+                  src="/fairytale.png"
                   w="100%"
                   h="auto"
                   rounded="lg"

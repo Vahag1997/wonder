@@ -22,8 +22,8 @@ export default function PersonalizedBooksBanner() {
       overflow="hidden"
       px={{ base: 4, md: 10 }}
       py={{ base: 10, md: 16 }}
-      bg="#C284E996"
-      backgroundImage="url('https://resources.wonderwraps.com/81383ef1-2e98-4378-abb6-9af46dfb0190/img/home/pink-gradient.svg')"
+             bg="#1e3c92"
+       backgroundImage="url('https://resources.wonderwraps.com/81383ef1-2e98-4378-abb6-9af46dfb0190/img/home/blue-gradient.svg')"
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
       position="relative"
@@ -82,38 +82,41 @@ export default function PersonalizedBooksBanner() {
 
         {/* ✨ Right Side - Text Content */}
         <Box flex="1" textAlign={{ base: 'center', md: 'left' }}>
-          <Text
-            fontSize="sm"
-            textTransform="uppercase"
-            letterSpacing="wider"
-            color="whiteAlpha.800"
-            fontWeight="semibold"
-            mb={3}
-          >
-            {t("banners.bringStorybookToLife")}
-          </Text>
+                     <Text
+             fontSize="sm"
+             textTransform="uppercase"
+             letterSpacing="wider"
+             color="#00BFFF"
+             fontWeight="bold"
+             mb={3}
+             textShadow="0 2px 4px rgba(0,0,0,0.8)"
+           >
+             {t("banners.bringStorybookToLife")}
+           </Text>
 
-          <Heading
-            fontSize={{ base: '2xl', md: '4xl' }}
-            fontWeight="extrabold"
-            color="white"
-            lineHeight="1.2"
-            mb={6}
-          >
-            {t("banners.craftMagicalTales")}
-          </Heading>
+           <Heading
+             fontSize={{ base: '2xl', md: '4xl' }}
+             fontWeight="extrabold"
+             color="white"
+             lineHeight="1.2"
+             mb={6}
+             textShadow="0 4px 8px rgba(0,0,0,0.9)"
+           >
+             {t("banners.craftMagicalTales")}
+           </Heading>
 
           <Button
             size="lg"
             leftIcon={<Icon as={FaBookOpen} />}
             bg="white"
-            color="purple.800"
+            color="#00BFFF"
             fontWeight="bold"
             borderRadius="full"
             px={6}
             py={6}
-            boxShadow="md"
-            _hover={{ bg: 'gray.100' }}
+            boxShadow="lg"
+            _hover={{ bg: 'gray.50', transform: 'translateY(-2px)' }}
+            transition="all 0.3s ease"
             onClick={() => router.push('/books')}
           >
             {t("banners.viewAllBooks")}

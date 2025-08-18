@@ -28,7 +28,7 @@ export default function AgeBrowseSection() {
         fontSize={{ base: "2xl", md: "4xl" }}
         fontWeight="bold"
         lineHeight="shorter"
-        color="purple.600"
+        color="#00BFFF"
       >
         {t("books.browseStoriesByAge")}
       </Heading>
@@ -68,7 +68,7 @@ export default function AgeBrowseSection() {
                 {label}
               </Text>
               <Button
-                background="linear-gradient(to right, #c79df0ff, #9333ea)"
+                background="linear-gradient(to right, #00BFFF, #0099CC)"
                 variant="solid"
                 onClick={() => handleClick(label)}
               >

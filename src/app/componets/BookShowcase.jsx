@@ -32,7 +32,7 @@ export default function BookShowcase({
           fontSize={{ base: "sm", md: "md" }}
           fontWeight="medium"
           letterSpacing="wider"
-          color="purple.600"
+          color="#00BFFF"
           textTransform="uppercase"
         >
           {subtitle}
@@ -41,14 +41,14 @@ export default function BookShowcase({
           fontSize={{ base: "2xl", sm: "3xl", md: "4xl", lg: "5xl" }}
           fontWeight="bold"
           lineHeight="shorter"
-          color="purple.600"
+          color="#00BFFF"
           px={{ base: 2, md: 0 }}
         >
           {title}
         </Heading>
         <Separator
           w="120px"
-          borderColor="purple.400"
+          borderColor="#00BFFF"
           borderWidth="3px"
           opacity={1}
         />

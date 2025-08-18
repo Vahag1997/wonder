@@ -43,7 +43,7 @@ export default function Header() {
     <>
       <Box
         as="header"
-        bg="linear-gradient(to bottom, #1e0a3c, #2b1055)"
+        bg="#00BFFF"
         px={{ base: 4, md: 8 }}
         py={4}
         position="sticky"
@@ -73,7 +73,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/">
             <HStack gap={3} cursor="pointer" _hover={{ opacity: 0.8 }} transition="opacity 0.2s">
-              <Image src="/dog.svg" alt="Logo" boxSize="32px" />
+              <Image src="/fairytale.png" alt="Logo" boxSize="32px" />
               <Text
                 fontWeight="bold"
                 fontSize="lg"
@@ -96,9 +96,9 @@ export default function Header() {
                   <Text
                     fontSize="sm"
                     fontWeight="medium"
-                    borderBottom={pathname === href ? '2px solid #a855f7' : 'none'}
+                    borderBottom={pathname === href ? '2px solid #00BFFF' : 'none'}
                     pb="1"
-                    _hover={{ color: '#a855f7' }}
+                    _hover={{ color: '#00BFFF' }}
                     transition="color 0.2s"
                   >
                     {label}
@@ -150,8 +150,8 @@ export default function Header() {
                   <Menu.Item
                     value="english"
                     onClick={() => handleLanguageChange('en')}
-                    _hover={{ bg: 'purple.50' }}
-                    _focus={{ bg: 'purple.50' }}
+                    _hover={{ bg: '#E6F3FF' }}
+                    _focus={{ bg: '#E6F3FF' }}
                   >
                     <HStack spacing={3}>
                       <Image
@@ -162,7 +162,7 @@ export default function Header() {
                       />
                       <Text color="gray.700" fontWeight="medium">English</Text>
                       {currentLanguage === 'en' && (
-                        <Box ml="auto" color="purple.600">
+                        <Box ml="auto" color="#00BFFF">
                           ✓
                         </Box>
                       )}
@@ -171,8 +171,8 @@ export default function Header() {
                   <Menu.Item
                     value="russian"
                     onClick={() => handleLanguageChange('ru')}
-                    _hover={{ bg: 'purple.50' }}
-                    _focus={{ bg: 'purple.50' }}
+                    _hover={{ bg: '#E6F3FF' }}
+                    _focus={{ bg: '#E6F3FF' }}
                   >
                     <HStack spacing={3}>
                       <Image
@@ -183,7 +183,7 @@ export default function Header() {
                       />
                       <Text color="gray.700" fontWeight="medium">Русский</Text>
                       {currentLanguage === 'ru' && (
-                        <Box ml="auto" color="purple.600">
+                        <Box ml="auto" color="#00BFFF">
                           ✓
                         </Box>
                       )}
@@ -227,33 +227,33 @@ export default function Header() {
                         <Menu.Item
                           value="my-account"
                           asChild
-                          _hover={{ bg: 'purple.50' }}
-                          _focus={{ bg: 'purple.50' }}
+                          _hover={{ bg: '#E6F3FF' }}
+                          _focus={{ bg: '#E6F3FF' }}
                         >
                           <Link href="/account">
-                            <Icon as={FaUserCog} mr={3} color="purple.600" />
+                            <Icon as={FaUserCog} mr={3} color="#00BFFF" />
                             <Text color="gray.700" fontWeight="medium">{t("auth.myAccount")}</Text>
                           </Link>
                         </Menu.Item>
                         <Menu.Item
                           value="my-books"
                           asChild
-                          _hover={{ bg: 'purple.50' }}
-                          _focus={{ bg: 'purple.50' }}
+                          _hover={{ bg: '#E6F3FF' }}
+                          _focus={{ bg: '#E6F3FF' }}
                         >
                           <Link href="/my-books">
-                            <Icon as={FaBook} mr={3} color="purple.600" />
+                            <Icon as={FaBook} mr={3} color="#00BFFF" />
                             <Text color="gray.700" fontWeight="medium">{t("auth.myBooks")}</Text>
                           </Link>
                         </Menu.Item>
                         <Menu.Item
                           value="orders"
                           asChild
-                          _hover={{ bg: 'purple.50' }}
-                          _focus={{ bg: 'purple.50' }}
+                          _hover={{ bg: '#E6F3FF' }}
+                          _focus={{ bg: '#E6F3FF' }}
                         >
                           <Link href="/orders">
-                            <Icon as={FaShoppingCart} mr={3} color="purple.600" />
+                            <Icon as={FaShoppingCart} mr={3} color="#00BFFF" />
                             <Text color="gray.700" fontWeight="medium">{t("auth.orders")}</Text>
                           </Link>
                         </Menu.Item>
@@ -342,7 +342,7 @@ export default function Header() {
                                     fontSize="lg"
                                     fontWeight="medium"
                                     color="white"
-                                    borderLeft={pathname === href ? '4px solid #a855f7' : 'none'}
+                                    borderLeft={pathname === href ? '4px solid #00BFFF' : 'none'}
                                     pl={pathname === href ? 4 : 0}
                                     textAlign="center"
                                   >
@@ -364,7 +364,7 @@ export default function Header() {
                                   variant="outline"
                                   size="lg"
                                   flex={1}
-                                  borderColor={currentLanguage === 'en' ? '#a855f7' : 'whiteAlpha.300'}
+                                  borderColor={currentLanguage === 'en' ? '#00BFFF' : 'whiteAlpha.300'}
                                   color="white"
                                   onClick={() => handleLanguageChange('en')}
                                   _hover={{ bg: 'whiteAlpha.100' }}
@@ -383,7 +383,7 @@ export default function Header() {
                                   variant="outline"
                                   size="lg"
                                   flex={1}
-                                  borderColor={currentLanguage === 'ru' ? '#a855f7' : 'whiteAlpha.300'}
+                                  borderColor={currentLanguage === 'ru' ? '#00BFFF' : 'whiteAlpha.300'}
                                   color="white"
                                   onClick={() => handleLanguageChange('ru')}
                                   _hover={{ bg: 'whiteAlpha.100' }}
@@ -425,11 +425,11 @@ export default function Header() {
                                             w="48px"
                                             h="48px"
                                             borderRadius="full"
-                                            bg="purple.500"
+                                            bg="#00BFFF"
                                             display="flex"
                                             alignItems="center"
                                             justifyContent="center"
-                                            boxShadow="0 4px 12px rgba(124, 58, 237, 0.3)"
+                                            boxShadow="0 4px 12px rgba(0, 191, 255, 0.3)"
                                           >
                                             <Icon as={FaUser} boxSize={5} color="white" />
                                           </Box>
@@ -583,10 +583,10 @@ export default function Header() {
                                         variant="solid"
                                         size="lg"
                                         w="full"
-                                        bg="purple.500"
+                                        bg="#00BFFF"
                                         color="white"
-                                        _hover={{ bg: 'purple.600' }}
-                                        _active={{ bg: 'purple.700' }}
+                                        _hover={{ bg: '#0099CC' }}
+                                        _active={{ bg: '#0088B3' }}
                                         leftIcon={<Icon as={FaUser} boxSize={5} />}
                                         onClick={() => {
                                           store.setOpen(false);

@@ -16,7 +16,7 @@ export default function AdoredSection() {
 
   return (
     <Box
-      bg="linear-gradient(to bottom, #644a99ff, #2b1055)"
+      bg="linear-gradient(to bottom, #1e3a8a, #1e40af)"
       overflow="hidden"
       py={{ base: 16, md: 22 }} // increased vertical padding
       px={{ base: 6, md: 16 }}
@@ -64,7 +64,7 @@ export default function AdoredSection() {
         {/* Logo Image */}
         <Box flex="1" maxW="lg" display="flex" justifyContent="center">
           <Image
-            src="/dog.svg"
+            src="/fairytale.png"
             alt="Wonder Wraps Logo"
             w={{ base: "60%", md: "80%" }} // increased image size
             h="auto"

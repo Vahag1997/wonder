@@ -90,14 +90,14 @@ export default function BottomBanner() {
               py={{ base: 10, md: 12 }}
               position="relative"
             >
-              {/* Purple Accent Line */}
+              {/* Blue Accent Line */}
               <Box
                 position="absolute"
                 left="0"
                 top="0"
                 bottom="0"
                 w="4px"
-                bgGradient="linear(to-b, purple.400, purple.600)"
+                bgGradient="linear(to-b, #00BFFF, #0099CC)"
               />
               
               <VStack
@@ -107,8 +107,8 @@ export default function BottomBanner() {
               >
                 {/* Badge */}
                 <Box
-                  bg="purple.50"
-                  color="purple.700"
+                  bg="#E6F3FF"
+                  color="#0066CC"
                   px={3}
                   py={1.5}
                   borderRadius="full"
@@ -143,7 +143,7 @@ export default function BottomBanner() {
                 <Box pt={1}>
                   <Link href="/books">
                     <Button
-                      bg="purple.600"
+                      bg="#00BFFF"
                       color="white"
                       py={3}
                       px={6}
@@ -151,13 +151,13 @@ export default function BottomBanner() {
                       fontWeight="bold"
                       fontSize="md"
                       _hover={{ 
-                        bg: 'purple.700',
+                        bg: '#0099CC',
                         transform: 'translateY(-2px)',
-                        boxShadow: '0 8px 25px rgba(147, 51, 234, 0.3)'
+                        boxShadow: '0 8px 25px rgba(0, 191, 255, 0.3)'
                       }}
                       _active={{ transform: 'translateY(0)' }}
                       transition="all 0.3s ease"
-                      boxShadow="0 4px 15px rgba(147, 51, 234, 0.2)"
+                      boxShadow="0 4px 15px rgba(0, 191, 255, 0.2)"
                     >
                       {t("books.viewAllBooks")}
                     </Button>

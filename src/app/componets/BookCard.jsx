@@ -11,7 +11,7 @@ import {
 export default function BookCard({ image, title, subtitle, onClick }) {
   return (
     <Box
-      bg="linear-gradient(to bottom, #352d42ff, #2b1055)"
+      bg="linear-gradient(to bottom, #1e3a8a, #1e40af)"
       borderRadius="2xl"
       p={{ base: 3, md: 4 }}
       pb={{ base: 5, md: 6 }}
@@ -72,7 +72,7 @@ export default function BookCard({ image, title, subtitle, onClick }) {
         {/* CTA Button */}
         <Button
           mt={2}
-          background="linear-gradient(to right, #c79df0ff, #9333ea)"
+          background="linear-gradient(to right, #00BFFF, #0099CC)"
           color="white"
           borderRadius="full"
           px={{ base: 4, md: 6 }}
@@ -80,7 +80,7 @@ export default function BookCard({ image, title, subtitle, onClick }) {
           fontWeight="medium"
           fontSize={{ base: "xs", md: "sm" }}
           onClick={onClick}
-          _hover={{ bg: '#9333ea' }}
+          _hover={{ bg: '#0099CC' }}
           w={{ base: "full", sm: "auto" }}
         >
           Смотреть сказку
