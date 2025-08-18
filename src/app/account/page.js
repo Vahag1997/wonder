@@ -28,11 +28,24 @@ export default function AccountPage() {
   useEffect(() => {
     let mounted = true;
 
-    (async () => {
-      const { data } = await supabase.auth.getSession();
-      if (!mounted) return;
-      setUser(data.session?.user ?? null);
+    // Check if Supabase client is available
+    if (!supabase) {
+      console.warn('Supabase client not initialized');
       setReady(true);
+      return;
+    }
+
+    (async () => {
+      try {
+        const { data } = await supabase.auth.getSession();
+        if (!mounted) return;
+        setUser(data.session?.user ?? null);
+        setReady(true);
+      } catch (error) {
+        console.error('Error getting session:', error);
+        if (!mounted) return;
+        setReady(true);
+      }
     })();
 
     const { data: sub } = supabase.auth.onAuthStateChange((_evt, session) => {
@@ -42,13 +55,16 @@ export default function AccountPage() {
 
     return () => {
       mounted = false;
-      sub.subscription?.unsubscribe();
+      sub?.subscription?.unsubscribe();
     };
   }, []);
 
   const signOut = async () => {
     try {
       setIsSigningOut(true);
+      if (!supabase) {
+        throw new Error('Supabase client not initialized');
+      }
       await supabase.auth.signOut();
       router.replace('/login');
     } catch (error) {

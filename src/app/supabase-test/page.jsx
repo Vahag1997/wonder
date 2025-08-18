@@ -7,6 +7,10 @@ export default function SupabaseTest() {
   const [ok, setOk] = useState(false);
 
   useEffect(() => {
+    if (!supabase) {
+      setOk(false);
+      return;
+    }
     supabase.auth.getSession().then(() => setOk(true)).catch(() => setOk(false));
   }, []);
   return (

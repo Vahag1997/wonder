@@ -19,6 +19,14 @@ export const AuthProvider = ({ children }) => {
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
+    // Check if Supabase client is available
+    if (!supabase) {
+      console.warn('Supabase client not initialized - environment variables may be missing');
+      setLoading(false);
+      setInitialized(true);
+      return;
+    }
+
     // Get initial session
     const getInitialSession = async () => {
       try {
@@ -43,10 +51,13 @@ export const AuthProvider = ({ children }) => {
       }
     );
 
-    return () => subscription.unsubscribe();
+    return () => subscription?.unsubscribe();
   }, []);
 
   const signIn = async (email, password) => {
+    if (!supabase) {
+      throw new Error('Supabase client not initialized');
+    }
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -56,6 +67,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signUp = async (email, password, name) => {
+    if (!supabase) {
+      throw new Error('Supabase client not initialized');
+    }
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -70,11 +84,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signOut = async () => {
+    if (!supabase) {
+      throw new Error('Supabase client not initialized');
+    }
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   };
 
   const resetPassword = async (email) => {
+    if (!supabase) {
+      throw new Error('Supabase client not initialized');
+    }
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/reset`,
     });

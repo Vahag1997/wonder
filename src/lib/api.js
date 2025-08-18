@@ -5,6 +5,10 @@ import { supabase } from './supabaseClient';
 
 /** PRODUCTS **/
 export async function getActiveProducts() {
+  if (!supabase) {
+    throw new Error('Supabase client not initialized');
+  }
+  
   const { data, error } = await supabase
     .from('products')
     .select('id, title, price_cents, preview_url, languages, active, created_at')
@@ -17,6 +21,10 @@ export async function getActiveProducts() {
 
 /** MY BOOKS (library / personalization instances) **/
 export async function getMyBooks({ limit = 50, offset = 0 } = {}) {
+  if (!supabase) {
+    throw new Error('Supabase client not initialized');
+  }
+  
   // Includes related product fields via FK join
   const { data, error } = await supabase
     .from('my_books')
@@ -34,6 +42,10 @@ export async function getMyBooks({ limit = 50, offset = 0 } = {}) {
 }
 
 export async function getMyBookById(myBookId) {
+  if (!supabase) {
+    throw new Error('Supabase client not initialized');
+  }
+  
   const { data, error } = await supabase
     .from('my_books')
     .select(`
@@ -51,6 +63,10 @@ export async function getMyBookById(myBookId) {
 
 /** ORDERS (simple: one product per row) **/
 export async function getMyOrders({ limit = 50, offset = 0 } = {}) {
+  if (!supabase) {
+    throw new Error('Supabase client not initialized');
+  }
+  
   const { data, error } = await supabase
     .from('orders')
     .select(`
@@ -68,6 +84,10 @@ export async function getMyOrders({ limit = 50, offset = 0 } = {}) {
 
 /** OPTIONAL: get the current profile row (id matches auth.users.id) **/
 export async function getMyProfile() {
+  if (!supabase) {
+    throw new Error('Supabase client not initialized');
+  }
+  
   const { data: auth } = await supabase.auth.getUser();
   if (!auth?.user) return null;
 

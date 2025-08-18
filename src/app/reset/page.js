@@ -12,6 +12,12 @@ export default function ResetPage() {
   const onReset = async (e) => {
     e.preventDefault();
     setMsg(''); setErr('');
+    
+    if (!supabase) {
+      setErr('Authentication service not available');
+      return;
+    }
+    
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: typeof window !== 'undefined'
         ? `${window.location.origin}/account`

@@ -7,7 +7,7 @@ import AgeBrowseSection from './componets/AgeBrowseSection';
 import PersonalizedBooksBanner from './componets/PersonalizedBooksBanner';
 import InspireDreamsSection from './componets/InspireDreamsSection';
 import BottomBanner from './componets/BottomBanner';
-import { books, bestSellers, girlsBooks, boysBooks } from './constants';
+import { bestSellers, girlsBooks, boysBooks } from './constants';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Flex } from '@chakra-ui/react';
 
