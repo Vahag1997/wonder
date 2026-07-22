@@ -1,0 +1,47 @@
+.header { position: relative; z-index: 100; width: 100%; background: #fff; color: #242424; font-family: var(--font-figtree), Arial, sans-serif; }
+.promo { position: relative; z-index: 2; display: flex; min-height: 46px; align-items: center; justify-content: center; gap: 9px; padding: 4px 16px; background: #c569ff; color: #fff; font-size: 16px; font-weight: 500; text-align: center; }
+.promo strong { display: inline-flex; height: 38px; align-items: center; justify-content: center; padding: 0 10px; border-radius: 7px; background: #ffca4e; color: #111; font-size: 16px; font-weight: 800; letter-spacing: .08em; }
+.navWrap { position: relative; display: grid; width: 100%; max-width: 1280px; height: 84px; margin: 0 auto; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 10px 24px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px -1px rgba(0,0,0,.1); }
+.logo { justify-self: start; }
+.logoMark { display: inline-flex; align-items: center; gap: 7px; }
+.wIcon { position: relative; display: grid; width: 51px; height: 47px; place-items: center; color: #9d50e5; font-family: Georgia, serif; font-size: 35px; font-weight: 900; font-style: italic; letter-spacing: -10px; transform: scaleX(1.12); }
+.wIcon::before, .wIcon::after { content: '✦'; position: absolute; color: #9d50e5; font-size: 9px; font-style: normal; }
+.wIcon::before { top: 3px; right: 3px; }.wIcon::after { bottom: 1px; left: 6px; }
+.wordmark { font-family: var(--font-parkinsans), sans-serif; font-size: 18px; font-weight: 600; line-height: .78; letter-spacing: -1.4px; text-transform: lowercase; }
+.wordmark b { font-weight: 600; }
+.nav { display: flex; height: 100%; align-items: center; justify-content: center; gap: 30px; }
+.nav a { display: inline-flex; align-items: center; gap: 4px; color: #4b5563; font-size: 14px; font-weight: 500; transition: color .2s ease; }
+.nav a:hover, .nav a.active { color: #7e22ce; font-weight: 600; }
+.actions { justify-self: end; display: flex; align-items: center; gap: 20px; }
+.actions > a, .actions button { position: relative; display: inline-flex; align-items: center; justify-content: center; border: 0; background: transparent; color: #555; cursor: pointer; }
+.actions svg { width: 21px; height: 21px; stroke-width: 1.65; }
+.currency { gap: 6px; }
+.currency span { font-size: 12px; font-weight: 600; }.currency svg:last-child { width: 12px; }
+.cart > span { position: absolute; top: -7px; right: -9px; display: grid; width: 16px; height: 16px; place-items: center; border-radius: 50%; background: #c569ff; color: #fff; font-size: 9px; font-weight: 800; }
+.mobileMenuButton { display: none; border: 0; background: transparent; color: #4b5563; }
+.mobilePanel, .backdrop { display: none; }
+
+@media (max-width: 900px) {
+  .navWrap { height: 74px; grid-template-columns: auto 1fr auto; padding: 8px 16px; }
+  .mobileMenuButton { display: inline-grid; place-items: center; padding: 0; }
+  .logo { justify-self: center; }
+  .nav { display: none; }
+  .actions { gap: 14px; }
+  .currency, .actions > a:first-child { display: none !important; }
+  .mobilePanel { position: fixed; z-index: 130; top: 0; bottom: 0; left: 0; display: flex; width: min(360px, 88vw); flex-direction: column; padding: 22px; background: #fff; box-shadow: 20px 0 45px rgba(25,12,34,.18); transform: translateX(-105%); transition: transform .25s ease; }
+  .mobilePanelOpen { transform: translateX(0); }
+  .mobilePanel > div { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+  .mobilePanel > div button { display: grid; width: 38px; height: 38px; place-items: center; border: 0; border-radius: 50%; background: #f6effa; color: #7121a2; }
+  .mobilePanel nav { display: grid; margin-top: 18px; }
+  .mobilePanel nav a { display: flex; align-items: center; justify-content: space-between; padding: 15px 4px; border-bottom: 1px solid #eee; color: #333; }
+  .mobileAccount { display: flex; align-items: center; gap: 9px; margin-top: auto; padding: 14px; border-radius: 5px; background: #c569ff; color: #fff; font-weight: 700; }
+  .backdrop { position: fixed; z-index: 120; inset: 0; display: block; border: 0; background: rgba(28,17,35,.4); }
+}
+
+@media (max-width: 520px) {
+  .promo { min-height: 52px; flex-wrap: wrap; gap: 6px; font-size: 14px; }
+  .promo strong { height: 34px; font-size: 14px; }
+  .wIcon { width: 43px; height: 42px; font-size: 31px; }
+  .wordmark { font-size: 16px; }
+  .actions > a:nth-last-child(2) { display: none; }
+}

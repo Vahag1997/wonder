@@ -1,0 +1,31 @@
+.footer { position: relative; width: 100%; padding: 32px 0; background: #fff; color: #202020; font-family: var(--font-figtree), Arial, sans-serif; }
+.grid { display: grid; grid-template-columns: .95fr .95fr .95fr 1.15fr; gap: 32px; width: 100%; margin: 0 auto; padding: 0 clamp(48px, 8.75vw, 112px); }
+.brandColumn > a { display: inline-block; margin-bottom: 20px; }
+.brandColumn p { max-width: 250px; margin: 0 0 18px; color: #666; font-size: 14px; line-height: 1.55; }
+.socials { display: flex; align-items: center; gap: 14px; }
+.socials a { color: #a855f7; transition: color .2s ease; }
+.socials a:hover { color: #7e22ce; }
+.socials svg { width: 24px; height: 24px; }
+.links { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
+.links h3, .newsletter h3 { margin: 0 0 9px; font-size: 18px; font-weight: 500; }
+.links a { color: #666; font-size: 14px; }
+.links a:hover { color: #222; }
+.newsletter p { margin: 0 0 14px; color: #666; font-size: 14px; }
+.newsletter form { display: flex; gap: 10px; }
+.newsletter input { width: 192px; height: 40px; padding: 0 12px; border: 1px solid #d1d5db; border-radius: 6px; outline: none; color: #333; font-size: 12px; }
+.newsletter input:focus { border-color: #9333ea; box-shadow: 0 0 0 3px rgba(197,105,255,.15); }
+.newsletter button { height: 40px; padding: 0 24px; border: 0; border-radius: 4px; background: #c569ff; color: #fff; cursor: pointer; font-size: 14px; }
+.newsletter button:hover { background: #b85af0; }
+.payments { display: flex; gap: 6px; margin-top: 18px; }
+.payments span { display: grid; min-width: 53px; height: 36px; place-items: center; padding: 0 6px; border: 1px solid #d9d9d9; border-radius: 4px; background: #fff; color: #253b80; font-size: 11px; font-weight: 800; }
+.payments .mastercard { color: #ed0006; letter-spacing: -5px; font-size: 29px; }
+
+@media (max-width: 950px) {
+  .grid { grid-template-columns: repeat(2, 1fr); padding: 0 40px; }
+}
+
+@media (max-width: 620px) {
+  .grid { grid-template-columns: 1fr; padding: 0 24px; }
+  .newsletter form { max-width: 380px; }
+  .newsletter input { flex: 1; min-width: 0; }
+}

@@ -1,141 +1,48 @@
 'use client';
 
-import {
-  Box,
-  Flex,
-  Stack,
-  Text,
-  Link,
-  Input,
-  Button,
-  Icon,
-  Image,
-  HStack,
-  VStack,
-} from '@chakra-ui/react';
-import { FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
-import { useLanguage } from '../../contexts/LanguageContext';
+import Link from 'next/link';
+import { Facebook, Instagram } from 'lucide-react';
+import { FaTiktok } from 'react-icons/fa';
+import { WonderLogo } from './Header';
+import styles from './Footer.module.css';
 
 export default function Footer() {
-  const { t } = useLanguage();
-
   return (
-    <Box
-      bg="#00BFFF"
-      px={{ base: 4, md: 12 }}
-      py={12}
-      position="relative"
-      overflow="hidden"
-    >
-      {/* Starry background effect */}
-      <Box
-        position="absolute"
-        inset={0}
-        backgroundImage="radial-gradient(#fff 1px, transparent 1px)"
-        backgroundSize="20px 20px"
-        opacity={0.06}
-        zIndex={0}
-      />
+    <footer className={styles.footer}>
+      <div className={styles.grid}>
+        <div className={styles.brandColumn}>
+          <Link href="/" aria-label="WonderWraps home"><WonderLogo /></Link>
+          <p>Personalised books made for your little ones!</p>
+          <div className={styles.socials}>
+            <a href="#" aria-label="Instagram"><Instagram /></a>
+            <a href="#" aria-label="Facebook"><Facebook /></a>
+            <a href="#" aria-label="TikTok"><FaTiktok /></a>
+          </div>
+        </div>
 
-      <Flex
-        direction={{ base: 'column', md: 'row' }}
-        justify="space-between"
-        align="flex-start"
-        gap={10}
-        position="relative"
-        zIndex={1}
-      >
-        {/* Logo & About */}
-        <Box maxW="250px">
-          <HStack mb={3}>
-            <Image src="/fairytale.png" alt="WonderWraps" h={8} />
-            <Text fontWeight="bold" fontSize="lg" color="white">
-              wonder
-              <br />
-              wraps
-            </Text>
-          </HStack>
-          <Text fontSize="sm" color="whiteAlpha.700">
-            {t("footer.aboutDescription")}
-          </Text>
+        <FooterLinks title="About WonderWraps" links={[["Contact us", "/support"], ["FAQs", "/support"], ["Blog", "/"], ["Support", "/support"]]} />
+        <FooterLinks title="Customer Area" links={[["My Account", "/account"], ["Orders", "/orders"], ["Terms", "/support"], ["Privacy Policy", "/support"]]} />
 
-          <HStack gap={4} mt={4}>
-            <Link href="#">
-              <Icon as={FaFacebookF} boxSize={5} color="whiteAlpha.800" _hover={{ color: '#00BFFF' }} />
-            </Link>
-            <Link href="#">
-              <Icon as={FaInstagram} boxSize={5} color="whiteAlpha.800" _hover={{ color: '#00BFFF' }} />
-            </Link>
-            <Link href="#">
-              <Icon as={FaTiktok} boxSize={5} color="whiteAlpha.800" _hover={{ color: '#00BFFF' }} />
-            </Link>
-          </HStack>
-        </Box>
-
-        {/* About */}
-        <VStack align="start" gap={2}>
-          <Text fontWeight="semibold" color="white">
-            {t("footer.aboutUs")}
-          </Text>
-          <FooterLink label={t("footer.contactUs")} />
-          <FooterLink label={t("footer.faq")} />
-          <FooterLink label={t("nav.books")} />
-        </VStack>
-
-        {/* Customer Area */}
-        <VStack align="start" gap={2}>
-          <Text fontWeight="semibold" color="white">
-            {t("footer.customerArea")}
-          </Text>
-          <FooterLink label={t("auth.myAccount")} />
-          <FooterLink label={t("nav.orders")} />
-          <FooterLink label={t("footer.termsOfService")} />
-          <FooterLink label={t("footer.privacyPolicy")} />
-        </VStack>
-
-        {/* Newsletter */}
-        <Box maxW="280px">
-          <Text fontWeight="semibold" color="white" mb={1}>
-            {t("footer.newsletter")}
-          </Text>
-          <Text fontSize="sm" color="whiteAlpha.700" mb={4}>
-            {t("footer.newsletterDescription")}
-          </Text>
-          <HStack>
-            <Input
-              placeholder={t("footer.emailPlaceholder")}
-              size="sm"
-              bg="whiteAlpha.100"
-              border="1px solid"
-              borderColor="whiteAlpha.300"
-              color="white"
-              _placeholder={{ color: 'whiteAlpha.600' }}
-              _focus={{ borderColor: '#00BFFF' }}
-            />
-            <Button
-              bg="linear-gradient(to right, #00BFFF, #0099CC)"
-              color="white"
-              _hover={{ bg: '#0099CC' }}
-              size="sm"
-            >
-              {t("footer.subscribe")}
-            </Button>
-          </HStack>
-        </Box>
-      </Flex>
-    </Box>
+        <div className={styles.newsletter}>
+          <h3>Subscribe to Our Newsletter</h3>
+          <p>Don’t miss out on the newest books</p>
+          <form onSubmit={(event) => event.preventDefault()}>
+            <label className="sr-only" htmlFor="footer-email">Enter your email</label>
+            <input id="footer-email" type="email" placeholder="Enter your email" />
+            <button type="submit">Subscribe</button>
+          </form>
+          <div className={styles.payments}><span>PayPal</span><span className={styles.mastercard}>●●</span><span>VISA</span></div>
+        </div>
+      </div>
+    </footer>
   );
 }
 
-function FooterLink({ label }) {
+function FooterLinks({ title, links }) {
   return (
-    <Link
-      href="#"
-      fontSize="sm"
-      color="whiteAlpha.700"
-      _hover={{ color: '#00BFFF' }}
-    >
-      {label}
-    </Link>
+    <div className={styles.links}>
+      <h3>{title}</h3>
+      {links.map(([label, href]) => <Link key={label} href={href}>{label}</Link>)}
+    </div>
   );
 }

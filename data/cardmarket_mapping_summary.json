@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-03-17T20:02:31.425Z",
+  "totals": {
+    "singles": 66218,
+    "nonsingles": 4765,
+    "priceGuides": 70983,
+    "expansions": 740,
+    "expansionsWithInferredName": 481,
+    "expansionsWithUnknownName": 259,
+    "cardMappings": 66218
+  },
+  "confidenceBreakdown": {
+    "high": 393,
+    "medium": 88,
+    "low": 0,
+    "unknown": 259
+  }
+}
