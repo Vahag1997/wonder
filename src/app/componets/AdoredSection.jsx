@@ -65,7 +65,7 @@ export default function AdoredSection() {
         <Box flex="1" maxW="lg" display="flex" justifyContent="center">
           <Image
             src="/fairytale.png"
-            alt="Wonder Wraps Logo"
+            alt="Fairytale Books illustration"
             w={{ base: "60%", md: "80%" }} // increased image size
             h="auto"
             objectFit="contain"

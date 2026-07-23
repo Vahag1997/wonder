@@ -28,7 +28,7 @@
 
 .heroBackdrop { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
 .heroVideo { width: 60%; height: 100%; background: rgba(194,132,233,.58); }
-.heroVideo video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.heroVideo > img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .heroCopy {
   position: relative;
   display: flex;
@@ -90,6 +90,24 @@
 .productImage img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
 .productCard:hover .productImage img { transform: scale(1.025); }
 .discount { position: absolute; z-index: 2; top: 12px; left: 12px; padding: 6px 10px; border-radius: 4px; background: #ef4444; color: #fff; font-size: 12px; font-weight: 800; }
+.bookBrand {
+  position: absolute;
+  z-index: 2;
+  bottom: 11px;
+  left: 50%;
+  padding: 5px 11px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 999px;
+  background: rgba(91,20,139,.9);
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(25,8,37,.22);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  backdrop-filter: blur(5px);
+}
 .productCopy { display: flex; min-height: 166px; width: 100%; flex-direction: column; align-items: flex-start; padding: 13px 0 0; }
 .productCopy h3 {
   display: -webkit-box;

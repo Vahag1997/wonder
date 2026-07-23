@@ -16,11 +16,11 @@ const navigation = [
   { en: 'Support', ru: 'Поддержка', href: '/support' },
 ];
 
-export function WonderLogo() {
+export function BrandLogo() {
   return (
     <span className={styles.logoMark} aria-hidden="true">
-      <span className={styles.wIcon}>W</span>
-      <span className={styles.wordmark}>wonder<br /><b>wrapz</b></span>
+      <img className={styles.brandIcon} src="/fairytale.png" alt="" />
+      <span className={styles.wordmark}>fairytale<br /><b>books</b></span>
     </span>
   );
 }
@@ -60,7 +60,7 @@ export default function Header() {
 
       <div className={styles.navWrap}>
         <button className={styles.mobileMenuButton} type="button" onClick={() => setOpen(true)} aria-label={ui.openMenu}><Menu /></button>
-        <Link href="/" className={styles.logo} aria-label="WonderWraps home"><WonderLogo /></Link>
+        <Link href="/" className={styles.logo} aria-label="Fairytale Books home"><BrandLogo /></Link>
 
         <nav className={styles.nav} aria-label="Main navigation">
           {navigation.map((item) => (
@@ -80,7 +80,7 @@ export default function Header() {
       </div>
 
       <aside className={`${styles.mobilePanel} ${open ? styles.mobilePanelOpen : ''}`} aria-hidden={!open}>
-        <div><WonderLogo /><button type="button" onClick={() => setOpen(false)} aria-label={ui.closeMenu}><X /></button></div>
+        <div><BrandLogo /><button type="button" onClick={() => setOpen(false)} aria-label={ui.closeMenu}><X /></button></div>
         <LanguageSwitch currentLanguage={currentLanguage} changeLanguage={changeLanguage} mobile />
         <nav aria-label="Mobile navigation">
           {navigation.map((item) => <Link href={item.href} key={item.en} onClick={() => setOpen(false)}>{item[currentLanguage]}<ChevronDown size={15} /></Link>)}

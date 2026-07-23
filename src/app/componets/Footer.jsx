@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Facebook, Instagram } from 'lucide-react';
 import { FaTiktok } from 'react-icons/fa';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { WonderLogo } from './Header';
+import { BrandLogo } from './Header';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -12,7 +12,7 @@ export default function Footer() {
   const ui = currentLanguage === 'ru'
     ? {
         tagline: 'Персонализированные книги для ваших маленьких героев!',
-        about: 'О WonderWraps',
+        about: 'О Fairytale Books',
         contact: 'Связаться с нами',
         faq: 'Частые вопросы',
         blog: 'Блог',
@@ -29,7 +29,7 @@ export default function Footer() {
       }
     : {
         tagline: 'Personalised books made for your little ones!',
-        about: 'About WonderWraps',
+        about: 'About Fairytale Books',
         contact: 'Contact us',
         faq: 'FAQs',
         blog: 'Blog',
@@ -49,7 +49,7 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.grid}>
         <div className={styles.brandColumn}>
-          <Link href="/" aria-label="WonderWraps home"><WonderLogo /></Link>
+          <Link href="/" aria-label="Fairytale Books home"><BrandLogo /></Link>
           <p>{ui.tagline}</p>
           <div className={styles.socials}>
             <a href="#" aria-label="Instagram"><Instagram /></a>

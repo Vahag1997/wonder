@@ -34,16 +34,16 @@ const onest = Onest({
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
-  title: "Personalized Books for Kids | Custom Storybooks - Wonder Wraps",
+  title: "Personalized Books for Kids | Custom Storybooks - Fairytale Books",
   description: "Create magical personalised storybooks where your child is the hero.",
   openGraph: {
-    title: "WonderWraps personalised storybooks",
+    title: "Fairytale Books personalised storybooks",
     description: "Create magical personalised storybooks where your child is the hero.",
     images: [{ url: "/og.png", width: 1734, height: 907, alt: "Fairytale Books personalised storybook" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "WonderWraps personalised storybooks",
+    title: "Fairytale Books personalised storybooks",
     description: "Create magical personalised storybooks where your child is the hero.",
     images: ["/og.png"],
   },

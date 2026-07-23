@@ -160,7 +160,7 @@ const faqsEn = [
   ['How long does shipping take?', 'Standard shipping usually takes 10 to 30 business days, while express shipping typically arrives within 7 to 20 business days.'],
   ['Will I have to pay duties or extra fees?', 'Customs duties or import fees may apply depending on your country and are the responsibility of the recipient.'],
   ['What if I’m not happy with my order?', 'After payment, you’ll review and approve your book. If you need changes, our dedicated support team will be happy to assist you.'],
-  ['How can I reach customer support?', 'You can contact our customer support team through our support page or at support@wonderwraps.com.'],
+  ['How can I reach customer support?', 'You can contact our customer support team through the support page.'],
   ['What languages are your books available in?', 'Our books are available in English, Spanish, Portuguese, Arabic, French, Turkish, German, Italian, Dutch and Albanian.'],
 ];
 
@@ -171,7 +171,7 @@ const faqsRu = [
   ['Сколько занимает доставка?', 'Стандартная доставка обычно занимает от 10 до 30 рабочих дней, экспресс-доставка — от 7 до 20 рабочих дней.'],
   ['Нужно ли платить пошлины или дополнительные сборы?', 'Таможенные пошлины и импортные сборы могут зависеть от правил вашей страны и оплачиваются получателем.'],
   ['Что делать, если заказ мне не понравился?', 'После оплаты вы сможете проверить и утвердить книгу. Если нужны изменения, наша служба поддержки поможет их внести.'],
-  ['Как связаться со службой поддержки?', 'Напишите нам через страницу поддержки или на электронную почту support@wonderwraps.com.'],
+  ['Как связаться со службой поддержки?', 'Напишите нам через страницу поддержки.'],
   ['На каких языках доступны книги?', 'Книги доступны на английском, испанском, португальском, арабском, французском, турецком, немецком, итальянском, нидерландском и албанском языках.'],
 ];
 
@@ -192,7 +192,7 @@ const homeCopy = {
     from: 'From',
     personalise: 'Personalise Now',
     howEyebrow: 'CREATE YOUR BOOK IN MINUTES',
-    howTitle: 'How WonderWraps Works',
+    howTitle: 'How Fairytale Books Works',
     steps: ['Pick Storybook', "Add your Child's Picture", 'Preview & Order', 'Your story is printed with care and delivered with joy.'],
     customiseEyebrow: 'Customize Faces, Expressions, and Angles',
     customiseTitle: 'To bring your character to life!',
@@ -226,7 +226,7 @@ const homeCopy = {
     from: 'От',
     personalise: 'Персонализировать',
     howEyebrow: 'СОЗДАЙТЕ КНИГУ ЗА НЕСКОЛЬКО МИНУТ',
-    howTitle: 'Как работает WonderWraps',
+    howTitle: 'Как работает Fairytale Books',
     steps: ['Выберите книгу', 'Добавьте фотографию ребёнка', 'Посмотрите превью и закажите', 'Мы бережно напечатаем историю и доставим её с радостью.'],
     customiseEyebrow: 'Настройте лицо, эмоции и ракурсы',
     customiseTitle: 'Чтобы персонаж действительно ожил!',
@@ -267,6 +267,7 @@ function ProductCard({ book, language, copy }) {
       <Link href="/books" className={styles.productImage} aria-label={`${copy.personalise}: ${title}`}>
         {book.discount && <span className={styles.discount}>{book.discount}</span>}
         <img src={book.image} alt={title} loading="lazy" />
+        {!book.discount && <span className={styles.bookBrand}>Fairytale Books</span>}
       </Link>
       <div className={styles.productCopy}>
         <h3>{title}</h3>
@@ -296,9 +297,7 @@ export default function Home() {
       <section className={styles.hero}>
         <img className={styles.heroBackdrop} src={`${ASSET_ROOT}/img/home/top-banner.webp`} alt="" />
         <div className={styles.heroVideo}>
-          <video autoPlay loop muted playsInline poster={`${ASSET_ROOT}/img/home/video-poster.webp`}>
-            <source src={`${ASSET_ROOT}/video/video-preview.mp4`} type="video/mp4" />
-          </video>
+          <img src={`${ASSET_ROOT}/img/home/video-poster.webp`} alt="" />
         </div>
         <div className={styles.heroCopy}>
           <span>{copy.heroEyebrow}</span>

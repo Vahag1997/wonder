@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Welcome to Wonder Wraps",
+    "title": "Welcome to Fairytale Books",
     "subtitle": "Personalized stories for your child"
   },
   "nav": {
@@ -399,8 +399,8 @@
     "viewAllBooks": "View All Books"
   },
   "footer": {
-    "wonderWraps": "Wonder Wraps",
-    "aboutUs": "About WonderWraps",
+    "brandName": "Fairytale Books",
+    "aboutUs": "About Fairytale Books",
     "aboutDescription": "Create personalised storybooks that make your child the hero, with quick customisation and speedy delivery!",
     "contactUs": "Contact us",
     "privacyPolicy": "Privacy Policy",
