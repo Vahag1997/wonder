@@ -12,7 +12,7 @@ const translations = {
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [currentLanguage, setCurrentLanguage] = useState('ru');
 
   // Load language from localStorage on mount
   useEffect(() => {
@@ -25,6 +25,7 @@ export function LanguageProvider({ children }) {
   // Save language to localStorage when it changes
   useEffect(() => {
     localStorage.setItem('language', currentLanguage);
+    document.documentElement.lang = currentLanguage;
   }, [currentLanguage]);
 
   const changeLanguage = (language) => {

@@ -1,4 +1,4 @@
-import { Figtree, Geist, Geist_Mono, Parkinsans } from "next/font/google";
+import { Figtree, Geist, Geist_Mono, Onest, Parkinsans } from "next/font/google";
 import { Provider } from "../components/ui/provider";
 import { AuthProvider } from "../contexts/AuthContext";
 import { LanguageProvider } from "../contexts/LanguageContext";
@@ -27,6 +27,11 @@ const parkinsans = Parkinsans({
   subsets: ["latin"],
 });
 
+const onest = Onest({
+  variable: "--font-onest",
+  subsets: ["cyrillic", "latin"],
+});
+
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title: "Personalized Books for Kids | Custom Storybooks - Wonder Wraps",
@@ -46,9 +51,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ru" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${figtree.variable} ${parkinsans.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${figtree.variable} ${parkinsans.variable} ${onest.variable} antialiased`}
         style={{
           minHeight: '100vh',
           display: 'flex',

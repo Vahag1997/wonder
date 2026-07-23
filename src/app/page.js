@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowRight, ChevronRight } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 import styles from './home.module.css';
 
 const ASSET_ROOT = 'https://resources.wonderwraps.com/f059d43d-7717-49ca-9ff5-5f70ac130d45';
@@ -123,6 +126,26 @@ const boyBooks = [
   },
 ];
 
+const productRu = {
+  "Girl's Sticker Pack": ['Набор стикеров для девочки', 'Персональный набор стикеров для вашей маленькой героини'],
+  "Boy's Sticker Pack": ['Набор стикеров для мальчика', 'Персональный набор стикеров для вашего маленького героя'],
+  'The Portugal’s New Legend': ['Новая легенда Португалии', 'Для чемпионов, чьё сердце окрашено в красный и зелёный 🇵🇹'],
+  'Princess Girl, the One We All Needed': ['Принцесса, которую мы все ждали', 'Волшебное путешествие о доброте и смелости'],
+  'Super Boy and the Dragon': ['Супермальчик и дракон', 'Доброта превращает страшного дракона в настоящего друга'],
+  'Princess and the Glowing Flower': ['Принцесса и сияющий цветок', 'Трогательная история о щедрости, любви и храбрости'],
+  'Vroom Vroom, The Boy Wins the Race': ['Врум-врум: мальчик выигрывает гонку', 'Гонка, которая учит верить в себя, пробовать и побеждать'],
+  'The Boy and the Cosmic Journey': ['Мальчик и космическое путешествие', 'Путешествие перед сном среди планет и звёзд'],
+  'Boy Explores the Zoo': ['Мальчик исследует зоопарк', 'Дикое приключение: знакомимся с животными'],
+  'Girl Explores the Zoo': ['Девочка исследует зоопарк', 'Дикое приключение: знакомимся с животными'],
+  'Girl and the Lost Fairy Wings': ['Девочка и потерянные крылья феи', 'Поверь в волшебство: путешествие маленькой феи'],
+  "Girl's Fun in the Sun": ['Солнечное приключение девочки', 'Воображение помогает построить лучшую полосу препятствий'],
+  'Girl Counts with the Forest Friends': ['Девочка считает с лесными друзьями', 'Волшебный способ вместе познакомиться с числами'],
+  'The ABC Journey with Girl': ['Путешествие девочки по алфавиту', 'Волшебный способ вместе изучить буквы'],
+  'The Boy Who Could Talk to Animals': ['Мальчик, который разговаривал с животными', 'Волшебная история о животных, доброте и дружбе'],
+  'The ABC Journey with Boy': ['Путешествие мальчика по алфавиту', 'Волшебный способ вместе изучить буквы'],
+  'Boy and the Forgotten Robot': ['Мальчик и забытый робот', 'Исследуйте тайны космоса с новым отважным другом'],
+};
+
 const steps = [
   ['1', 'Pick Storybook', `${ASSET_ROOT}/img/home/step_1.webp`],
   ['2', "Add your Child's Picture", `${ASSET_ROOT}/img/home/step_2.webp`],
@@ -130,7 +153,7 @@ const steps = [
   ['4', 'Your story is printed with care and delivered with joy.', `${ASSET_ROOT}/img/home/step_4.webp`],
 ];
 
-const faqs = [
+const faqsEn = [
   ['How do I place an order?', 'It’s easy! Choose the book you want personalised, upload a photo of your child, and enter their name and age. You’ll get a preview of the book before payment.'],
   ['Do you ship to my location?', 'Yes! We ship to over 200 countries and regions. Enter your shipping details at checkout and we’ll take care of the rest.'],
   ['Can I get a refund for my order?', 'You can receive a full refund if your book hasn’t been printed yet, or a partial refund if it has been printed but not yet shipped.'],
@@ -141,45 +164,133 @@ const faqs = [
   ['What languages are your books available in?', 'Our books are available in English, Spanish, Portuguese, Arabic, French, Turkish, German, Italian, Dutch and Albanian.'],
 ];
 
-function SectionHeader({ eyebrow, title }) {
+const faqsRu = [
+  ['Как оформить заказ?', 'Выберите книгу, загрузите фотографию ребёнка и укажите его имя и возраст. Перед оплатой вы увидите готовое превью книги.'],
+  ['Вы доставляете в мою страну?', 'Да! Мы доставляем заказы более чем в 200 стран и регионов. Укажите адрес при оформлении, и мы позаботимся об остальном.'],
+  ['Можно ли вернуть деньги за заказ?', 'Полный возврат возможен, пока книга не напечатана. Если книга уже напечатана, но ещё не отправлена, возможен частичный возврат.'],
+  ['Сколько занимает доставка?', 'Стандартная доставка обычно занимает от 10 до 30 рабочих дней, экспресс-доставка — от 7 до 20 рабочих дней.'],
+  ['Нужно ли платить пошлины или дополнительные сборы?', 'Таможенные пошлины и импортные сборы могут зависеть от правил вашей страны и оплачиваются получателем.'],
+  ['Что делать, если заказ мне не понравился?', 'После оплаты вы сможете проверить и утвердить книгу. Если нужны изменения, наша служба поддержки поможет их внести.'],
+  ['Как связаться со службой поддержки?', 'Напишите нам через страницу поддержки или на электронную почту support@wonderwraps.com.'],
+  ['На каких языках доступны книги?', 'Книги доступны на английском, испанском, португальском, арабском, французском, турецком, немецком, итальянском, нидерландском и албанском языках.'],
+];
+
+const homeCopy = {
+  en: {
+    heroEyebrow: 'CREATE UNIQUE STORYBOOK',
+    heroTitle: "Craft magical tales where you're the hero",
+    tryFree: 'TRY FOR FREE',
+    viewBooks: 'View All Books',
+    bestsellers: 'Bestsellers',
+    bestsellerTitle: 'Personalise a bestseller',
+    newReleases: 'New Releases',
+    newTitle: 'Discover What’s New',
+    ourBooks: 'Our Books',
+    girlTitle: 'Books for Your Little Girl!',
+    boyTitle: 'Books for Your Little Boy!',
+    viewAll: 'View All',
+    from: 'From',
+    personalise: 'Personalise Now',
+    howEyebrow: 'CREATE YOUR BOOK IN MINUTES',
+    howTitle: 'How WonderWraps Works',
+    steps: ['Pick Storybook', "Add your Child's Picture", 'Preview & Order', 'Your story is printed with care and delivered with joy.'],
+    customiseEyebrow: 'Customize Faces, Expressions, and Angles',
+    customiseTitle: 'To bring your character to life!',
+    characterLabels: ['Many Styles', 'Full of Expressions', 'Different Angles'],
+    careerEyebrow: 'PERSONALISED STORIES THAT CELEBRATE THEIR BIG DREAMS',
+    careerTitle: 'Inspire Their Dreams with Hyper-personalised Career Adventures!',
+    explore: 'Explore',
+    careerLabels: ['Firefighter', 'Police Officer', 'Pilot', 'Doctor'],
+    ageTitle: 'Browse Stories by Age',
+    age: 'Age',
+    discover: 'Discover',
+    faqTitle: 'Frequently Asked Questions',
+    seeAll: 'See All',
+    faqs: faqsEn,
+    ctaTitle: "Bring your child's imagination to life!",
+    ctaText: 'Make them the hero of their own magical adventure with a hyper-personalised storybook!',
+  },
+  ru: {
+    heroEyebrow: 'СОЗДАЙТЕ УНИКАЛЬНУЮ КНИГУ',
+    heroTitle: 'Создавайте волшебные истории, где главный герой — ваш ребёнок',
+    tryFree: 'ПОПРОБОВАТЬ БЕСПЛАТНО',
+    viewBooks: 'Все книги',
+    bestsellers: 'Бестселлеры',
+    bestsellerTitle: 'Персонализируйте любимую книгу',
+    newReleases: 'Новинки',
+    newTitle: 'Откройте новые истории',
+    ourBooks: 'Наши книги',
+    girlTitle: 'Книги для вашей девочки!',
+    boyTitle: 'Книги для вашего мальчика!',
+    viewAll: 'Смотреть все',
+    from: 'От',
+    personalise: 'Персонализировать',
+    howEyebrow: 'СОЗДАЙТЕ КНИГУ ЗА НЕСКОЛЬКО МИНУТ',
+    howTitle: 'Как работает WonderWraps',
+    steps: ['Выберите книгу', 'Добавьте фотографию ребёнка', 'Посмотрите превью и закажите', 'Мы бережно напечатаем историю и доставим её с радостью.'],
+    customiseEyebrow: 'Настройте лицо, эмоции и ракурсы',
+    customiseTitle: 'Чтобы персонаж действительно ожил!',
+    characterLabels: ['Разные стили', 'Живые эмоции', 'Разные ракурсы'],
+    careerEyebrow: 'ПЕРСОНАЛЬНЫЕ ИСТОРИИ О БОЛЬШИХ МЕЧТАХ',
+    careerTitle: 'Вдохновите мечты ребёнка приключениями о будущей профессии!',
+    explore: 'Смотреть',
+    careerLabels: ['Пожарный', 'Полицейский', 'Пилот', 'Врач'],
+    ageTitle: 'Истории по возрасту',
+    age: 'Возраст',
+    discover: 'Открыть',
+    faqTitle: 'Часто задаваемые вопросы',
+    seeAll: 'Смотреть все',
+    faqs: faqsRu,
+    ctaTitle: 'Оживите воображение вашего ребёнка!',
+    ctaText: 'Сделайте его главным героем волшебного приключения в персонализированной книге!',
+  },
+};
+
+function SectionHeader({ eyebrow, title, viewAll }) {
   return (
     <div className={styles.sectionHeader}>
       <div>
         <span>{eyebrow}</span>
         <h2>{title}</h2>
       </div>
-      <Link href="/books" className={styles.viewAll}>View All <ArrowRight size={17} /></Link>
+      <Link href="/books" className={styles.viewAll}>{viewAll} <ArrowRight size={17} /></Link>
     </div>
   );
 }
 
-function ProductCard({ book }) {
+function ProductCard({ book, language, copy }) {
+  const translated = language === 'ru' ? productRu[book.title] : null;
+  const title = translated?.[0] || book.title;
+  const subtitle = translated?.[1] || book.subtitle;
   return (
     <article className={styles.productCard}>
-      <Link href="/books" className={styles.productImage} aria-label={`Personalise ${book.title}`}>
+      <Link href="/books" className={styles.productImage} aria-label={`${copy.personalise}: ${title}`}>
         {book.discount && <span className={styles.discount}>{book.discount}</span>}
-        <img src={book.image} alt={`${book.title} cover`} loading="lazy" />
+        <img src={book.image} alt={title} loading="lazy" />
       </Link>
       <div className={styles.productCopy}>
-        <h3>{book.title}</h3>
-        <p>{book.subtitle}</p>
-        <div className={styles.price}>{book.oldPrice ? <><strong>{book.price}</strong><del>{book.oldPrice}</del></> : <><small>From</small><strong>{book.price}</strong></>}</div>
-        <Link href="/books" className={styles.personalise}>Personalise Now <ChevronRight size={15} /></Link>
+        <h3>{title}</h3>
+        <p>{subtitle}</p>
+        <div className={styles.price}>{book.oldPrice ? <><strong>{book.price}</strong><del>{book.oldPrice}</del></> : <><small>{copy.from}</small><strong>{book.price}</strong></>}</div>
+        <Link href="/books" className={styles.personalise}>{copy.personalise} <ChevronRight size={15} /></Link>
       </div>
     </article>
   );
 }
 
-function ProductSection({ eyebrow, title, books, compact = false }) {
+function ProductSection({ eyebrow, title, books, copy, language, compact = false }) {
   return (
     <section className={`${styles.products} ${compact ? styles.compactProducts : ''}`}>
-      <SectionHeader eyebrow={eyebrow} title={title} />
-      <div className={styles.productGrid}>{books.map((book) => <ProductCard key={book.title} book={book} />)}</div>
+      <SectionHeader eyebrow={eyebrow} title={title} viewAll={copy.viewAll} />
+      <div className={styles.productGrid}>{books.map((book) => <ProductCard key={book.title} book={book} language={language} copy={copy} />)}</div>
     </section>
   );
 }
 
 export default function Home() {
+  const { currentLanguage } = useLanguage();
+  const copy = homeCopy[currentLanguage];
+
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
@@ -190,71 +301,71 @@ export default function Home() {
           </video>
         </div>
         <div className={styles.heroCopy}>
-          <span>CREATE UNIQUE STORYBOOK</span>
-          <h1>Craft magical tales where you&apos;re the hero</h1>
+          <span>{copy.heroEyebrow}</span>
+          <h1>{copy.heroTitle}</h1>
           <div className={styles.heroButtons}>
-            <Link href="/books" className={styles.primaryButton}>TRY FOR FREE</Link>
-            <Link href="/books" className={styles.whiteButton}>View All Books</Link>
+            <Link href="/books" className={styles.primaryButton}>{copy.tryFree}</Link>
+            <Link href="/books" className={styles.whiteButton}>{copy.viewBooks}</Link>
           </div>
         </div>
       </section>
 
-      <ProductSection eyebrow="Bestsellers" title="Personalise a bestseller" books={bestsellers} />
-      <ProductSection eyebrow="New Releases" title="Discover What’s New" books={newReleases} />
+      <ProductSection eyebrow={copy.bestsellers} title={copy.bestsellerTitle} books={bestsellers} copy={copy} language={currentLanguage} />
+      <ProductSection eyebrow={copy.newReleases} title={copy.newTitle} books={newReleases} copy={copy} language={currentLanguage} />
 
       <section className={styles.howItWorks}>
         <div className={styles.howInner}>
           <div className={styles.howHeading}>
-            <span>CREATE YOUR BOOK IN MINUTES</span>
-            <h2>How WonderWraps Works</h2>
+            <span>{copy.howEyebrow}</span>
+            <h2>{copy.howTitle}</h2>
           </div>
           <div className={styles.steps}>
-            {steps.map(([number, title, image]) => (
+            {steps.map(([number, , image], index) => (
               <article key={number} className={styles.step}>
                 <img src={image} alt="" loading="lazy" />
-                <div><span>{number}</span><h3>{title}</h3></div>
+                <div><span>{number}</span><h3>{copy.steps[index]}</h3></div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <ProductSection eyebrow="Our Books" title="Books for Your Little Girl!" books={girlBooks} compact />
+      <ProductSection eyebrow={copy.ourBooks} title={copy.girlTitle} books={girlBooks} copy={copy} language={currentLanguage} compact />
 
       <section className={styles.customise}>
         <div className={styles.customiseHeading}>
-          <span>Customize Faces, Expressions, and Angles</span>
-          <h2>To bring your character to life!</h2>
+          <span>{copy.customiseEyebrow}</span>
+          <h2>{copy.customiseTitle}</h2>
         </div>
         <div className={styles.customiseColumns}>
-          <CharacterGroup title="Many Styles" images={['many_styles_1_1.webp', 'many_styles_3_3.webp', 'many_styles_2_2.webp']} />
-          <CharacterGroup title="Full of Expressions" images={['full_of_expressions_1_2.webp', 'full_of_expressions_2_2.webp', 'full_of_expressions_3_1.webp']} />
-          <CharacterGroup title="Different Angels" images={['different_angles_1_1.webp', 'different_angles_2_2.webp', 'different_angles_3_3.webp']} />
+          <CharacterGroup title={copy.characterLabels[0]} images={['many_styles_1_1.webp', 'many_styles_3_3.webp', 'many_styles_2_2.webp']} />
+          <CharacterGroup title={copy.characterLabels[1]} images={['full_of_expressions_1_2.webp', 'full_of_expressions_2_2.webp', 'full_of_expressions_3_1.webp']} />
+          <CharacterGroup title={copy.characterLabels[2]} images={['different_angles_1_1.webp', 'different_angles_2_2.webp', 'different_angles_3_3.webp']} />
         </div>
       </section>
 
-      <ProductSection eyebrow="Our Books" title="Books for Your Little Boy!" books={boyBooks} compact />
+      <ProductSection eyebrow={copy.ourBooks} title={copy.boyTitle} books={boyBooks} copy={copy} language={currentLanguage} compact />
 
       <section className={styles.careers}>
         <img className={styles.careerBg} src={`${ASSET_ROOT}/img/home/inspire-bg.svg`} alt="" loading="lazy" />
         <div className={styles.careerCopy}>
-          <span>PERSONALISED STORIES THAT CELEBRATE THEIR BIG DREAMS</span>
-          <h2>Inspire Their Dreams with Hyper-personalised Career Adventures!</h2>
-          <Link href="/books" className={styles.primaryButton}>Explore</Link>
+          <span>{copy.careerEyebrow}</span>
+          <h2>{copy.careerTitle}</h2>
+          <Link href="/books" className={styles.primaryButton}>{copy.explore}</Link>
         </div>
         <div className={styles.careerArt}>
           {[
-            ['firefighter.webp', 'Firefighter'],
-            ['police.webp', 'Police Officer'],
-            ['pilot.webp', 'Pilot'],
-            ['doctor.webp', 'Doctor'],
-          ].map(([image, label]) => <div key={label}><img src={`${ASSET_ROOT}/img/home/children/${image}`} alt={label} loading="lazy" /><span>{label}</span></div>)}
+            'firefighter.webp',
+            'police.webp',
+            'pilot.webp',
+            'doctor.webp',
+          ].map((image, index) => <div key={image}><img src={`${ASSET_ROOT}/img/home/children/${image}`} alt={copy.careerLabels[index]} loading="lazy" /><span>{copy.careerLabels[index]}</span></div>)}
           <img className={styles.careerChild} src={`${ASSET_ROOT}/img/home/children/child.webp`} alt="Child imagining future careers" loading="lazy" />
         </div>
       </section>
 
       <section className={styles.ages}>
-        <h2>Browse Stories by Age</h2>
+        <h2>{copy.ageTitle}</h2>
         <div className={styles.ageGrid}>
           {[
             ['2-4', `${ASSET_ROOT}/img/2-4.webp`],
@@ -263,32 +374,32 @@ export default function Home() {
           ].map(([age, image]) => (
             <Link href="/books" className={styles.ageCard} key={age}>
               <img src={image} alt={`Child ${age}`} loading="lazy" />
-              <span>Age {age}</span>
-              <small>Discover <ArrowRight size={15} /></small>
+              <span>{copy.age} {age}</span>
+              <small>{copy.discover} <ArrowRight size={15} /></small>
             </Link>
           ))}
         </div>
       </section>
 
       <section className={styles.faq}>
-        <h2>Frequently Asked Questions</h2>
+        <h2>{copy.faqTitle}</h2>
         <div className={styles.faqList}>
-          {faqs.map(([question, answer], index) => (
+          {copy.faqs.map(([question, answer], index) => (
             <details key={question} open={index === 0}>
               <summary>{question}<span>+</span></summary>
               <p>{answer}</p>
             </details>
           ))}
         </div>
-        <Link href="/support" className={styles.faqButton}>See All</Link>
+        <Link href="/support" className={styles.faqButton}>{copy.seeAll}</Link>
       </section>
 
       <section className={styles.finalCta}>
         <div className={styles.ctaImage}><img src={`${ASSET_ROOT}/img/home/footer_crop_image.webp`} alt="Reading Book" loading="lazy" /></div>
         <div className={styles.ctaCopy}>
-          <h2>Bring your child&apos;s imagination to life!</h2>
-          <p>Make them the hero of their own magical adventure with a hyper-personalised storybook!</p>
-          <Link href="/books" className={styles.whiteButton}>View All Books</Link>
+          <h2>{copy.ctaTitle}</h2>
+          <p>{copy.ctaText}</p>
+          <Link href="/books" className={styles.whiteButton}>{copy.viewBooks}</Link>
         </div>
       </section>
     </div>
