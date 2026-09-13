@@ -1,12 +1,17 @@
 {
-  "name": "izrael",
+  "name": "wonder",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint src next.config.mjs --max-warnings=0",
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "node scripts/test-website.mjs",
+    "test:a11y": "node scripts/test-accessibility.mjs",
+    "test:language": "node scripts/test-language.mjs",
+    "test:purchase": "node scripts/test-purchase-http.mjs",
     "import:cards": "node scripts/importPokemonCards.js",
     "test:card": "node scripts/fetchCardById.js",
     "test:cardmarket-data": "node scripts/extractCardmarketData.js",
@@ -16,12 +21,13 @@
     "@chakra-ui/react": "^3.22.0",
     "@emotion/react": "^11.14.0",
     "@hookform/resolvers": "^5.2.1",
-    "@supabase/supabase-js": "^2.56.0",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.116.0",
     "axios": "^1.11.0",
     "cheerio": "^1.1.2",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.539.0",
-    "next": "15.5.18",
+    "next": "15.5.25",
     "next-intl": "^4.3.4",
     "next-themes": "^0.4.6",
     "node-fetch": "^2.7.0",
@@ -30,14 +36,22 @@
     "react-dom": "19.1.9",
     "react-hook-form": "^7.62.0",
     "react-icons": "^5.5.0",
-    "sharp": "^0.34.3",
+    "sharp": "0.35.4",
     "zod": "^4.0.17"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "15.4.1",
+    "eslint-config-next": "15.5.25",
     "tailwindcss": "^4"
+  },
+  "overrides": {
+    "postcss": "8.5.28",
+    "sharp": "$sharp"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local verification and alternate production builds
+/tmp/
+/artifacts/
+/.next-production/
+/.next-supabase-check/

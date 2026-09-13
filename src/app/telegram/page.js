@@ -11,6 +11,7 @@ import {
   Star,
 } from 'lucide-react';
 import styles from './telegram.module.css';
+import { notFound } from 'next/navigation';
 
 const campaigns = [
   { id: '256121', name: 'Runo new groups', channel: 'zrofficial', state: 'active', cpm: '2.03', budget: '60.00', views: '354 680', clicks: '993', actions: '89', ctr: '0.28', cpc: '0.73', cv: '8.96', spent: '720.00', cpa: '8.09' },
@@ -156,6 +157,8 @@ function CampaignTable() {
 }
 
 export default function TelegramPage() {
+  // Preserve the legacy mockup without exposing it on the book website.
+  if (process.env.WONDER_LEGACY_DEMOS !== 'true') notFound();
   return (
     <div className={styles.telegramPage} data-telegram-page>
       <Sidebar />
