@@ -31,7 +31,7 @@ for (const [cookie, expected] of [
     assert.equal(response.status, 200, route);
     const html = await response.text();
     assert(
-      html.includes(`<html lang="${expected}">`),
+      new RegExp(`<html\\b[^>]*\\blang="${expected}"`).test(html),
       `${route}: document language ${expected}`,
     );
     const title = html.match(/<title>(.*?)<\/title>/s)?.[1];

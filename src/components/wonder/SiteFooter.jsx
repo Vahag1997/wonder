@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BookOpen, Sparkles, ArrowRight } from "lucide-react";
 export default function SiteFooter({ locale }) {
   const ru = locale === "ru";
   return (
@@ -6,9 +7,13 @@ export default function SiteFooter({ locale }) {
       <div className="wrap footer-top">
         <div>
           <Link href="/" className="wordmark">
+            <span className="brand-symbol" aria-hidden="true">
+              <BookOpen size={27} />
+              <Sparkles size={13} />
+            </span>
             wonder
             <span className="brand-star" aria-hidden="true">
-              ✳
+              ✦
             </span>
           </Link>
           <p>
@@ -36,12 +41,24 @@ export default function SiteFooter({ locale }) {
           </div>
         </div>
       </div>
+      <div className="wrap footer-invitation">
+        <span aria-hidden="true">✳</span>
+        <h2>
+          {ru
+            ? "Большое приключение для маленького героя"
+            : "A big adventure for a little hero"}
+        </h2>
+        <Link className="text-link" href="/books">
+          {ru ? "Заглянуть на полку" : "Explore the bookshelf"}
+          <ArrowRight size={18} aria-hidden="true" />
+        </Link>
+      </div>
       <div className="wrap footer-bottom">
         <span>© {new Date().getFullYear()} Wonder.</span>
         <span>
           {ru
-            ? "Закрытая демонстрация · Оплата пока недоступна"
-            : "Private preview · Checkout is not yet open"}
+            ? "Демонстрация · Оплата пока недоступна"
+            : "Preview · Checkout is not yet open"}
         </span>
         <span>
           {ru ? "Создано с воображением." : "Made with a little imagination."}

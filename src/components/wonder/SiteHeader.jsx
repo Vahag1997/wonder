@@ -2,7 +2,15 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, BookOpen, Menu, X, Sparkles } from "lucide-react";
+import {
+  ArrowUpRight,
+  BookOpen,
+  Menu,
+  X,
+  Sparkles,
+  UserRound,
+  Search,
+} from "lucide-react";
 export default function SiteHeader({ locale }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -24,7 +32,8 @@ export default function SiteHeader({ locale }) {
     return () => document.removeEventListener("keydown", close);
   }, [open]);
   const links = [
-    ["/books", ru ? "Наши истории" : "Our stories"],
+    ["/", ru ? "Главная" : "Home"],
+    ["/books", ru ? "Книги" : "Books"],
     ["/#how-it-works", ru ? "Как это работает" : "How it works"],
     ["/support", ru ? "Помощь" : "Help & answers"],
   ];
@@ -49,9 +58,13 @@ export default function SiteHeader({ locale }) {
             className="wordmark"
             aria-label={ru ? "Wonder — главная" : "Wonder home"}
           >
+            <span className="brand-symbol" aria-hidden="true">
+              <BookOpen size={27} strokeWidth={2} />
+              <Sparkles size={13} />
+            </span>
             wonder
             <span className="brand-star" aria-hidden="true">
-              ✳
+              ✦
             </span>
           </Link>
           <nav
@@ -62,13 +75,28 @@ export default function SiteHeader({ locale }) {
               <Link
                 href={href}
                 key={href}
-                aria-current={pathname === href ? "page" : undefined}
+                aria-current={
+                  (
+                    href === "/"
+                      ? pathname === "/"
+                      : pathname === href || pathname.startsWith(href + "/")
+                  )
+                    ? "page"
+                    : undefined
+                }
               >
                 {text}
               </Link>
             ))}
           </nav>
           <div className="header-actions">
+            <Link
+              href="/books#story-search"
+              className="icon-button header-search"
+              aria-label={ru ? "Найти книгу" : "Find a book"}
+            >
+              <Search size={21} aria-hidden="true" />
+            </Link>
             <button
               className="locale-toggle"
               aria-label={
@@ -90,9 +118,12 @@ export default function SiteHeader({ locale }) {
               <BookOpen size={19} aria-hidden="true" />
               <span>{ru ? "Мои книги" : "My books"}</span>
             </Link>
-            <Link href="/books" className="button button-small header-cta">
-              {ru ? "Создать книгу" : "Make their book"}
-              <ArrowUpRight size={16} aria-hidden="true" />
+            <Link
+              href="/account"
+              className="icon-button"
+              aria-label={ru ? "Мой аккаунт" : "My account"}
+            >
+              <UserRound size={21} aria-hidden="true" />
             </Link>
             <button
               ref={toggle}

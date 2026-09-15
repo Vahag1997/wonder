@@ -378,6 +378,7 @@ export default function AccountArea({
                 : "An original illustration of a magical storybook forest"
             }
             fill
+            priority
             sizes="(max-width: 700px) 100vw, 50vw"
           />
           <div>

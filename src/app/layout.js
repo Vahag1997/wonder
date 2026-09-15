@@ -1,17 +1,13 @@
-import { Onest, Fraunces } from "next/font/google";
+import { Onest } from "next/font/google";
 import SiteHeader from "@/components/wonder/SiteHeader";
 import SiteFooter from "@/components/wonder/SiteFooter";
 import MotionObserver from "@/components/wonder/MotionObserver";
 import { getLocale } from "@/lib/locale";
 import "./globals.css";
+import "./storefront.css";
 const sans = Onest({
   variable: "--font-sans",
   subsets: ["latin", "cyrillic"],
-  display: "swap",
-});
-const display = Fraunces({
-  variable: "--font-display",
-  subsets: ["latin"],
   display: "swap",
 });
 export async function generateMetadata() {
@@ -58,13 +54,13 @@ export async function generateMetadata() {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#fffdf8",
+  themeColor: "#753bbd",
 };
 export default async function RootLayout({ children }) {
   const locale = await getLocale();
   return (
-    <html lang={locale}>
-      <body className={`${sans.variable} ${display.variable}`}>
+    <html lang={locale} data-scroll-behavior="smooth">
+      <body className={`${sans.variable} wonder-storefront`}>
         <SiteHeader locale={locale} />
         <main id="main-content" tabIndex={-1}>
           <noscript>

@@ -11,7 +11,15 @@ export default function BookCard({ book, locale }) {
         href={`/books/${book.slug}`}
         aria-label={`${book.tag[locale]} — ${book.title[locale]}`}
       >
-        <span className="art-caption">{book.tag[locale]}</span>
+        <span className="art-caption">
+          {book.supported
+            ? ru
+              ? "Первая история"
+              : "Our first story"
+            : ru
+              ? "Образец"
+              : "Sample"}
+        </span>
         <BookCover
           book={book}
           sizes={
@@ -33,7 +41,10 @@ export default function BookCard({ book, locale }) {
           <Link href={`/books/${book.slug}`}>{book.title[locale]}</Link>
         </h3>
         <p>{book.description[locale]}</p>
-        <Link className="text-link" href={`/books/${book.slug}`}>
+        <Link
+          className="button button-outline card-action"
+          href={`/books/${book.slug}`}
+        >
           {ru ? "Заглянуть внутрь" : "Take a peek inside"}
           <ArrowUpRight size={16} aria-hidden="true" />
         </Link>

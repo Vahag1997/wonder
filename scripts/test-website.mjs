@@ -20,6 +20,14 @@ async function assertPage(page) {
     () => document.documentElement.scrollWidth > window.innerWidth + 1,
   );
   assert.equal(overflow, false, "No horizontal overflow");
+  const collapsedCovers = await page
+    .locator(".book-card-art .book-object")
+    .evaluateAll(
+      (covers) =>
+        covers.filter((cover) => cover.getBoundingClientRect().width < 20)
+          .length,
+    );
+  assert.equal(collapsedCovers, 0, "Book covers have a visible layout size");
   await page.evaluate(() => document.fonts.ready);
 }
 async function capture(page, name) {
@@ -220,12 +228,12 @@ try {
   ]) {
     await page.goto(baseURL + route, { waitUntil: "networkidle" });
     await assertPage(page);
-    assert.match(
-      await page.locator("main").innerText(),
-      /Accounts are not connected/,
-    );
+    // Both a configured, signed-out backend and a disconnected preview must
+    // render an auth form, never fabricated customer records.
+    await page.locator(".auth-card").waitFor();
+    assert.equal(await page.locator(".record-list article").count(), 0);
   }
-  record("Account routes render honest disconnected and empty states");
+  record("Signed-out account routes show auth forms without customer records");
   await page.goto(baseURL + "/support", { waitUntil: "networkidle" });
   await assertPage(page);
   await page
@@ -234,7 +242,7 @@ try {
   assert((await page.locator(".support-faq details").count()) > 0);
   await page.getByRole("searchbox").fill("zzzzzz");
   await page.getByRole("button", { name: "Show all answers" }).click();
-  assert.equal(await page.locator(".support-faq details").count(), 7);
+  assert.equal(await page.locator(".support-faq details").count(), 9);
   record("Help search, empty state, and reset");
   for (const route of ["/books/maksim-and-fluffy", "/books/the-abc-journey"]) {
     await page.goto(baseURL + route, { waitUntil: "networkidle" });
@@ -302,7 +310,7 @@ try {
   await page.getByRole("button", { name: "Open menu" }).click();
   await page
     .locator("#mobile-navigation")
-    .getByRole("link", { name: "Our stories" })
+    .getByRole("link", { name: "Books", exact: true })
     .click();
   await page.waitForURL("**/books");
   assert.equal(await page.locator("#mobile-navigation").isVisible(), false);
@@ -339,22 +347,17 @@ try {
   ]);
   motionPage.on("pageerror", (error) => errors.push(error.message));
   await motionPage.goto(baseURL, { waitUntil: "networkidle" });
-  const bookLink = motionPage.locator(".hero-book-link");
-  const resting = await bookLink.evaluate(
-    (el) => getComputedStyle(el).transform,
-  );
+  const bookLink = motionPage.locator(".book-card-art").first();
+  const cover = bookLink.locator(".book-object");
+  const resting = await cover.evaluate((el) => getComputedStyle(el).transform);
   await bookLink.hover();
   await motionPage.waitForTimeout(750);
   assert.notEqual(
-    await bookLink.evaluate((el) => getComputedStyle(el).transform),
+    await cover.evaluate((el) => getComputedStyle(el).transform),
     resting,
   );
-  const captionBox = await motionPage.locator(".stage-caption").boundingBox();
-  const bookBox = await bookLink.boundingBox();
-  assert(
-    captionBox.y + captionBox.height <= bookBox.y,
-    "Hero caption stays clear of the animated cover",
-  );
+  const bookBox = await cover.boundingBox();
+  assert(bookBox.width > 20 && bookBox.height > 20, "Cover is visibly sized");
   await capture(motionPage, "home-desktop-motion");
   await motionPage.screenshot({
     path: "artifacts/website/home-desktop-viewport.png",
@@ -370,7 +373,7 @@ try {
   });
   await motionContext.close();
   record(
-    "3D hover responds; scroll reveals finish with standard motion enabled",
+    "Book hover responds; scroll reveals finish with standard motion enabled",
   );
   const noJsContext = await browser.newContext({ javaScriptEnabled: false });
   const noJsPage = await noJsContext.newPage();

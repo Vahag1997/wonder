@@ -14,6 +14,7 @@ export default function StoryCatalog({
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const theme = initialTheme;
+  const plural = new Intl.PluralRules(locale);
   const visible = books.filter(
     (book) =>
       (!theme || book.theme === theme) &&
@@ -65,6 +66,7 @@ export default function StoryCatalog({
         >
           <Search size={18} aria-hidden="true" />
           <input
+            id="story-search"
             name="q"
             aria-label={ru ? "Поиск историй" : "Search stories"}
             placeholder={ru ? "Найти историю…" : "Find a little adventure…"}
@@ -86,7 +88,7 @@ export default function StoryCatalog({
           ? ru
             ? "Обновляем…"
             : "Updating…"
-          : `${visible.length} ${ru ? "историй" : "stories to explore"}`}
+          : `${visible.length} ${ru ? { one: "история", few: "истории", many: "историй", other: "истории" }[plural.select(visible.length)] : visible.length === 1 ? "story to explore" : "stories to explore"}`}
         {(theme || initialQuery) && (
           <button
             className="text-link"
