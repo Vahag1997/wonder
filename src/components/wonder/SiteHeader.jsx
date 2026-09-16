@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import BrandLogo from "./BrandLogo";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -34,7 +35,9 @@ export default function SiteHeader({ locale }) {
   const links = [
     ["/", ru ? "Главная" : "Home"],
     ["/books", ru ? "Книги" : "Books"],
-    ["/#how-it-works", ru ? "Как это работает" : "How it works"],
+    ["/books?gender=boy", ru ? "Мальчикам" : "For boys"],
+    ["/books?gender=girl", ru ? "Девочкам" : "For girls"],
+    ["/my-books", ru ? "Мои книги" : "My books"],
     ["/support", ru ? "Помощь" : "Help & answers"],
   ];
   return (
@@ -44,7 +47,7 @@ export default function SiteHeader({ locale }) {
       </a>
       <aside
         className="announcement"
-        aria-label={ru ? "О Wonder" : "About Wonder"}
+        aria-label={ru ? "О MagicBook" : "About MagicBook"}
       >
         <Sparkles size={14} aria-hidden="true" />
         {ru
@@ -55,17 +58,10 @@ export default function SiteHeader({ locale }) {
         <div className="header-inner wrap">
           <Link
             href="/"
-            className="wordmark"
-            aria-label={ru ? "Wonder — главная" : "Wonder home"}
+            className="wordmark magicbook-brand-link"
+            aria-label={ru ? "MagicBook — главная" : "MagicBook home"}
           >
-            <span className="brand-symbol" aria-hidden="true">
-              <BookOpen size={27} strokeWidth={2} />
-              <Sparkles size={13} />
-            </span>
-            wonder
-            <span className="brand-star" aria-hidden="true">
-              ✦
-            </span>
+            <BrandLogo />
           </Link>
           <nav
             className="desktop-nav"
@@ -160,8 +156,8 @@ export default function SiteHeader({ locale }) {
               <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
           ))}
-          <Link href="/my-books">
-            {ru ? "Мои книги" : "My books"}
+          <Link href="/#how-it-works">
+            {ru ? "Как это работает" : "How it works"}
             <BookOpen size={18} aria-hidden="true" />
           </Link>
         </nav>

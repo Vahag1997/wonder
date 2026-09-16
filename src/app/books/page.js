@@ -1,6 +1,7 @@
 import { getLocale } from "@/lib/locale";
 import { books } from "@/lib/catalog";
 import StoryCatalog from "@/components/wonder/StoryCatalog";
+import { normalizeGender } from "@/lib/story-discovery";
 export async function generateMetadata() {
   const ru = (await getLocale()) === "ru";
   return {
@@ -18,6 +19,7 @@ export default async function BooksPage({ searchParams }) {
     ? params.theme
     : "";
   const query = typeof params.q === "string" ? params.q.slice(0, 100) : "";
+  const gender = normalizeGender(params.gender);
   return (
     <section className="section wrap catalog-page">
       <div className="catalog-heading">
@@ -43,11 +45,12 @@ export default async function BooksPage({ searchParams }) {
         </p>
       </div>
       <StoryCatalog
-        key={`${theme}-${query}`}
+        key={`${theme}-${query}-${gender}`}
         books={books}
         locale={locale}
         initialTheme={theme}
         initialQuery={query}
+        initialGender={gender}
       />
       <p className="catalog-disclaimer">
         {ru

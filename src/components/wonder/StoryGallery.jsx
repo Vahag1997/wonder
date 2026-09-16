@@ -104,7 +104,7 @@ export default function StoryGallery({ book, locale }) {
               alt=""
               fill
               sizes="90px"
-              className="contain-image"
+              className={i === 0 && book.art === "amir" ? "thumbnail-cover" : "contain-image"}
             />
           </button>
         ))}

@@ -12,6 +12,10 @@ import {
 import { getLocale } from "@/lib/locale";
 import { books } from "@/lib/catalog";
 import BookCard from "@/components/wonder/BookCard";
+import BookCover from "@/components/wonder/BookCover";
+import CinematicHero from "@/components/wonder/CinematicHero";
+import StoryInMotion from "@/components/wonder/StoryInMotion";
+import HeroCollections from "@/components/wonder/HeroCollections";
 
 export default async function HomePage() {
   const locale = await getLocale();
@@ -48,79 +52,12 @@ export default async function HomePage() {
   ];
   return (
     <>
-      <section className="shop-hero" aria-labelledby="home-title">
-        <div className="shop-hero-art">
-          <Image
-            src="/images/storybook-forest.webp"
-            alt={
-              ru
-                ? "Авторская иллюстрация: ребёнок и добрый пёс открывают волшебную книгу"
-                : "Original illustration of a child and a friendly dog discovering a magical book"
-            }
-            fill
-            priority
-            sizes="(max-width: 700px) 100vw, 56vw"
-          />
-          <span className="hero-art-label">
-            {ru
-              ? "Каждая сказка начинается с чуда"
-              : "Every story begins with a little wonder"}
-          </span>
-          <span className="hero-spark hero-spark-one" aria-hidden="true">
-            ✦
-          </span>
-        </div>
-        <div className="shop-hero-copy">
-          <span className="hero-spark hero-spark-two" aria-hidden="true">
-            ✳
-          </span>
-          <p className="eyebrow">
-            {ru ? "Персональные книги для детей" : "A story made just for them"}
-          </p>
-          <h1 id="home-title">
-            {ru ? (
-              <>
-                Маленький герой.
-                <br />
-                <em>
-                  Его большая
-                  <br />
-                  сказка.
-                </em>
-              </>
-            ) : (
-              <>
-                A little person.
-                <br />
-                <em>
-                  Their own
-                  <br />
-                  big story.
-                </em>
-              </>
-            )}
-          </h1>
-          <p className="shop-hero-description">
-            {ru
-              ? "Подарите ребёнку целый мир, в котором он — главный герой. С его именем, улыбкой и неповторимым воображением."
-              : "Give your child a world where they’re the main character. Their name, their smile, their one-of-a-kind imagination."}
-          </p>
-          <Link href="/books" className="button">
-            {ru ? "Выбрать книгу" : "Find their story"}
-            <ArrowRight size={19} aria-hidden="true" />
-          </Link>
-          <a href="#how-it-works" className="hero-secondary">
-            {ru
-              ? "Как появляется персональная книга?"
-              : "How does their story come to life?"}
-          </a>
-        </div>
-      </section>
+      <CinematicHero locale={locale} />
       <div className="shop-benefits">
         <div className="wrap">
           {[
-            [Camera, ru ? "Герой с его улыбкой" : "A hero with their smile"],
-            [BookOpen, ru ? "Его имя в истории" : "Their name in the story"],
+            [Camera, ru ? "Знакомая улыбка" : "A familiar smile"],
+            [BookOpen, ru ? "Любимое имя в истории" : "Their name in the story"],
             [
               Sparkles,
               ru
@@ -136,19 +73,20 @@ export default async function HomePage() {
           ))}
         </div>
       </div>
+      <HeroCollections locale={locale} />
       <section className="section wrap collection-section">
         <div className="section-heading">
           <div>
             <p className="eyebrow">
-              {ru ? "На нашей книжной полке" : "On our bookshelf"}
+              {ru ? "Наша коллекция" : "Our collection"}
             </p>
             <h2>
               {ru
-                ? "Найдите их любимую историю"
-                : "Meet their next favorite story"}
+                ? "Выберите свою историю"
+                : "Find their favorite story"}
             </h2>
           </div>
-          <Link href="/books" className="button button-outline button-small">
+          <Link href="/books" className="button button-small">
             {ru ? "Все книги" : "View all books"}
             <ArrowRight size={17} aria-hidden="true" />
           </Link>
@@ -179,12 +117,11 @@ export default async function HomePage() {
             </h2>
           </div>
           <div className="shop-steps">
-            {steps.map(([Icon, title, body], i) => (
+            {steps.map(([, title, body], i) => (
               <article className="shop-step" key={title}>
                 <div className={`shop-step-art step-color-${i}`}>
-                  <Icon size={46} strokeWidth={1.5} aria-hidden="true" />
+                  {i === 0 ? <div className="step-mini-book"><BookCover book={books[0]} sizes="240px" /></div> : i === 1 ? <div className="step-photo-frame"><Image src="/images/storybook-forest.webp" alt="" fill sizes="200px" /><Camera size={25} aria-hidden="true" /></div> : i === 2 ? <div className="step-preview-spread"><Image src={books[0].samples[1]} alt="" fill sizes="300px" /></div> : <div className="step-pdf"><BookOpen size={43} aria-hidden="true" /><b>PDF</b><Download size={20} aria-hidden="true" /></div>}
                   <span>{i + 1}</span>
-                  <i aria-hidden="true">✦</i>
                 </div>
                 <h3>{title}</h3>
                 <p>{body}</p>
@@ -199,64 +136,7 @@ export default async function HomePage() {
           </p>
         </div>
       </section>
-      <section className="section wrap shop-feature">
-        <div className="shop-feature-copy">
-          <p className="eyebrow">
-            {ru
-              ? "Большие чувства. Маленькие герои."
-              : "Big feelings. Little heroes."}
-          </p>
-          <h2>
-            {ru ? (
-              <>
-                У каждой дружбы
-                <br />
-                есть своя <em>история.</em>
-              </>
-            ) : (
-              <>
-                Every friendship
-                <br />
-                has a <em>story.</em>
-              </>
-            )}
-          </h2>
-          <p>
-            {ru
-              ? "Смелость сделать первый шаг. Радость нового открытия. И верный друг рядом. Начните с нашей тёплой истории о мальчике и его псе."
-              : "The courage to take a first step. The joy of a new discovery. A loyal friend by their side. Explore our warm story of a boy and his dog."}
-          </p>
-          <Link href={`/books/${books[0].slug}`} className="button">
-            {ru ? "Заглянуть в книгу" : "Peek inside the book"}
-            <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-          <span className="subtle">
-            {ru
-              ? "Показываем страницы исходной книги"
-              : "Original story pages shown"}
-          </span>
-        </div>
-        <div className="shop-feature-art">
-          <span className="feature-badge">
-            {ru ? "История о дружбе" : "A story of friendship"}
-          </span>
-          <div className="feature-page">
-            <Image
-              src={books[0].samples[1]}
-              alt={
-                ru
-                  ? "Исходная иллюстрация из книги о дружбе"
-                  : "Original illustration from the friendship story"
-              }
-              fill
-              sizes="(max-width: 700px) 90vw, 50vw"
-            />
-          </div>
-          <span className="feature-star" aria-hidden="true">
-            ✳
-          </span>
-        </div>
-      </section>
+      <StoryInMotion book={books[0]} locale={locale} />
       <section className="section shop-worlds">
         <div className="wrap">
           <div className="center-heading">

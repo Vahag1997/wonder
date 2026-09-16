@@ -164,6 +164,7 @@ test("client sends only photo/details/consent, never a price or arbitrary design
   const details = {
     name: "Иван",
     age: 5,
+    gender: "boy",
     consent: true,
     photo: { file: new File(["fixture"], "photo.jpg", { type: "image/jpeg" }) },
   };
@@ -177,12 +178,14 @@ test("client sends only photo/details/consent, never a price or arbitrary design
   assert.deepEqual([...calls[0].options.body.keys()].sort(), [
     "bookSlug",
     "childAge",
+    "childGender",
     "childName",
     "consent",
     "photo",
   ]);
   assert.equal(calls[0].options.cache, "no-store");
   assert.equal(calls[0].options.credentials, "same-origin");
+  assert.equal(calls[0].options.body.get("childGender"), "boy");
 });
 test("checkout uses quote ID and stable key, blocks arbitrary redirects", async () => {
   let request;

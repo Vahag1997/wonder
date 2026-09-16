@@ -1,5 +1,33 @@
 # Wonder storefront redesign
 
+## September 15: closer bookshop revision
+
+The client requested a substantially closer Wonderwraps direction. The reference
+homepage and product page were inspected live. This revision replaces the generic
+forest hero with the actual Amir source cover on a CSS lavender display, makes
+cover cards edge-to-edge, uses quieter labels and rectangular calls to action,
+and adds pictorial process steps and an expanded source-page/detail FAQ section.
+Shared catalog, forms, account, support and footer styling is updated through
+`src/app/bookshop.css`. Golos Text and Manrope are self-hosted by Next/font with
+Cyrillic subsets; a more-specific legacy Russian font rule was corrected.
+
+No reference-site assets, reviews, sales figures or prices were copied. Existing
+supplied reference books remain labeled as samples and blocked for personalization.
+No paid generation, email, payment or real customer upload occurred. This is a UI
+revision, not completion of the production integrations.
+
+Checks: lint, 20 unit tests, production build; Russian/default/invalid-cookie/English
+HTTP checks on 12 routes and localized 404; 21 fail-closed purchase API requests.
+Browser inspection covered desktop homepage/cards, mobile homepage/cards, desktop
+and mobile details, desktop registration and mobile photo form. Six key routes at
+320, 768 and 1440px had no horizontal overflow, one h1 and no detected broken loaded
+images. Gallery next/expand/Escape, catalog filter/reset and empty-name validation
+were exercised. Foreground/background contrast of announcement and step numbers
+was adjusted to >4.5:1. Full axe and legacy browser suites were not run in this
+revision. Chrome extension errors were seen in logs, unrelated to the site.
+
+Earlier revision notes follow.
+
 ## Direction
 
 Reference inspected in browser: https://wonderwraps.com/ and its book-detail

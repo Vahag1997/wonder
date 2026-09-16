@@ -1,20 +1,14 @@
 import Link from "next/link";
-import { BookOpen, Sparkles, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import BrandLogo from "./BrandLogo";
 export default function SiteFooter({ locale }) {
   const ru = locale === "ru";
   return (
     <footer className="site-footer">
       <div className="wrap footer-top">
         <div>
-          <Link href="/" className="wordmark">
-            <span className="brand-symbol" aria-hidden="true">
-              <BookOpen size={27} />
-              <Sparkles size={13} />
-            </span>
-            wonder
-            <span className="brand-star" aria-hidden="true">
-              ✦
-            </span>
+          <Link href="/" className="wordmark magicbook-brand-link" aria-label={ru ? "MagicBook — главная" : "MagicBook home"}>
+            <BrandLogo full />
           </Link>
           <p>
             {ru
@@ -54,7 +48,7 @@ export default function SiteFooter({ locale }) {
         </Link>
       </div>
       <div className="wrap footer-bottom">
-        <span>© {new Date().getFullYear()} Wonder.</span>
+        <span>© {new Date().getFullYear()} MagicBook.</span>
         <span>
           {ru
             ? "Демонстрация · Оплата пока недоступна"

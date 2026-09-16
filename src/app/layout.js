@@ -1,12 +1,18 @@
-import { Onest } from "next/font/google";
+import { Golos_Text, Manrope } from "next/font/google";
 import SiteHeader from "@/components/wonder/SiteHeader";
 import SiteFooter from "@/components/wonder/SiteFooter";
 import MotionObserver from "@/components/wonder/MotionObserver";
 import { getLocale } from "@/lib/locale";
 import "./globals.css";
 import "./storefront.css";
-const sans = Onest({
+import "./bookshop.css";
+const sans = Golos_Text({
   variable: "--font-sans",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+});
+const display = Manrope({
+  variable: "--font-heading",
   subsets: ["latin", "cyrillic"],
   display: "swap",
 });
@@ -18,22 +24,21 @@ export async function generateMetadata() {
     ),
     title: {
       default: ru
-        ? "Wonder — Персональные книги для детей"
-        : "Wonder — A little person. A very big adventure.",
-      template: "%s | Wonder",
+        ? "MagicBook — Персональные книги для детей"
+        : "MagicBook — A little person. A very big adventure.",
+      template: "%s | MagicBook",
     },
     description: ru
       ? "Иллюстрированные истории, в которых ваш ребёнок — главный герой. Выберите книгу и укажите имя и фотографию ребёнка."
       : "Explore illustrated stories and prepare a personalized book with your child’s name and photo.",
-    icons: { icon: "/icon.svg" },
     robots: {
       index: process.env.WONDER_PUBLIC_INDEXING === "true",
       follow: process.env.WONDER_PUBLIC_INDEXING === "true",
     },
     openGraph: {
       title: ru
-        ? "Wonder — Истории о вашем ребёнке"
-        : "Wonder — Stories with your child at their heart",
+        ? "MagicBook — Истории о вашем ребёнке"
+        : "MagicBook — Stories with your child at their heart",
       description: ru
         ? "Маленький герой. Большая история."
         : "A little person. A very big adventure.",
@@ -60,7 +65,7 @@ export default async function RootLayout({ children }) {
   const locale = await getLocale();
   return (
     <html lang={locale} data-scroll-behavior="smooth">
-      <body className={`${sans.variable} wonder-storefront`}>
+      <body className={`${sans.variable} ${display.variable} wonder-storefront`}>
         <SiteHeader locale={locale} />
         <main id="main-content" tabIndex={-1}>
           <noscript>

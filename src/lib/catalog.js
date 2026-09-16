@@ -4,6 +4,7 @@ export const books = [
     slug: "amir-and-new-friends",
     templateId: "amir-new-cover-20x20",
     art: "amir",
+    heroGenders: ["boy"],
     title: {
       en: "A little hero. A world of friends.",
       ru: "Маленький герой. Большая дружба.",
@@ -31,6 +32,7 @@ export const books = [
     slug: "maksim-and-fluffy",
     templateId: "maksim-and-fluffy-adventure",
     art: "fluffy",
+    heroGenders: ["boy"],
     title: { en: "An adventure with Fluffy.", ru: "Приключение с Пушистиком." },
     sourceTitle: "Maksim and Fluffy’s Adventure",
     description: {
@@ -55,6 +57,7 @@ export const books = [
     slug: "the-abc-journey",
     templateId: "abc-journey-with-sasha",
     art: "abc",
+    heroGenders: ["boy"],
     title: {
       en: "Every letter, a little discovery.",
       ru: "Каждая буква — открытие.",

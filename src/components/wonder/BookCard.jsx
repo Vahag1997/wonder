@@ -25,7 +25,7 @@ export default function BookCard({ book, locale }) {
           sizes={
             book.art === "amir"
               ? undefined
-              : "(max-width: 600px) calc(56vw - 23px), (max-width: 850px) 20vw, (max-width: 1100px) 19vw, 260px"
+              : "(max-width: 600px) 90vw, (max-width: 850px) 45vw, 31vw"
           }
         />
         <span className="round-arrow" aria-hidden="true">
@@ -35,19 +35,22 @@ export default function BookCard({ book, locale }) {
       <div className="book-card-info">
         <p className="eyebrow">
           {languageName(book.language, locale)} ·{" "}
-          {ru ? "Образец книги" : "Sample story"}
+          {book.heroGenders?.includes("boy") ? (ru ? "Герой — мальчик" : "Boy edition") : (ru ? "Образец книги" : "Sample story")}
         </p>
         <h3>
           <Link href={`/books/${book.slug}`}>{book.title[locale]}</Link>
         </h3>
         <p>{book.description[locale]}</p>
+        <div className="book-card-footer">
+          <span className="book-card-format">{book.spreads} {ru ? "стр." : "pages"} · PDF</span>
         <Link
           className="button button-outline card-action"
           href={`/books/${book.slug}`}
         >
-          {ru ? "Заглянуть внутрь" : "Take a peek inside"}
+          {ru ? "Смотреть книгу" : "Explore book"}
           <ArrowUpRight size={16} aria-hidden="true" />
         </Link>
+        </div>
       </div>
     </article>
   );

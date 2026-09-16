@@ -42,7 +42,7 @@ for (const [cookie, expected] of [
     if (route === "/") {
       assert(
         html.includes(
-          expected === "ru" ? "Маленький герой." : "A little person.",
+          expected === "ru" ? "Подарите сказку," : "A little person.",
         ),
       );
       assert(

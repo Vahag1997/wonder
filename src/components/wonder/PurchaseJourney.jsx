@@ -65,6 +65,7 @@ export default function PurchaseJourney({
   const quoteValid = canCheckout(job, now);
   const t = (russian, english) => (ru ? russian : english);
   const errors = {
+    unsupported_edition: t("Этот вариант героя ещё не поддерживается. Вернитесь к выбору истории.", "This hero edition is not supported yet. Please return to story selection."),
     unavailable: t(
       "Сервис сейчас недоступен. Если вы уже оплатили заказ, не оплачивайте его повторно. Обновите статус позже.",
       "The service is unavailable. If you have already paid, do not pay again. Refresh the status later.",

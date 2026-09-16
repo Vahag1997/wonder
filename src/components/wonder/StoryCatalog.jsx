@@ -3,11 +3,15 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { Search, X, ArrowUpRight } from "lucide-react";
 import BookCard from "./BookCard";
+import Link from "next/link";
+import Image from "next/image";
+import { filterStories, discoveryUrl } from "@/lib/story-discovery";
 export default function StoryCatalog({
   books,
   locale,
   initialTheme = "",
   initialQuery = "",
+  initialGender = "",
 }) {
   const ru = locale === "ru";
   const [query, setQuery] = useState(initialQuery);
@@ -15,25 +19,22 @@ export default function StoryCatalog({
   const [pending, startTransition] = useTransition();
   const theme = initialTheme;
   const plural = new Intl.PluralRules(locale);
-  const visible = books.filter(
-    (book) =>
-      (!theme || book.theme === theme) &&
-      `${book.title[locale]} ${book.description[locale]} ${book.sourceTitle}`
-        .toLocaleLowerCase()
-        .includes(initialQuery.trim().toLocaleLowerCase()),
-  );
-  const navigate = (nextTheme, nextQuery) => {
-    const params = new URLSearchParams();
-    if (nextTheme) params.set("theme", nextTheme);
-    if (nextQuery.trim()) params.set("q", nextQuery.trim());
+  const visible = filterStories(books, {gender: initialGender, theme, query: initialQuery}, locale);
+  const navigate = (nextTheme, nextQuery, nextGender = initialGender) => {
     startTransition(() =>
-      router.push(`/books${params.size ? "?" + params : ""}`, {
+      router.push(discoveryUrl({gender: nextGender, theme: nextTheme, query: nextQuery}), {
         scroll: false,
       }),
     );
   };
   return (
     <>
+      <div className="catalog-gender-row">
+        <span>{ru ? "Для кого выбираем историю?" : "Who is the story for?"}</span>
+        <div className="hero-segments" role="group" aria-label={ru ? "Герой книги" : "Book hero"}>
+          {[["", ru ? "Все книги" : "All books"], ["boy", ru ? "Для мальчика" : "For a boy"], ["girl", ru ? "Для девочки" : "For a girl"]].map(([value,label]) => <button key={value} type="button" aria-pressed={initialGender === value} onClick={() => navigate(theme, query, value)}>{label}</button>)}
+        </div>
+      </div>
       <div className="catalog-controls">
         <div
           className="filter-chips"
@@ -89,12 +90,12 @@ export default function StoryCatalog({
             ? "Обновляем…"
             : "Updating…"
           : `${visible.length} ${ru ? { one: "история", few: "истории", many: "историй", other: "истории" }[plural.select(visible.length)] : visible.length === 1 ? "story to explore" : "stories to explore"}`}
-        {(theme || initialQuery) && (
+        {(theme || initialQuery || initialGender) && (
           <button
             className="text-link"
             onClick={() => {
               setQuery("");
-              navigate("", "");
+              navigate("", "", "");
             }}
           >
             {ru ? "Сбросить" : "Clear filters"}
@@ -111,6 +112,11 @@ export default function StoryCatalog({
             <BookCard key={book.slug} book={book} locale={locale} />
           ))}
         </div>
+      ) : initialGender === "girl" && !books.some(book => book.heroGenders?.includes("girl")) ? (
+        <div className="girl-collection-preview">
+          <div className="girl-collection-art"><Image src="/images/wonder-girl-adventure.webp" alt={ru ? "Иллюстрация будущих приключений Wonder" : "An illustration of future Wonder adventures"} fill sizes="(max-width: 700px) 90vw, 50vw" /></div>
+          <div><p className="eyebrow">{ru ? "Следующая глава · Скоро" : "The next chapter · Coming soon"}</p><h2>{ru ? "Большие приключения для маленьких героинь" : "Big adventures for little heroines"}</h2><p>{ru ? "Раздел для девочек уже здесь. Готовые книги с героиней появятся после подготовки иллюстраций и проверки шаблонов. Пока их нельзя персонализировать или заказать." : "The girls’ collection has its own home. Books will appear after their illustrations and templates are prepared and checked. They cannot be personalized or ordered yet."}</p><Link href="/books" className="button button-outline">{ru ? "Посмотреть все образцы" : "Explore all samples"}</Link><small>{ru ? "Промоиллюстрация, не страница готовой книги" : "Promotional artwork, not a finished book page"}</small></div>
+        </div>
       ) : (
         <div className="empty-state">
           <Search size={35} aria-hidden="true" />
@@ -126,7 +132,7 @@ export default function StoryCatalog({
             className="button button-outline"
             onClick={() => {
               setQuery("");
-              navigate("", "");
+              navigate("", "", "");
             }}
           >
             {ru ? "Показать все" : "Show all stories"}

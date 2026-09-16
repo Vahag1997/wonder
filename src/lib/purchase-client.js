@@ -1,4 +1,5 @@
 import { parsePurchase, safeId } from "./purchase-flow.js";
+import { supportsHero } from "./story-discovery.js";
 
 export function createPurchaseClient(fetcher = fetch) {
   async function request(path, options = {}) {
@@ -34,10 +35,12 @@ export function createPurchaseClient(fetcher = fetch) {
   }
   return {
     async create(details, book, key) {
+      if (!supportsHero(book, details.gender)) throw new Error("unsupported_edition");
       const body = new FormData();
       body.set("bookSlug", book.slug);
       body.set("childName", details.name);
       body.set("childAge", String(details.age));
+      body.set("childGender", details.gender);
       body.set("consent", String(details.consent));
       body.set("photo", details.photo.file);
       return parsePurchase(

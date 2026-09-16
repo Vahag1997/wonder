@@ -21,6 +21,7 @@ import {
 } from "@/lib/personalization";
 import { languageName } from "@/lib/catalog";
 import PurchaseJourney from "./PurchaseJourney";
+import { supportsHero } from "@/lib/story-discovery";
 
 export default function PersonalizationWizard({
   book,
@@ -32,6 +33,7 @@ export default function PersonalizationWizard({
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
+  const [gender, setGender] = useState(book.heroGenders?.[0] || "");
   const [photo, setPhoto] = useState(null);
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
@@ -141,6 +143,10 @@ export default function PersonalizationWizard({
   function advance(e) {
     e.preventDefault();
     if (step === 0) {
+      if (!supportsHero(book, gender)) {
+        setError(ru ? "Для этой истории пока подготовлен только вариант с мальчиком. Выберите другую коллекцию или вариант героя." : "This story currently has only a boy edition. Choose a different collection or hero edition.");
+        return;
+      }
       const result = validateName(name);
       if (result.error) {
         setError(messages[result.error]);
@@ -178,7 +184,7 @@ export default function PersonalizationWizard({
       <PurchaseJourney
         book={book}
         locale={locale}
-        details={{ name, age: Number(age), photo, consent }}
+        details={{ name, age: Number(age), gender, photo, consent }}
         demo={demo}
         demoAvailable={demoAvailable}
         onEdit={() => {
@@ -223,7 +229,7 @@ export default function PersonalizationWizard({
             <h1 ref={heading} tabIndex={-1}>
               {step === 0
                 ? ru
-                  ? "Как зовут нашего героя?"
+                  ? gender === "girl" ? "Как зовут нашу героиню?" : "Как зовут нашего героя?"
                   : "Every hero has a name."
                 : step === 1
                   ? ru
@@ -248,6 +254,8 @@ export default function PersonalizationWizard({
             </p>
             {step === 0 && (
               <div className="form-fields">
+                <fieldset className="hero-choice-field"><legend>{ru ? "Кто станет главным героем?" : "Who will be the main character?"}</legend><div className="hero-radio-options">{[["boy", ru ? "Мальчик" : "Boy"], ["girl", ru ? "Девочка" : "Girl"]].map(([value,label]) => <label key={value}><input type="radio" name="child-gender" value={value} checked={gender === value} onChange={() => {setGender(value); setError(""); setDirty(true);}} /><span>{label}<Check size={16} aria-hidden="true" /></span></label>)}</div><p className="field-help">{ru ? "Выбирает родитель. Мы не определяем это по фотографии или имени." : "Chosen by the parent. We never infer this from a photo or name."}</p></fieldset>
+                {!supportsHero(book, gender) && <div className="edition-unavailable" role="status"><strong>{ru ? "Версия с героиней ещё готовится" : "The girl edition is being prepared"}</strong><p>{ru ? "Мы не будем подставлять девочку в непроверенный шаблон с мальчиком. Для этой книги пока доступен только вариант с героем." : "We won’t use an unverified boy template for a girl. Only the boy edition is available for this book at present."}</p><Link href="/books?gender=girl" className="text-link">{ru ? "Открыть раздел для девочек" : "Explore the girls’ collection"}<ArrowRight size={16} /></Link></div>}
                 <label className="field-label" htmlFor="child-name">
                   {ru ? "Имя ребёнка" : "Child’s first name"}
                 </label>
@@ -262,7 +270,7 @@ export default function PersonalizationWizard({
                   }}
                   autoComplete="off"
                   maxLength={60}
-                  placeholder={ru ? "Например, Амир" : "e.g. Amir"}
+                  placeholder={ru ? gender === "girl" ? "Например, Маша" : "Например, Амир" : gender === "girl" ? "e.g. Maya" : "e.g. Amir"}
                   aria-invalid={!!error && error !== messages.age}
                   aria-describedby={error ? "wizard-error" : "name-help"}
                 />
@@ -478,6 +486,7 @@ export default function PersonalizationWizard({
                     </div>
                   </div>
                   <dl>
+                    <div><dt>{ru ? "Герой книги" : "Book hero"}</dt><dd>{gender === "girl" ? (ru ? "Девочка" : "Girl") : (ru ? "Мальчик" : "Boy")}</dd></div>
                     <div>
                       <dt>{ru ? "Возраст, лет" : "Age in years"}</dt>
                       <dd>{age}</dd>
